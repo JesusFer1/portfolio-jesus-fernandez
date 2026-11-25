@@ -1,0 +1,66 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >> endobj
+4 0 obj << /Length 1411 >> stream
+BT
+/F1 16 Tf
+50 780 Td
+(SkillHub - Guia y Atajos: Desarrollo Web HTML5 & CSS3) Tj
+/F1 10 Tf
+0 -26 Td
+(Curso: Desarrollo Web desde Cero \(HTML5 y CSS3\) - Playlist Oficial Roelcode) Tj
+0 -16 Td
+(--------------------------------------------------------------------------) Tj
+0 -16 Td
+(ATAJOS ESENCIALES DE VISUAL STUDIO CODE Y EMMET:) Tj
+0 -16 Td
+(  ! + Tab             -> Genera estructura HTML5 completa) Tj
+0 -16 Td
+(  Ctrl + S            -> Guardar cambios del archivo) Tj
+0 -16 Td
+(  Alt + Shift + F     -> Formatear codigo automaticamente) Tj
+0 -16 Td
+(  Ctrl + /            -> Comentar o descomentar lineas) Tj
+0 -16 Td
+(  Alt + Flecha Arriba -> Mover linea de codigo hacia arriba/abajo) Tj
+0 -16 Td
+(  Ctrl + D            -> Seleccionar siguiente coincidencia) Tj
+0 -16 Td
+(  ul>li*5 + Tab       -> Crear lista con 5 elementos via Emmet) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(ETIQUETAS SEMANTICAS CLAVE:) Tj
+0 -16 Td
+(  <header>, <nav>, <main>, <section>, <article>, <aside>, <footer>) Tj
+0 -16 Td
+(  <form>, <input type="email" required>, <label for="...">) Tj
+0 -16 Td
+(  <meta property="og:title">, <link rel="icon">) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(REQUISITOS PARA CERTIFICACION:) Tj
+0 -16 Td
+(  1. Enviar el trabajo practico de cada clase desde el Aula Virtual.) Tj
+0 -16 Td
+(  2. Obtener la aprobacion del instructor en las entregas.) Tj
+0 -16 Td
+(  3. Aprobar la Evaluacion Final \(minimo 60%\).) Tj
+0 -16 Td
+ET
+endstream endobj
+5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001703 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1773
+%%EOF

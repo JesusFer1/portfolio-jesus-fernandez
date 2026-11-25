@@ -1,0 +1,289 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [ 6 0 R 8 0 R ] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [ 0 0 612 792 ]
+/Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >>
+/Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 2388 >>
+stream
+BT
+/F2 20 Tf
+50 750 Td
+(SKILLHUB ACADEMY - PLAN DE ESTUDIO OFICIAL) Tj
+0 -26 Td
+/F1 14 Tf
+(Curso: Edicion de Video Profesional con Sony Vegas Pro) Tj
+0 -18 Td
+/F3 11 Tf
+(Instructor: Pepe  |  Duracion: 14 Clases Practicas  |  Nivel: Principiante a Avanzado) Tj
+
+0 -32 Td
+/F2 13 Tf
+(DESCRIPCION GENERAL DEL PROGRAMA:) Tj
+0 -16 Td
+/F3 10 Tf
+(Este programa capacita integralmente en el dominio tecnico y creativo de Sony Vegas Pro.) Tj
+0 -14 Td
+(Desde la organizacion del espacio de trabajo hasta el montaje multicapa y exportacion profesional.) Tj
+
+0 -25 Td
+/F2 12 Tf
+(MODULO 1: ENTORNO DE TRABAJO Y FUNDAMENTOS DE EDICION) Tj
+0 -15 Td
+/F3 9.5 Tf
+(  - Clase 1: Restaurar Ventanas y Espacio de Trabajo por Defecto en Sony Vegas (Atajo Alt+D, D)) Tj
+0 -13 Td
+(  - Clase 2: Separar y Desvincular Pistas de Audio y Video con precision (Tecla U y G)) Tj
+0 -13 Td
+(  - Clase 3: Montaje Multicapa y Composicion Video sobre Video con Pan & Crop) Tj
+
+0 -22 Td
+/F2 12 Tf
+(MODULO 2: ESTETICA CINEMATICA, VELOCIDAD Y FILTROS RETRO) Tj
+0 -15 Td
+/F3 9.5 Tf
+(  - Clase 4: Aplicacion de Barras Negras Cinematicas (Aspect Ratio 21:9 Widescreen)) Tj
+0 -13 Td
+(  - Clase 5: Efectos de Velocidad: Camara Lenta (Slow Motion) y Camara Rapida (Ctrl + Stretch)) Tj
+0 -13 Td
+(  - Clase 6: Recreacion del Efecto Retro VHS de los 90s con aberracion y ruido) Tj
+
+0 -22 Td
+/F2 12 Tf
+(MODULO 3: OVERLAYS DE GRABACION Y LLAMADOS A LA ACCION) Tj
+0 -15 Td
+/F3 9.5 Tf
+(  - Clase 7: Efecto REC Parpadeante y Superposicion en Modo de Composicion Pantalla) Tj
+0 -13 Td
+(  - Clase 8: Visor de Camara Grabando en Vivo (Enfoque, bateria y timecode)) Tj
+0 -13 Td
+(  - Clase 9: Animacion de Suscribete y Campana de Notificaciones con Efecto de Sonido) Tj
+0 -13 Td
+(  - Clase 10: Eliminacion de Pantalla Verde mediante Incrustacion por Croma (Chroma Keyer)) Tj
+0 -13 Td
+(  - Clase 11: Animacion Emergente de Dale Like y Botones Sociales para YouTube) Tj
+
+0 -22 Td
+/F2 12 Tf
+(MODULO 4: BRANDING, CIERRE DE VIDEO Y EXPORTACION MASTER) Tj
+0 -15 Td
+/F3 9.5 Tf
+(  - Clase 12: Insercion de Marca de Agua y Logo Corporativo Transparente PNG) Tj
+0 -13 Td
+(  - Clase 13: Creacion de Pantalla Final (Outro de 20s) Optimizada para YouTube) Tj
+0 -13 Td
+(  - Clase 14: Configuracion Maestra de Render a 1080p 60fps (MAGIX AVC MP4 & Disable Resample)) Tj
+
+0 -30 Td
+/F2 10 Tf
+(Pagina 1 de 2  |  SkillHub  - Plataforma Oficial de Cursos Online) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [ 0 0 612 792 ]
+/Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >>
+/Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 3640 >>
+stream
+BT
+/F2 18 Tf
+50 750 Td
+(GUIA COMPLETA DE ACCESOS DIRECTOS - SONY VEGAS PRO) Tj
+0 -20 Td
+/F1 11 Tf
+(Cheatsheet Tecnico de Atajos de Teclado para Edicion Rapida y Flujo de Trabajo Profesional) Tj
+
+0 -28 Td
+/F2 12 Tf
+(1. EDICION BASICA EN LA LINEA DE TIEMPO:) Tj
+0 -15 Td
+/F2 9.5 Tf
+(  [ S ] ) Tj
+35 0 Td
+/F3 9.5 Tf
+(Dividir (Split) el evento o clip seleccionado exactamente en la posicion del cursor.) Tj
+-35 -13 Td
+/F2 9.5 Tf
+(  [ U ] ) Tj
+35 0 Td
+/F3 9.5 Tf
+(Desagrupar (Ungroup) las pistas de audio y video para moverlas o editarlas por separado.) Tj
+-35 -13 Td
+/F2 9.5 Tf
+(  [ G ] ) Tj
+35 0 Td
+/F3 9.5 Tf
+(Agrupar (Group) los eventos seleccionados para moverlos sincronizados como un solo bloque.) Tj
+-35 -13 Td
+/F2 9.5 Tf
+(  [ Ctrl + Arrastrar Borde ] ) Tj
+135 0 Td
+/F3 9.5 Tf
+(Time Stretch: Camara rapida (hacia adentro) o lenta (hacia afuera).) Tj
+-135 -13 Td
+/F2 9.5 Tf
+(  [ Alt + Arrastrar Evento ] ) Tj
+135 0 Td
+/F3 9.5 Tf
+(Deslizar contenido interno del video (Slip Edit) sin mover la duracion del clip.) Tj
+-135 -13 Td
+/F2 9.5 Tf
+(  [ Del / Supr ] ) Tj
+65 0 Td
+/F3 9.5 Tf
+(Eliminar el evento seleccionado de la linea de tiempo.) Tj
+-65 -13 Td
+/F2 9.5 Tf
+(  [ Ctrl + Shift + Q ] ) Tj
+105 0 Td
+/F3 9.5 Tf
+(Insertar una nueva Pista de Video en la parte superior.) Tj
+-105 -13 Td
+/F2 9.5 Tf
+(  [ Ctrl + Q ] ) Tj
+65 0 Td
+/F3 9.5 Tf
+(Insertar una nueva Pista de Audio.) Tj
+-65 -13 Td
+/F2 9.5 Tf
+(  [ Ctrl + A ] ) Tj
+65 0 Td
+/F3 9.5 Tf
+(Seleccionar todos los eventos y clips de todo el proyecto.) Tj
+-65 -13 Td
+/F2 9.5 Tf
+(  [ Ctrl + Z / Ctrl + Y ] ) Tj
+115 0 Td
+/F3 9.5 Tf
+(Deshacer (Undo) / Rehacer (Redo) la ultima accion.) Tj
+-115 -13 Td
+/F2 9.5 Tf
+(  [ Ctrl + S ] ) Tj
+65 0 Td
+/F3 9.5 Tf
+(Guardar el proyecto actual (.veg).) Tj
+-65 -13 Td
+/F2 9.5 Tf
+(  [ Ctrl + M ] ) Tj
+65 0 Td
+/F3 9.5 Tf
+(Abrir el menu de Renderizado (Render As).) Tj
+-65 -22 Td
+
+/F2 12 Tf
+(2. REPRODUCCION Y NAVEGACION DE FOTOGRAMAS:) Tj
+0 -15 Td
+/F2 9.5 Tf
+(  [ Espacio ] ) Tj
+65 0 Td
+/F3 9.5 Tf
+(Reproducir / Pausar la vista previa.) Tj
+-65 -13 Td
+/F2 9.5 Tf
+(  [ Enter ] ) Tj
+65 0 Td
+/F3 9.5 Tf
+(Reproducir / Detener y regresar el cursor exactamente al punto inicial de partida.) Tj
+-65 -13 Td
+/F2 9.5 Tf
+(  [ J - K - L ] ) Tj
+75 0 Td
+/F3 9.5 Tf
+(J: Reproducir en reversa | K: Pausar | L: Reproducir hacia adelante rapido (2x, 4x).) Tj
+-75 -13 Td
+/F2 9.5 Tf
+(  [ Flecha Izq / Der ] ) Tj
+105 0 Td
+/F3 9.5 Tf
+(Avanzar o retroceder exactamente 1 fotograma (Frame by frame precision).) Tj
+-105 -13 Td
+/F2 9.5 Tf
+(  [ M ] ) Tj
+45 0 Td
+/F3 9.5 Tf
+(Insertar un Marcador numerado en la posicion actual del cursor.) Tj
+-45 -13 Td
+/F2 9.5 Tf
+(  [ Inicio / Fin ] ) Tj
+85 0 Td
+/F3 9.5 Tf
+(Saltar inmediatamente al principio (00:00:00) o al final de la linea de tiempo.) Tj
+-85 -22 Td
+
+/F2 12 Tf
+(3. ENTORNO, VENTANAS Y REGLAS DE ORO DE RENDERIZADO:) Tj
+0 -15 Td
+/F2 9.5 Tf
+(  [ Alt + D, D ] ) Tj
+80 0 Td
+/F3 9.5 Tf
+(Restaurar el Diseno de Ventanas de fabrica por defecto (Default Window Layout).) Tj
+-80 -13 Td
+/F2 9.5 Tf
+(  [ Alt + 4 ] ) Tj
+60 0 Td
+/F3 9.5 Tf
+(Mostrar / Ocultar la ventana de Vista Previa de Video (Video Preview).) Tj
+-60 -13 Td
+/F2 9.5 Tf
+(  [ Modo Pantalla ] ) Tj
+95 0 Td
+/F3 9.5 Tf
+(Hacer transparente el fondo negro de cualquier overlay, efecto REC o humo.) Tj
+-95 -13 Td
+/F2 9.5 Tf
+(  [ Desactivar Remuestreo ] ) Tj
+140 0 Td
+/F3 9.5 Tf
+(Disable Resample: Elimina 100% el efecto fantasma / desenfoque en paneos.) Tj
+-140 -13 Td
+/F2 9.5 Tf
+(  [ MAGIX AVC/AAC MP4 ] ) Tj
+135 0 Td
+/F3 9.5 Tf
+(Plantilla Internet HD 1080p (24 Mbps) para maxima nitidez en YouTube.) Tj
+-135 -30 Td
+
+/F2 10 Tf
+(Pagina 2 de 2  |  SkillHub Academy  - Instructor Pepe) Tj
+ET
+endstream
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000123 00000 n 
+0000000193 00000 n 
+0000000268 00000 n 
+0000000338 00000 n 
+0000000486 00000 n 
+0000002926 00000 n 
+0000003074 00000 n 
+trailer
+<< /Size 10
+/Root 1 0 R
+>>
+startxref
+6766
+%%EOF

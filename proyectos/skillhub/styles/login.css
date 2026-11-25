@@ -1,0 +1,137 @@
+/* Dedicated Stylesheet for login.php - SkillHub */
+@import url('estilos.css');
+
+.auth-page-container {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.auth-card {
+    background-color: #ffffff;
+    border: 3px solid var(--text-main);
+    border-radius: var(--radius-lg);
+    box-shadow: 8px 8px 0px var(--text-main);
+    max-width: 460px;
+    width: 100%;
+    padding: 40px;
+    position: relative;
+}
+
+.auth-card-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-card-header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.auth-card-header p {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.form-control {
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(232, 74, 39, 0.15);
+}
+
+.btn-auth-submit {
+    background-color: var(--primary);
+    color: #ffffff;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px;
+    border-radius: 12px;
+    border: 2px solid var(--text-main);
+    box-shadow: 4px 4px 0px var(--text-main);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-top: 10px;
+}
+
+.btn-auth-submit:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px var(--text-main);
+}
+
+.btn-auth-submit:active {
+    transform: translateY(0);
+    box-shadow: 2px 2px 0px var(--text-main);
+}
+
+.alert-error {
+    background-color: #fee2e2;
+    border: 2px solid #ef4444;
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.auth-card-footer {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.auth-card-footer a {
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: underline;
+}
+
+.demo-credentials-box {
+    margin-top: 24px;
+    padding: 14px;
+    background-color: #fef08a;
+    border: 2px solid #854d0e;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    color: #713f12;
+    line-height: 1.5;
+}
+.demo-credentials-box strong { font-weight: 800; }

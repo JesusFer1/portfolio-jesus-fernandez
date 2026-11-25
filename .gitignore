@@ -1,0 +1,13 @@
+# Sistema operativo y temporales
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+*.tmp
+
+# Dependencias locales pesadas (si existieran)
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/

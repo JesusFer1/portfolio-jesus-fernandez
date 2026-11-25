@@ -1,0 +1,392 @@
+/* Dedicated Stylesheet for Course, Lessons, Videos & Materials Management - SkillHub */
+@import url('estilos.css');
+
+.form-page-container {
+    padding: 40px 20px 80px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.form-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    padding: 40px;
+}
+
+.form-card-header {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.form-card-header h1 {
+    font-size: 2.3rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
+.form-card-header p {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.course-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.form-section-title {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-row-3 {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 18px;
+}
+
+@media (max-width: 768px) {
+    .form-row-2, .form-row-3 {
+        grid-template-columns: 1fr;
+    }
+    .form-card {
+        padding: 24px 18px;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 800;
+    font-size: 0.92rem;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-control {
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: all 0.15s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+textarea.form-control {
+    min-height: 90px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+/* ======================================================== */
+/* CARDS DE LECCIONES MEJORADAS                             */
+/* ======================================================== */
+.lessons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.lesson-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    transition: all 0.18s ease;
+    position: relative;
+}
+
+.lesson-card:hover {
+    border-color: var(--primary-border);
+}
+
+.lesson-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.lesson-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lesson-number-badge {
+    background-color: var(--primary);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 5px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lesson-title-preview {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--text-main);
+}
+
+.btn-delete-lesson {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.82rem;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-delete-lesson:hover {
+    background-color: #dc2626;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* SUBSECCIONES DENTRO DE CADA LECCIÓN */
+.lesson-subsection {
+    background-color: var(--bg-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+}
+
+.lesson-subsection-title {
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ÁREA DE CARGA DE PDF Y DOCUMENTOS */
+.pdf-upload-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+@media (max-width: 640px) {
+    .pdf-upload-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.file-input-wrapper {
+    position: relative;
+    border: 2px dashed var(--primary-border);
+    background-color: var(--primary-light);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.15s;
+}
+
+.file-input-wrapper:hover {
+    border-color: var(--primary);
+    background-color: #e0e7ff;
+}
+
+.file-input-wrapper input[type="file"] {
+    font-size: 0.88rem;
+    color: var(--primary);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.current-file-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--success-light);
+    border: 1px solid var(--success-border);
+    color: var(--success-text);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-top: 6px;
+}
+
+.current-file-badge a {
+    color: var(--success);
+    text-decoration: underline;
+    font-weight: 900;
+}
+
+/* BOTÓN AGREGAR LECCIÓN */
+.btn-add-lesson {
+    background-color: #ffffff;
+    color: var(--primary);
+    border: 2px dashed var(--primary-border);
+    border-radius: 14px;
+    padding: 18px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.18s ease;
+    margin-top: 10px;
+}
+
+.btn-add-lesson:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary-hover);
+}
+    box-shadow: 6px 6px 0px var(--primary);
+    transform: translateY(-2px);
+}
+
+/* BOTONES DE ACCIÓN DEL FORMULARIO */
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 2px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.btn-submit-course {
+    background-color: var(--primary);
+    color: #ffffff;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 1.1rem;
+    padding: 16px 36px;
+    border-radius: 14px;
+    border: 3px solid var(--text-main);
+    box-shadow: 5px 5px 0px var(--text-main);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-submit-course:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 7px 7px 0px var(--text-main);
+}
+
+/* TUTORIAL PASO A PASO */
+.tutorial-steps-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+    background: #faf9f6;
+    border: 2px solid var(--text-main);
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 4px 4px 0px var(--text-main);
+}
+
+.tutorial-step-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tutorial-step-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--text-main);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.92rem;
+    flex-shrink: 0;
+}
+
+.tutorial-step-item.active .tutorial-step-num {
+    background: var(--primary);
+}
+
+.tutorial-step-text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
+.tutorial-step-text span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .tutorial-steps-bar {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIbot — Lavadero No Limits Park (Ranelagh)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .chat-scroll::-webkit-scrollbar { width: 6px; }
+    .chat-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 99px; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- TOP BAR -->
+  <header class="bg-slate-900/90 backdrop-blur border-b border-slate-800 sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-sky-600/20 text-sky-400 border border-sky-500/30 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-car-wash"></i>
+        </div>
+        <div>
+          <h1 class="font-extrabold text-white text-base leading-tight flex items-center gap-2">
+            No Limits Park <span class="text-[11px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">MIbot IA Activo</span>
+          </h1>
+          <p class="text-[11px] text-slate-400"><i class="fa-solid fa-location-dot text-sky-400 mr-1"></i> C. 137 4213, B1886 Ranelagh, Bs. As.</p>
+        </div>
+      </div>
+
+      <nav class="flex items-center gap-2">
+        <button onclick="switchTab('chat')" id="btn-chat" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-sky-600 text-white transition flex items-center gap-1.5">
+          <i class="fa-brands fa-whatsapp"></i> Simulador MIbot
+        </button>
+        <button onclick="switchTab('admin')" id="btn-admin" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-gauge-high"></i> Panel Admin SaaS
+        </button>
+        <button onclick="switchTab('qr')" id="btn-qr" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-qrcode"></i> Vincular WhatsApp
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl w-full mx-auto px-4 py-6 flex-1">
+
+    <!-- TAB 1: SIMULADOR CHATBOT + RESERVA -->
+    <section id="tab-chat" class="tab-panel active">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Chat WhatsApp -->
+        <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden flex flex-col h-[560px] shadow-2xl">
+          <div class="bg-emerald-950/60 border-b border-slate-800 px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40">
+                <i class="fa-solid fa-robot"></i>
+              </div>
+              <div>
+                <div class="font-bold text-sm text-white">MIbot — Asistente No Limits Park</div>
+                <div class="text-[11px] text-emerald-400">● En línea · Responde al instante</div>
+              </div>
+            </div>
+            <span class="text-[11px] text-slate-400 font-mono">+54 9 11 5895-9978</span>
+          </div>
+
+          <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 chat-scroll bg-[radial-gradient(circle_at_top,#0f172a,#020617)]"></div>
+
+          <!-- Respuestas rápidas -->
+          <div class="px-3 py-2 border-t border-slate-800 bg-slate-900/90 flex flex-wrap gap-1.5">
+            <button onclick="sendQuick('¿Qué servicios y precios tienen?')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-sky-300 px-2.5 py-1 rounded-full transition">Precios y servicios</button>
+            <button onclick="sendQuick('¿Dónde están ubicados y horarios?')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-sky-300 px-2.5 py-1 rounded-full transition">Ubicación y horarios</button>
+            <button onclick="sendQuick('Tengo una Toyota Hilux, ¿cuánto sale?')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-sky-300 px-2.5 py-1 rounded-full transition">Cotizar Toyota Hilux</button>
+            <button onclick="sendQuick('Quiero sacar un turno para mañana')" class="text-[11px] bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full transition">Sacar turno</button>
+          </div>
+
+          <form onsubmit="handleChatSubmit(event)" class="p-3 bg-slate-900 border-t border-slate-800 flex gap-2">
+            <input id="chatInput" type="text" placeholder="Escribí un mensaje a MIbot..." class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+            <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl font-semibold text-sm transition">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- Panel Derecho: Catálogo de Servicios & Reserva Rápida -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+            <h2 class="font-bold text-white text-sm mb-3 flex items-center gap-2"><i class="fa-solid fa-sparkles text-sky-400"></i> Servicios Disponibles</h2>
+            <div class="space-y-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex justify-between items-center">
+                <div><div class="font-bold text-white">Lavado Simple</div><div class="text-slate-400">Exterior + Cristales</div></div>
+                <span class="font-extrabold text-emerald-400 text-sm">$9.500</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-sky-500/30 flex justify-between items-center">
+                <div><div class="font-bold text-white">Lavado Completo</div><div class="text-slate-400">Exterior + Interior + Aspirado</div></div>
+                <span class="font-extrabold text-sky-400 text-sm">$14.000</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-amber-500/30 flex justify-between items-center">
+                <div><div class="font-bold text-white">Lavado VIP + Encerado Acrílico</div><div class="text-slate-400">Protección acrílica de pintura</div></div>
+                <span class="font-extrabold text-amber-400 text-sm">$22.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+            <h2 class="font-bold text-white text-sm mb-3 flex items-center gap-2"><i class="fa-solid fa-calendar-check text-emerald-400"></i> Agendar Turno Directo</h2>
+            <form onsubmit="crearTurno(event)" class="space-y-2.5 text-xs">
+              <input id="tNombre" required placeholder="Nombre y apellido" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+              <div class="grid grid-cols-2 gap-2">
+                <input id="tAuto" required placeholder="Vehículo (ej: Peugeot 208)" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                <select id="tServicio" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                  <option>Lavado Simple ($9.500)</option>
+                  <option selected>Lavado Completo ($14.000)</option>
+                  <option>Lavado VIP + Encerado ($22.000)</option>
+                </select>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <input id="tFecha" type="date" value="2026-11-24" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                <input id="tHora" type="time" value="15:00" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+              </div>
+              <button type="submit" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-2.5 rounded-xl transition">Confirmar Turno</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: PANEL ADMIN SAAS -->
+    <section id="tab-admin" class="tab-panel space-y-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <div class="text-xs text-slate-400">Turnos Registrados</div>
+          <div id="statTurnos" class="text-2xl font-extrabold text-white mt-1">0</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <div class="text-xs text-slate-400">Facturación Estimada</div>
+          <div id="statRevenue" class="text-2xl font-extrabold text-emerald-400 mt-1">$0</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <div class="text-xs text-slate-400">Tokens IA Consumidos</div>
+          <div id="statTokens" class="text-2xl font-extrabold text-sky-400 mt-1">203</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <div class="text-xs text-slate-400">Plan SaaS Activo</div>
+          <div class="text-2xl font-extrabold text-amber-400 mt-1">PRO</div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 overflow-x-auto">
+        <h2 class="font-bold text-white text-sm mb-4">Agenda de Turnos — No Limits Park</h2>
+        <table class="w-full text-left text-xs">
+          <thead class="text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="pb-2">Cliente</th>
+              <th class="pb-2">Vehículo</th>
+              <th class="pb-2">Servicio</th>
+              <th class="pb-2">Fecha y Hora</th>
+              <th class="pb-2">Estado</th>
+              <th class="pb-2">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="adminTurnosBody" class="divide-y divide-slate-800/70"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 3: VINCULACIÓN WHATSAPP QR -->
+    <section id="tab-qr" class="tab-panel">
+      <div class="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl text-center space-y-5">
+        <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          Bot Baileys WhatsApp Conectado
+        </div>
+        <div class="bg-white p-4 rounded-3xl inline-block shadow-2xl border-4 border-sky-500/40">
+          <img src="public/whatsapp_qr.png" class="w-56 h-56 mx-auto rounded-xl object-contain" alt="Código QR WhatsApp">
+        </div>
+        <p class="text-xs text-slate-400">Escaneá este QR desde WhatsApp → Dispositivos vinculados para conectar el motor de respuestas automáticas con IA de No Limits Park.</p>
+        <a href="https://wa.me/5491158959978?text=Hola%2C%20quiero%20agendar%20un%20turno" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-6 rounded-xl transition inline-flex items-center justify-center gap-2 text-sm">
+          <i class="fa-brands fa-whatsapp text-lg"></i> Abrir WhatsApp Directo
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let turnos = [];
+    let tokensUsed = 0;
+
+    async function loadFromDB() {
+      try {
+        const res = await fetch('api.php?action=state&_t=' + Date.now());
+        const data = await res.json();
+        if (data.ok) {
+          turnos = (data.turnos || []).map(t => {
+            const s = t.servicio || '';
+            const precio = s.includes('22') || s.includes('VIP') ? 22000 : (s.includes('14') || s.includes('Completo') ? 14000 : 9500);
+            return {
+              id: Number(t.id),
+              cliente: t.cliente_nombre,
+              auto: t.modelo_auto + (t.medidas_auto ? ` (${t.medidas_auto})` : ''),
+              servicio: t.servicio,
+              fecha: t.fecha,
+              hora: t.hora,
+              estado: t.estado || 'CONFIRMADO',
+              precio
+            };
+          });
+          tokensUsed = Number(data.total_tokens || 0);
+          renderAdmin();
+        }
+      } catch (e) {
+        console.warn('Error cargando lavanderia.db:', e);
+      }
+    }
+
+    function switchTab(id) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      ['chat', 'admin', 'qr'].forEach(k => {
+        const b = document.getElementById('btn-' + k);
+        b.className = k === id
+          ? 'px-3.5 py-2 rounded-xl text-xs font-semibold bg-sky-600 text-white transition flex items-center gap-1.5'
+          : 'px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition flex items-center gap-1.5';
+      });
+      if (id === 'admin') loadFromDB();
+    }
+
+    function appendMsg(sender, text) {
+      const box = document.getElementById('chatMessages');
+      const isUser = sender === 'user';
+      const div = document.createElement('div');
+      div.className = 'flex ' + (isUser ? 'justify-end' : 'justify-start');
+      div.innerHTML = `<div class="${isUser ? 'bg-emerald-700 text-white rounded-2xl rounded-tr-sm' : 'bg-slate-800 text-slate-100 border border-slate-700 rounded-2xl rounded-tl-sm'} px-3.5 py-2.5 max-w-[82%] text-xs leading-relaxed whitespace-pre-line">${text}</div>`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function botReply(msg) {
+      const m = msg.toLowerCase();
+      fetch('api.php?action=log_token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ summary: 'Chat: ' + msg, in_tokens: Math.max(4, msg.length), out_tokens: 48 })
+      }).then(() => loadFromDB()).catch(() => {});
+
+      if (m.includes('precio') || m.includes('servicio')) {
+        return '🚗 *Servicios de No Limits Park (Ranelagh):*\n\n• *Lavado Simple:* $9.500 (Exterior + Cristales)\n• *Lavado Completo:* $14.000 (Exterior + Interior + Aspirado)\n• *Lavado VIP + Encerado Acrílico:* $22.000\n\n¿Querés que te reserve un horario?';
+      }
+      if (m.includes('ubic') || m.includes('donde') || m.includes('horario')) {
+        return '📍 Estamos en *C. 137 4213, B1886 Ranelagh, Buenos Aires*.\n🕒 Horarios: Lunes a Sábado de 08:30 a 19:30 hs.';
+      }
+      if (m.includes('hilux') || m.includes('camioneta') || m.includes('suv')) {
+        return '📏 Detecté *Toyota Hilux* (Categoría: Pick-Up Grande · 5.32m).\nPara este porte recomendamos *Lavado Completo* ($14.000) o *VIP con Encerado Acrílico* ($22.000). Podés confirmarlo directamente desde el formulario de la derecha.';
+      }
+      if (m.includes('turno') || m.includes('reserv') || m.includes('agend')) {
+        return '✅ ¡Genial! Tenemos disponibilidad hoy y mañana entre las 10:00 y las 18:00 hs.\nCompletá tu nombre, vehículo y horario en el panel *"Agendar Turno Directo"* y queda guardado en la base de datos SQLite (`lavanderia.db`).';
+      }
+      return '👋 ¡Hola! Soy *MIbot*, el asistente con IA de *No Limits Park*.\nPodés preguntarme por precios, horarios, cotización según tu modelo de auto o agendar un turno al instante.';
+    }
+
+    function sendQuick(text) {
+      appendMsg('user', text);
+      setTimeout(() => appendMsg('bot', botReply(text)), 350);
+    }
+
+    function handleChatSubmit(e) {
+      e.preventDefault();
+      const inp = document.getElementById('chatInput');
+      const txt = inp.value.trim();
+      if (!txt) return;
+      inp.value = '';
+      sendQuick(txt);
+    }
+
+    async function crearTurno(e) {
+      e.preventDefault();
+      const payload = {
+        cliente: document.getElementById('tNombre').value.trim(),
+        auto: document.getElementById('tAuto').value.trim(),
+        servicio: document.getElementById('tServicio').value,
+        fecha: document.getElementById('tFecha').value,
+        hora: document.getElementById('tHora').value
+      };
+      await fetch('api.php?action=add_turno', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      appendMsg('bot', `🎉 *¡Turno Guardado en Base de Datos!*\nCliente: ${payload.cliente}\nVehículo: ${payload.auto}\nServicio: ${payload.servicio}\nFecha: ${payload.fecha} a las ${payload.hora} hs.`);
+      e.target.reset();
+      await loadFromDB();
+    }
+
+    async function toggleEstado(id) {
+      const estados = ['CONFIRMADO', 'EN LAVADO', 'FINALIZADO'];
+      const curr = turnos.find(t => t.id === id);
+      const next = estados[(estados.indexOf(curr ? curr.estado : 'CONFIRMADO') + 1) % estados.length];
+      await fetch('api.php?action=toggle_estado', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, estado: next })
+      });
+      await loadFromDB();
+    }
+
+    function renderAdmin() {
+      document.getElementById('statTurnos').textContent = turnos.length;
+      const total = turnos.reduce((acc, t) => acc + (t.precio || 14000), 0);
+      document.getElementById('statRevenue').textContent = '$' + total.toLocaleString('es-AR');
+      document.getElementById('statTokens').textContent = tokensUsed;
+      document.getElementById('adminTurnosBody').innerHTML = turnos.map(t => {
+        const badge = t.estado === 'FINALIZADO'
+          ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+          : t.estado === 'EN LAVADO'
+          ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+          : 'bg-sky-500/20 text-sky-400 border-sky-500/30';
+        return `
+          <tr>
+            <td class="py-3 font-semibold text-white">${t.cliente}</td>
+            <td class="py-3 text-slate-300">${t.auto}</td>
+            <td class="py-3 text-slate-300">${t.servicio}</td>
+            <td class="py-3 text-slate-400">${t.fecha} · ${t.hora}</td>
+            <td class="py-3"><span class="px-2.5 py-1 rounded-full border text-[10px] font-bold ${badge}">${t.estado}</span></td>
+            <td class="py-3"><button onclick="toggleEstado(${t.id})" class="text-sky-400 hover:underline font-semibold">Avanzar estado</button></td>
+          </tr>`;
+      }).join('');
+    }
+
+    appendMsg('bot', '👋 ¡Bienvenido a *No Limits Park* (Ranelagh)!\nSoy *MIbot*, tu asistente virtual conectado a `lavanderia.db`. ¿En qué te puedo ayudar hoy?');
+    loadFromDB();
+  </script>
+</body>
+</html>

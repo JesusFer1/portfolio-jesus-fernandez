@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GYM MASTER PRO — Control de Acceso RFID (Arduino Mega 2560)</title>
+  <style>
+    :root {
+      --bg-dark: #090E18;
+      --bg-sidebar: #0D1424;
+      --bg-card: #121A2D;
+      --bg-card-hover: #18233C;
+      --bg-card-light: #17223B;
+      --bg-input: #0A0F1D;
+      --border: #1D2A45;
+      --border-light: #2A3B60;
+      --primary: #00D26A;
+      --primary-hover: #00B35A;
+      --primary-muted: #08331E;
+      --primary-text: #5CFFA8;
+      --blue: #3B82F6;
+      --purple: #8B5CF6;
+      --amber: #F59E0B;
+      --danger: #EF4444;
+      --danger-hover: #DC2626;
+      --danger-muted: #4C1414;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dark: #64748B;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 255px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 4px 18px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+    .badge-rfid {
+      background: #092617;
+      border: 1px solid #105C37;
+      color: var(--primary-text);
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 8px 12px;
+      border-radius: 8px;
+      letter-spacing: 0.8px;
+    }
+    .brand h1 { font-size: 1rem; font-weight: 800; letter-spacing: 0.4px; }
+    .brand small { display: block; color: var(--primary-text); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.5px; }
+    .nav-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      padding: 4px 10px 8px;
+      letter-spacing: 0.8px;
+    }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 11px 12px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      transition: 0.14s;
+    }
+    .nav-btn:hover { background: var(--bg-card); color: var(--text-main); }
+    .nav-btn.active { background: var(--bg-card); color: var(--primary-text); border-color: var(--border-light); }
+
+    .hw-card {
+      margin-top: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .hw-card-top { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; font-weight: 700; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .dot.ok { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
+    .dot.off { background: var(--danger); box-shadow: 0 0 6px var(--danger); }
+    .hw-sub { font-size: 0.72rem; color: var(--text-muted); margin: 5px 0 10px; }
+    .btn-hw-connect {
+      width: 100%;
+      background: var(--bg-card-light);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 7px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .btn-hw-connect:hover { background: var(--border-light); }
+
+    .user-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 4px 0;
+    }
+    .user-av {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: var(--primary-muted); border: 1px solid var(--primary);
+      color: var(--primary-text); font-weight: 800; font-size: 0.78rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .user-meta strong { display: block; font-size: 0.82rem; }
+    .user-meta small { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .topbar {
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .topbar h2 { font-size: 1.15rem; font-weight: 800; letter-spacing: 0.4px; }
+    .topbar p { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .pill-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 24px 24px;
+    }
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* BUTTONS */
+    .btn {
+      background: var(--primary);
+      color: #03150b;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.14s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn-secondary {
+      background: var(--bg-card-light);
+      color: var(--text-main);
+      border: 1px solid var(--border-light);
+    }
+    .btn-secondary:hover { background: var(--border-light); }
+    .btn-danger {
+      background: var(--danger-muted);
+      color: #FCA5A5;
+      border: 1px solid rgba(239,68,68,0.4);
+    }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+    .btn-blue {
+      background: #172A52;
+      color: #93C5FD;
+      border: 1px solid #2563EB;
+    }
+    .btn-blue:hover { background: var(--blue); color: #fff; }
+    .btn-sm { padding: 5px 10px; font-size: 0.74rem; border-radius: 6px; }
+
+    /* KPI & CARDS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 980px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .kpi-title { font-size: 0.7rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; }
+    .kpi-val { font-size: 1.75rem; font-weight: 800; margin: 6px 0 2px; }
+    .kpi-sub { font-size: 0.74rem; color: var(--text-muted); }
+
+    /* DASHBOARD SPLIT */
+    .dash-split {
+      display: grid;
+      grid-template-columns: 7fr 3fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 980px) { .dash-split { grid-template-columns: 1fr; } }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .filter-group {
+      display: flex;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 3px;
+    }
+    .filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .filter-btn.active { background: var(--primary); color: #03150b; }
+
+    input, select {
+      background: var(--bg-input);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.82rem;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--primary); }
+
+    /* TABLES */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th {
+      text-align: left;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      padding: 9px 10px;
+      background: var(--bg-card-light);
+      letter-spacing: 0.5px;
+    }
+    th:first-child { border-radius: 6px 0 0 6px; }
+    th:last-child { border-radius: 0 6px 6px 0; }
+    td { padding: 10px; border-bottom: 1px solid rgba(29,42,69,0.55); vertical-align: middle; }
+    .badge { padding: 3px 9px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; display: inline-block; }
+    .badge-ok { background: var(--primary-muted); color: var(--primary-text); }
+    .badge-err { background: var(--danger-muted); color: #FCA5A5; }
+    .badge-pin { background: #172A52; color: #93C5FD; font-family: Consolas, monospace; }
+    .rfid-code { color: var(--primary-text); font-family: Consolas, monospace; font-weight: 700; }
+
+    /* FOCUS CARD */
+    .focus-card { text-align: center; }
+    .focus-avatar {
+      width: 76px; height: 76px; margin: 12px auto 10px;
+      border-radius: 14px; background: var(--primary-muted); border: 2px solid var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; font-weight: 800; color: var(--primary-text);
+    }
+    .focus-avatar.denied { background: var(--danger-muted); border-color: var(--danger); color: #FCA5A5; }
+    .focus-banner {
+      margin: 14px 0 10px; padding: 11px; border-radius: 8px;
+      background: var(--bg-card-light); font-size: 0.8rem; font-weight: 800; color: var(--text-muted);
+    }
+    .focus-banner.ok { background: var(--primary-muted); color: var(--primary-text); border: 1px solid var(--primary); }
+    .focus-banner.err { background: var(--danger-muted); color: #FCA5A5; border: 1px solid var(--danger); }
+
+    /* PLANES */
+    .planes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 860px) { .planes-grid { grid-template-columns: 1fr; } }
+    .plan-price { font-size: 1.9rem; font-weight: 800; color: var(--primary-text); margin: 8px 0 2px; }
+    .plan-count { background: var(--bg-card-light); padding: 8px; border-radius: 8px; text-align: center; font-size: 0.8rem; font-weight: 700; margin: 12px 0; }
+    .plan-list { list-style: none; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+    .plan-list li { margin-bottom: 5px; }
+    .plan-list li::before { content: "• "; color: var(--primary); font-weight: 900; }
+
+    /* HARDWARE VIEW */
+    .hw-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 900px) { .hw-split { grid-template-columns: 1fr; } }
+    .diag-banner {
+      padding: 12px 14px; border-radius: 9px; margin: 12px 0;
+      border: 1px solid var(--danger); background: var(--danger-muted);
+    }
+    .diag-banner.ok { border-color: var(--primary); background: var(--primary-muted); }
+    .terminal {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      height: 290px;
+      overflow-y: auto;
+      font-family: Consolas, monospace;
+      font-size: 0.78rem;
+      color: var(--primary-text);
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .code-box {
+      background: #060a12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      max-height: 280px;
+      overflow: auto;
+      font-family: Consolas, monospace;
+      font-size: 0.74rem;
+      color: #cbd5e1;
+      margin-top: 10px;
+      white-space: pre;
+    }
+
+    /* MODAL (MINI PANEL ALTA / EDICIÓN SOCIO) */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(3, 7, 15, 0.78);
+      backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 999; padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      width: 100%; max-width: 470px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.65);
+    }
+    .modal-card h3 { font-size: 1.05rem; font-weight: 800; text-align: center; }
+    .modal-sub { font-size: 0.76rem; color: var(--text-muted); text-align: center; margin: 4px 0 16px; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-muted); margin-bottom: 5px; letter-spacing: 0.4px; }
+    .field input, .field select { width: 100%; }
+    .field-row { display: flex; gap: 8px; }
+    .field-row input { flex: 1; }
+    .rfid-status { font-size: 0.74rem; font-weight: 700; margin-top: 5px; color: var(--text-muted); }
+    .rfid-status.ok { color: var(--primary-text); }
+    .rfid-status.waiting { color: var(--amber); }
+    .switch-row { display: flex; align-items: center; gap: 9px; margin: 10px 0 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+    .switch-row input { width: 17px; height: 17px; accent-color: var(--primary); }
+
+    /* TOAST */
+    .toast-container { position: fixed; top: 16px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 8px; }
+    .toast {
+      padding: 10px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
+      border: 1px solid var(--border-light); background: var(--bg-card-light); color: var(--text-main);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+    }
+    .toast.success { background: var(--primary-muted); border-color: var(--primary); color: var(--primary-text); }
+    .toast.error { background: var(--danger-muted); border-color: var(--danger); color: #FCA5A5; }
+  </style>
+</head>
+<body>
+  <div id="toasts" class="toast-container"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="badge-rfid">RFID</div>
+      <div>
+        <h1>GYM MASTER</h1>
+        <small>ARDUINO MEGA 2560</small>
+      </div>
+    </div>
+
+    <div class="nav-label">MENU PRINCIPAL</div>
+    <button class="nav-btn active" data-view="dashboard" onclick="cambiarVista('dashboard')">[1] Dashboard en Vivo</button>
+    <button class="nav-btn" data-view="socios" onclick="cambiarVista('socios')">[2] Gestión de Socios RFID</button>
+    <button class="nav-btn" data-view="planes" onclick="cambiarVista('planes')">[3] Planes y Tarifas</button>
+    <button class="nav-btn" data-view="historial" onclick="cambiarVista('historial')">[4] Historial de Accesos</button>
+    <button class="nav-btn" data-view="hardware" onclick="cambiarVista('hardware')">[5] Arduino Mega 2560</button>
+
+    <div class="hw-card">
+      <div class="hw-card-top">
+        <span id="sidebarHwDot" class="dot off"></span>
+        <span>Arduino Mega 2560</span>
+      </div>
+      <div id="sidebarHwStatus" class="hw-sub">Desconectado (Enchufar USB)</div>
+      <button id="btnSidebarConnect" class="btn-hw-connect" onclick="toggleArduinoSerial()">Buscar / Conectar Arduino</button>
+    </div>
+
+    <div class="user-box">
+      <div class="user-av">AD</div>
+      <div class="user-meta">
+        <strong>Admin</strong>
+        <small>Administrador</small>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <h2 id="viewTitle">DASHBOARD EN VIVO</h2>
+        <p id="viewSubtitle">Monitoreo de Pases RFID y PIN en Tiempo Real • Arduino Mega 2560</p>
+      </div>
+      <div class="topbar-right">
+        <div id="clockBadge" class="pill-badge">--/--/---- • --:--:--</div>
+        <div class="pill-badge" style="color:var(--blue);">● SQLite Local</div>
+        <button class="btn" onclick="aperturaManual()">[+] ABRIR MOLINETE MANUAL</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- VISTA 1: DASHBOARD EN VIVO -->
+      <section id="view-dashboard" class="view active">
+        <div class="kpi-grid">
+          <div class="card">
+            <div class="kpi-title">SOCIOS REGISTRADOS</div>
+            <div id="kpiTotalSocios" class="kpi-val" style="color:var(--primary-text);">0</div>
+            <div id="kpiActivosSub" class="kpi-sub">0 tarjetas activas</div>
+          </div>
+          <div class="card">
+            <div class="kpi-title">ACCESOS DE HOY</div>
+            <div id="kpiAccesosHoy" class="kpi-val" style="color:var(--primary);">0</div>
+            <div class="kpi-sub">Pases autorizados</div>
+          </div>
+          <div class="card">
+            <div class="kpi-title">INTENTOS DENEGADOS</div>
+            <div id="kpiDenegadosHoy" class="kpi-val" style="color:var(--danger);">0</div>
+            <div class="kpi-sub">Tarjetas o PIN bloqueados</div>
+          </div>
+          <div class="card">
+            <div class="kpi-title">EN SALA AHORA</div>
+            <div id="kpiEnSala" class="kpi-val" style="color:var(--blue);">0</div>
+            <div class="kpi-sub">Aforo estimado activo</div>
+          </div>
+        </div>
+
+        <div class="dash-split">
+          <div class="card">
+            <div class="toolbar">
+              <strong style="font-size:0.86rem;">REGISTRO DE PASES EN TIEMPO REAL</strong>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <input id="dashSearch" placeholder="Buscar RFID o Nombre..." oninput="renderDashboardTable()" style="width:200px;">
+                <div class="filter-group">
+                  <button class="filter-btn active" onclick="setDashFilter('TODOS', this)">TODOS</button>
+                  <button class="filter-btn" onclick="setDashFilter('PERMITIDOS', this)">PERMITIDOS</button>
+                  <button class="filter-btn" onclick="setDashFilter('DENEGADOS', this)">DENEGADOS</button>
+                </div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>HORA</th><th>SOCIO</th><th>TARJETA RFID</th><th>MÉTODO</th><th>RESULTADO</th></tr>
+                </thead>
+                <tbody id="dashTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card focus-card">
+            <div style="font-size:0.74rem; font-weight:800; color:var(--text-muted); letter-spacing:0.6px;">ÚLTIMO PASE DETECTADO</div>
+            <div id="focusAvatar" class="focus-avatar">RFID</div>
+            <div id="focusNombre" style="font-size:1.05rem; font-weight:800;">Esperando pase...</div>
+            <div id="focusRfid" class="rfid-code" style="font-size:0.82rem; margin-top:4px;">Tarjeta: ----------</div>
+            <div id="focusPlan" style="font-size:0.76rem; color:var(--text-muted); margin-top:3px;">Plan: Ninguno</div>
+            <div id="focusBanner" class="focus-banner">SISTEMA LISTO</div>
+            <button id="btnAssignUnknown" class="btn" style="width:100%; display:none; margin-top:6px;" onclick="abrirModalAlta(ultimaTarjetaDesconocida)">
+              + Registrar Tarjeta Detectada
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- VISTA 2: GESTIÓN DE SOCIOS RFID -->
+      <section id="view-socios" class="view">
+        <div class="card">
+          <div class="toolbar">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <input id="sociosSearch" placeholder="Buscar por Nombre, RFID o PIN..." oninput="renderSociosTable()" style="width:260px;">
+              <div class="filter-group">
+                <button class="filter-btn active" onclick="setSociosFilter('TODOS', this)">TODOS</button>
+                <button class="filter-btn" onclick="setSociosFilter('ACTIVOS', this)">ACTIVOS</button>
+                <button class="filter-btn" onclick="setSociosFilter('SUSPENDIDOS', this)">SUSPENDIDOS</button>
+              </div>
+            </div>
+            <button class="btn" onclick="abrirModalAlta()">[+] NUEVO SOCIO</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>SOCIO</th>
+                  <th>TARJETA RFID</th>
+                  <th>PIN AUTO</th>
+                  <th>PLAN</th>
+                  <th>ESTADO</th>
+                  <th style="text-align:right;">ACCIONES</th>
+                </tr>
+              </thead>
+              <tbody id="sociosTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VISTA 3: PLANES Y TARIFAS -->
+      <section id="view-planes" class="view">
+        <div id="planesGrid" class="planes-grid"></div>
+      </section>
+
+      <!-- VISTA 4: HISTORIAL DE ACCESOS -->
+      <section id="view-historial" class="view">
+        <div class="card">
+          <div class="toolbar">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <strong style="font-size:0.86rem;">HISTORIAL Y AUDITORÍA</strong>
+              <input id="histSearch" placeholder="Filtrar por Tarjeta RFID o Nombre..." oninput="renderHistorialTable()" style="width:230px;">
+              <select id="histResultFilter" onchange="renderHistorialTable()">
+                <option value="ALL">Todos los Resultados</option>
+                <option value="OK">Solo Permitidos</option>
+                <option value="DENIED">Solo Denegados</option>
+              </select>
+            </div>
+            <button class="btn" onclick="exportarCSV()">[+] EXPORTAR CSV</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>FECHA Y HORA</th><th>SOCIO</th><th>TARJETA RFID</th><th>MÉTODO</th><th>PLAN</th><th>ESTADO</th></tr>
+              </thead>
+              <tbody id="histTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VISTA 5: HARDWARE ARDUINO MEGA 2560 -->
+      <section id="view-hardware" class="view">
+        <div class="hw-split">
+          <div class="card">
+            <strong style="font-size:0.9rem;">COMUNICACIÓN USB — ARDUINO MEGA 2560</strong>
+            <div id="hwDiagBanner" class="diag-banner">
+              <strong id="hwDiagTitle" style="font-size:0.82rem; color:#FCA5A5;">● ARDUINO MEGA 2560 NO CONECTADO EN USB</strong>
+              <p id="hwDiagSub" style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">
+                Enchufá el cable USB del Arduino Mega 2560 (9600 bps) y hacé clic en Conectar. Al acercar una tarjeta RFID o ingresar un PIN (#) el sistema responde automáticamente OK o NO.
+              </p>
+            </div>
+
+            <div class="field">
+              <label>VELOCIDAD SERIAL (BAUDIOS — SEGÚN SKETCH ARDUINO)</label>
+              <select id="baudSelect">
+                <option value="9600" selected>9600 bps (Serial.begin(9600) — Recomendado)</option>
+                <option value="57600">57600 bps</option>
+                <option value="115200">115200 bps</option>
+              </select>
+            </div>
+
+            <button id="btnMainSerialToggle" class="btn" style="width:100%; padding:10px; margin-bottom:14px;" onclick="toggleArduinoSerial()">
+              CONECTAR ARDUINO MEGA 2560 (USB SERIAL)
+            </button>
+
+            <div style="font-size:0.72rem; font-weight:800; color:var(--text-muted); margin-bottom:8px;">COMANDOS DIRECTOS AL ARDUINO (PROTOCOLO OK / NO)</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+              <button class="btn" onclick="enviarComandoSerial('OK')">Enviar "OK" (Abrir Servo)</button>
+              <button class="btn btn-danger" onclick="enviarComandoSerial('NO')">Enviar "NO" (Denegar)</button>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+              <span style="font-size:0.74rem; font-weight:800; color:var(--text-muted);">FIRMWARE: arduino_mega2560.ino</span>
+              <button class="btn btn-secondary btn-sm" onclick="copiarSketch()">Copiar Código .ino</button>
+            </div>
+            <pre id="sketchPreview" class="code-box"></pre>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column;">
+            <div class="toolbar" style="margin-bottom:10px;">
+              <strong style="font-size:0.9rem;">TERMINAL SERIAL EN VIVO</strong>
+              <button class="btn btn-secondary btn-sm" onclick="limpiarTerminal()">Limpiar</button>
+            </div>
+            <div id="serialTerminal" class="terminal"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MINI PANEL MODAL: ALTA / EDICIÓN DE SOCIO CON DETECCIÓN RFID + PIN AUTOMÁTICO -->
+  <div id="socioModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h3 id="modalTitle">REGISTRAR NUEVO SOCIO</h3>
+      <p id="modalSub" class="modal-sub">Pasá la tarjeta por el Arduino Mega para detectarla automáticamente. El PIN se asigna solo.</p>
+
+      <form id="socioForm" onsubmit="guardarSocio(event)">
+        <input type="hidden" id="mSocioId">
+
+        <div class="field">
+          <label>NOMBRE Y APELLIDO *</label>
+          <input id="mNombre" required placeholder="Ej. Matías Rodríguez">
+        </div>
+
+        <div class="field">
+          <label>DNI (OPCIONAL)</label>
+          <input id="mDni" placeholder="Ej. 45.123.456">
+        </div>
+
+        <div class="field">
+          <label style="color:var(--primary-text);">CÓDIGO TARJETA RFID (SE DETECTA AL PASAR LA TARJETA) *</label>
+          <div class="field-row">
+            <input id="mRfid" required placeholder="Esperando lectura de tarjeta RFID..." style="border-color:var(--primary); color:var(--primary-text); font-family:Consolas,monospace; font-weight:700;">
+            <button type="button" class="btn btn-secondary" onclick="activarDeteccionRfid()">Detectar</button>
+          </div>
+          <div id="mRfidStatus" class="rfid-status">● Conectá el Arduino Mega 2560 para capturar la tarjeta al acercarla.</div>
+        </div>
+
+        <div class="field">
+          <label style="color:#93C5FD;">PIN DE TECLADO 4x4 (ASIGNADO AUTOMÁTICAMENTE) *</label>
+          <div class="field-row">
+            <input id="mPin" required maxlength="6" placeholder="0000" style="font-family:Consolas,monospace; font-weight:800; letter-spacing:3px; color:#93C5FD;">
+            <button type="button" class="btn btn-blue" onclick="generarPinAutomatico()">↻ Nuevo PIN</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>PLAN DE MEMBRESÍA</label>
+          <select id="mPlan"></select>
+        </div>
+
+        <label class="switch-row">
+          <input type="checkbox" id="mActivo" checked>
+          <span>Cuenta Activa (Acceso Habilitado)</span>
+        </label>
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <button type="submit" id="mSubmitBtn" class="btn" style="width:100%; padding:11px;">GUARDAR SOCIO</button>
+          <button type="button" class="btn btn-secondary" style="width:100%;" onclick="cerrarModalSocio()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR TARIFA PLAN -->
+  <div id="planModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width:360px;">
+      <h3>ACTUALIZAR TARIFA</h3>
+      <p id="planModalSub" class="modal-sub">Plan</p>
+      <form onsubmit="guardarTarifaPlan(event)">
+        <input type="hidden" id="pEditId">
+        <div class="field">
+          <label>PRECIO MENSUAL ($)</label>
+          <input id="pEditPrecio" type="number" min="0" step="100" required>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:14px;">
+          <button type="submit" class="btn" style="flex:1;">APLICAR PRECIO</button>
+          <button type="button" class="btn btn-secondary" onclick="cerrarModalPlan()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const ARDUINO_SKETCH = `#include <LiquidCrystal.h>
+#include <Keypad.h>
+#include <SPI.h>
+#include <MFRC522.h>
+#include <Servo.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+#define SS_PIN  53
+#define RST_PIN 9
+MFRC522 rfid(SS_PIN, RST_PIN);
+Servo servoAcceso;
+// Protocolo Serial 9600 bps:
+// Arduino -> PC: "RFID:<UID>" | "KEY:<PIN>"
+// PC -> Arduino: "OK" (Acceso Permitido) | "NO" (Acceso Denegado)`;
+
+    let state = { planes: [], socios: [], accesos: [], next_pin: '1000' };
+    let dashFilter = 'TODOS';
+    let sociosFilter = 'TODOS';
+    let modalSocioOpen = false;
+    let esperandoCapturaRfid = false;
+    let ultimaTarjetaDesconocida = null;
+
+    // Web Serial API state
+    let serialPort = null;
+    let serialReader = null;
+    let serialWriter = null;
+    let serialConnected = false;
+    let serialLogs = [];
+
+    function toast(msg, type = 'info') {
+      const box = document.getElementById('toasts');
+      const el = document.createElement('div');
+      el.className = 'toast ' + type;
+      el.textContent = msg;
+      box.appendChild(el);
+      setTimeout(() => el.remove(), 3400);
+    }
+
+    function logSerial(line) {
+      const ts = new Date().toLocaleTimeString('es-AR', { hour12: false });
+      serialLogs.push(`[${ts}] ${line}`);
+      if (serialLogs.length > 150) serialLogs.shift();
+      const term = document.getElementById('serialTerminal');
+      if (term) {
+        term.textContent = serialLogs.join('\n');
+        term.scrollTop = term.scrollHeight;
+      }
+    }
+
+    function limpiarTerminal() {
+      serialLogs = [];
+      document.getElementById('serialTerminal').textContent = '';
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const d = now.toLocaleDateString('es-AR');
+      const t = now.toLocaleTimeString('es-AR', { hour12: false });
+      document.getElementById('clockBadge').textContent = `${d}  •  ${t}`;
+    }
+
+    async function loadState() {
+      try {
+        const res = await fetch('api.php?action=state&_t=' + Date.now());
+        const data = await res.json();
+        if (data.ok) {
+          state = data;
+          renderKPIs();
+          renderDashboardTable();
+          renderSociosTable();
+          renderPlanes();
+          renderHistorialTable();
+        }
+      } catch (e) {
+        toast('Error al conectar con local_gym.db (api.php)', 'error');
+      }
+    }
+
+    function cambiarVista(vista) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + vista).classList.add('active');
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.view === vista);
+      });
+
+      const titles = {
+        dashboard: ['DASHBOARD EN VIVO', 'Monitoreo de Pases RFID y PIN en Tiempo Real • Arduino Mega 2560'],
+        socios: ['GESTIÓN DE SOCIOS RFID', 'Directorio Integral • Detección de Tarjetas RFID y PIN Automático'],
+        planes: ['PLANES Y TARIFAS', 'Tarifas y Distribución de Socios por Plan'],
+        historial: ['HISTORIAL DE ACCESOS', 'Auditoría Completa de Pases RFID/PIN y Exportación a CSV'],
+        hardware: ['HARDWARE ARDUINO MEGA 2560', 'Conexión USB Serial (9600 bps) y Terminal en Vivo']
+      };
+      document.getElementById('viewTitle').textContent = titles[vista][0];
+      document.getElementById('viewSubtitle').textContent = titles[vista][1];
+      loadState();
+    }
+
+    function renderKPIs() {
+      const total = state.socios.length;
+      const activos = state.socios.filter(s => Number(s.estado_cuenta) === 1).length;
+      const hoyPrefix = new Date().toISOString().slice(0, 10);
+      const accesosHoy = state.accesos.filter(a => Number(a.resultado) === 1 && String(a.fecha_hora_escaneo || '').startsWith(hoyPrefix)).length;
+      const denegadosHoy = state.accesos.filter(a => Number(a.resultado) === 0 && String(a.fecha_hora_escaneo || '').startsWith(hoyPrefix)).length;
+
+      document.getElementById('kpiTotalSocios').textContent = total;
+      document.getElementById('kpiActivosSub').textContent = `${activos} tarjetas activas`;
+      document.getElementById('kpiAccesosHoy').textContent = accesosHoy;
+      document.getElementById('kpiDenegadosHoy').textContent = denegadosHoy;
+      document.getElementById('kpiEnSala').textContent = Math.max(0, accesosHoy);
+    }
+
+    function setDashFilter(val, btn) {
+      dashFilter = val;
+      btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderDashboardTable();
+    }
+
+    function renderDashboardTable() {
+      const q = (document.getElementById('dashSearch').value || '').toLowerCase().trim();
+      const rows = state.accesos.filter(a => {
+        const ok = Number(a.resultado) === 1;
+        if (dashFilter === 'PERMITIDOS' && !ok) return false;
+        if (dashFilter === 'DENEGADOS' && ok) return false;
+        if (q && !(a.socio_nombre || '').toLowerCase().includes(q) && !(a.socio_rfid || '').toLowerCase().includes(q)) return false;
+        return true;
+      }).slice(0, 25);
+
+      const tbody = document.getElementById('dashTableBody');
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:24px;">Sin registros de acceso.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = rows.map(a => {
+        const ok = Number(a.resultado) === 1;
+        return `<tr>
+          <td style="color:var(--text-muted);font-size:0.76rem;">${a.fecha_hora_escaneo || ''}</td>
+          <td><strong>${escapeHtml(a.socio_nombre || 'Desconocido')}</strong></td>
+          <td class="rfid-code">[ ${escapeHtml(a.socio_rfid || '---')} ]</td>
+          <td>${escapeHtml(a.tipo_acceso || 'RFID')}</td>
+          <td><span class="badge ${ok ? 'badge-ok' : 'badge-err'}">${ok ? 'PERMITIDO' : 'DENEGADO'}</span></td>
+        </tr>`;
+      }).join('');
+    }
+
+    function setSociosFilter(val, btn) {
+      sociosFilter = val;
+      btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderSociosTable();
+    }
+
+    function renderSociosTable() {
+      const q = (document.getElementById('sociosSearch').value || '').toLowerCase().trim();
+      const rows = state.socios.filter(s => {
+        const activo = Number(s.estado_cuenta) === 1;
+        if (sociosFilter === 'ACTIVOS' && !activo) return false;
+        if (sociosFilter === 'SUSPENDIDOS' && activo) return false;
+        if (q) {
+          const hay = `${s.nombre_completo} ${s.id_rfid} ${s.codigo_teclado} ${s.dni}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      const tbody = document.getElementById('sociosTableBody');
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px;">No hay socios que coincidan.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = rows.map(s => {
+        const activo = Number(s.estado_cuenta) === 1;
+        return `<tr>
+          <td>
+            <strong>${escapeHtml(s.nombre_completo)}</strong><br>
+            <small style="color:var(--text-muted);">${escapeHtml(s.dni || '')}</small>
+          </td>
+          <td class="rfid-code">[ ${escapeHtml(s.id_rfid || 'SIN TARJETA')} ]</td>
+          <td><span class="badge badge-pin">${escapeHtml(s.codigo_teclado || '----')}</span></td>
+          <td>${escapeHtml(s.nombre_plan || 'Estándar')}</td>
+          <td>
+            <span class="badge ${activo ? 'badge-ok' : 'badge-err'}" style="cursor:pointer;" title="Clic para cambiar estado" onclick="toggleEstadoSocio(${s.id_Socios})">
+              ${activo ? 'ACTIVO' : 'SUSPENDIDO'}
+            </span>
+          </td>
+          <td style="text-align:right; white-space:nowrap;">
+            <button class="btn btn-secondary btn-sm" onclick="probarPaseSocio('${escapeHtml(s.id_rfid || '')}')">Probar Pase</button>
+            <button class="btn btn-blue btn-sm" onclick="abrirModalEditar(${s.id_Socios})">Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="eliminarSocio(${s.id_Socios}, '${escapeHtml(s.nombre_completo).replace(/'/g, "\\'")}')">Eliminar</button>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function renderPlanes() {
+      const beneficios = [
+        ['Acceso con Tarjeta RFID y PIN', 'Sala de Musculación', 'Horario Regular'],
+        ['Acceso con Tarjeta RFID y PIN', 'Musculación y Clases Grupales', 'Acceso prioritario'],
+        ['Acceso 24/7 Total con RFID y PIN', 'Musculación, Clases y Spa', 'Pase Libre Completo']
+      ];
+      const colors = ['var(--blue)', 'var(--primary)', 'var(--purple)'];
+      document.getElementById('planesGrid').innerHTML = state.planes.map((p, i) => `
+        <div class="card">
+          <div style="font-size:0.72rem;font-weight:800;color:${colors[i % 3]};">[ PLAN ${i + 1} ]</div>
+          <h3 style="font-size:1.15rem;margin-top:4px;">${escapeHtml(p.nombre_plan)}</h3>
+          <div class="plan-price">$${Number(p.precio).toLocaleString('es-AR')}</div>
+          <div style="font-size:0.74rem;color:var(--text-muted);">cuota mensual final</div>
+          <div class="plan-count">${p.total_socios || 0} Socios con este Plan</div>
+          <ul class="plan-list">${(beneficios[i % 3]).map(b => `<li>${b}</li>`).join('')}</ul>
+          <button class="btn btn-secondary" style="width:100%;" onclick="abrirModalPlan(${p.id_Planes}, '${escapeHtml(p.nombre_plan)}', ${Number(p.precio)})">Modificar Tarifa</button>
+        </div>
+      `).join('');
+    }
+
+    function renderHistorialTable() {
+      const q = (document.getElementById('histSearch').value || '').toLowerCase().trim();
+      const f = document.getElementById('histResultFilter').value;
+      const rows = state.accesos.filter(a => {
+        const ok = Number(a.resultado) === 1;
+        if (f === 'OK' && !ok) return false;
+        if (f === 'DENIED' && ok) return false;
+        if (q && !(a.socio_nombre || '').toLowerCase().includes(q) && !(a.socio_rfid || '').toLowerCase().includes(q)) return false;
+        return true;
+      });
+
+      const tbody = document.getElementById('histTableBody');
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px;">No se encontraron registros.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = rows.map(a => {
+        const ok = Number(a.resultado) === 1;
+        return `<tr>
+          <td style="color:var(--text-muted);">${a.fecha_hora_escaneo || ''}</td>
+          <td><strong>${escapeHtml(a.socio_nombre || 'Desconocido')}</strong></td>
+          <td class="rfid-code">[ ${escapeHtml(a.socio_rfid || '---')} ]</td>
+          <td>${escapeHtml(a.tipo_acceso || 'RFID')}</td>
+          <td>${escapeHtml(a.nombre_plan || 'Estándar')}</td>
+          <td><span class="badge ${ok ? 'badge-ok' : 'badge-err'}">${ok ? 'PERMITIDO' : 'DENEGADO'}</span></td>
+        </tr>`;
+      }).join('');
+    }
+
+    function exportarCSV() {
+      const header = ['FECHA Y HORA', 'SOCIO', 'TARJETA RFID', 'METODO', 'PLAN', 'ESTADO'];
+      const lines = [header.join(',')].concat(state.accesos.map(a => [
+        `"${a.fecha_hora_escaneo || ''}"`,
+        `"${(a.socio_nombre || 'Desconocido').replace(/"/g, '""')}"`,
+        `"${a.socio_rfid || '---'}"`,
+        `"${a.tipo_acceso || 'RFID'}"`,
+        `"${a.nombre_plan || 'Estándar'}"`,
+        Number(a.resultado) === 1 ? 'PERMITIDO' : 'DENEGADO'
+      ].join(',')));
+      const blob = new Blob(['\uFEFF' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `reporte_accesos_rfid_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast('Historial exportado en CSV', 'success');
+    }
+
+    /* =========================================================
+       MINI PANEL MODAL: ALTA Y EDICIÓN DE SOCIOS (RFID + PIN AUTO)
+       ========================================================= */
+    function populatePlanSelect(selectedId = 1) {
+      const sel = document.getElementById('mPlan');
+      sel.innerHTML = state.planes.map(p => `<option value="${p.id_Planes}" ${Number(p.id_Planes) === Number(selectedId) ? 'selected' : ''}>${escapeHtml(p.nombre_plan)} ($${Number(p.precio).toLocaleString('es-AR')})</option>`).join('');
+    }
+
+    async function generarPinAutomatico() {
+      try {
+        const res = await fetch('api.php?action=next_pin&_t=' + Date.now());
+        const data = await res.json();
+        if (data.ok) {
+          document.getElementById('mPin').value = data.pin;
+          return;
+        }
+      } catch (e) {}
+      document.getElementById('mPin').value = String(Math.floor(1000 + Math.random() * 9000));
+    }
+
+    async function abrirModalAlta(rfidPredefinido = null) {
+      modalSocioOpen = true;
+      esperandoCapturaRfid = true;
+      document.getElementById('modalTitle').textContent = 'REGISTRAR NUEVO SOCIO';
+      document.getElementById('modalSub').textContent = 'Pasá la tarjeta por el Arduino Mega para detectarla automáticamente. El PIN se genera automáticamente.';
+      document.getElementById('mSubmitBtn').textContent = 'GUARDAR SOCIO';
+      document.getElementById('mSocioId').value = '';
+      document.getElementById('mNombre').value = '';
+      document.getElementById('mDni').value = '';
+      document.getElementById('mRfid').value = rfidPredefinido || '';
+      document.getElementById('mActivo').checked = true;
+      populatePlanSelect(1);
+      await generarPinAutomatico();
+      actualizarEstadoRfidModal(rfidPredefinido ? 'ok' : (serialConnected ? 'waiting' : 'idle'), rfidPredefinido);
+      document.getElementById('socioModal').classList.add('open');
+      document.getElementById('mNombre').focus();
+    }
+
+    function abrirModalEditar(id) {
+      const s = state.socios.find(x => Number(x.id_Socios) === Number(id));
+      if (!s) return;
+      modalSocioOpen = true;
+      esperandoCapturaRfid = true;
+      document.getElementById('modalTitle').textContent = 'EDITAR DATOS DE SOCIO';
+      document.getElementById('modalSub').textContent = 'Podés acercar una nueva tarjeta RFID al Arduino Mega para reasignarla o modificar el PIN.';
+      document.getElementById('mSubmitBtn').textContent = 'GUARDAR CAMBIOS';
+      document.getElementById('mSocioId').value = s.id_Socios;
+      document.getElementById('mNombre').value = s.nombre_completo || '';
+      document.getElementById('mDni').value = s.dni || '';
+      document.getElementById('mRfid').value = s.id_rfid || '';
+      document.getElementById('mPin').value = s.codigo_teclado || '';
+      document.getElementById('mActivo').checked = Number(s.estado_cuenta) === 1;
+      populatePlanSelect(s.plan_actual || 1);
+      actualizarEstadoRfidModal(serialConnected ? 'waiting' : 'idle');
+      document.getElementById('socioModal').classList.add('open');
+    }
+
+    function cerrarModalSocio() {
+      modalSocioOpen = false;
+      esperandoCapturaRfid = false;
+      document.getElementById('socioModal').classList.remove('open');
+    }
+
+    function actualizarEstadoRfidModal(mode, code = '') {
+      const el = document.getElementById('mRfidStatus');
+      if (mode === 'ok') {
+        el.className = 'rfid-status ok';
+        el.textContent = `[ OK ] Tarjeta RFID detectada: ${code}`;
+      } else if (mode === 'waiting') {
+        el.className = 'rfid-status waiting';
+        el.textContent = '● LECTOR ACTIVO: Acercá la tarjeta RFID al Arduino Mega 2560...';
+      } else {
+        el.className = 'rfid-status';
+        el.textContent = '● Arduino USB desconectado: hacé clic en "Detectar" para conectar el puerto USB o ingresá el UID manualmente.';
+      }
+    }
+
+    async function activarDeteccionRfid() {
+      esperandoCapturaRfid = true;
+      if (!serialConnected) {
+        const ok = await conectarArduinoSerial();
+        if (!ok) return;
+      }
+      actualizarEstadoRfidModal('waiting');
+      toast('Lector en espera: acercá la tarjeta RFID al sensor RC522', 'info');
+    }
+
+    async function guardarSocio(e) {
+      e.preventDefault();
+      const id = document.getElementById('mSocioId').value;
+      const payload = {
+        id: id ? Number(id) : undefined,
+        nombre: document.getElementById('mNombre').value.trim(),
+        dni: document.getElementById('mDni').value.trim(),
+        rfid: document.getElementById('mRfid').value.trim().toUpperCase(),
+        pin: document.getElementById('mPin').value.trim(),
+        plan_id: Number(document.getElementById('mPlan').value),
+        estado_cuenta: document.getElementById('mActivo').checked ? 1 : 0
+      };
+      const action = id ? 'edit_socio' : 'add_socio';
+      const res = await fetch('api.php?action=' + action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        toast(data.error || 'No se pudo guardar el socio', 'error');
+        return;
+      }
+      cerrarModalSocio();
+      toast(id ? 'Socio actualizado correctamente' : `Socio guardado (RFID: ${data.rfid} | PIN: ${data.pin})`, 'success');
+      await loadState();
+    }
+
+    async function toggleEstadoSocio(id) {
+      await fetch('api.php?action=toggle_cuota', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+      toast('Estado de cuenta actualizado', 'info');
+      await loadState();
+    }
+
+    async function eliminarSocio(id, nombre) {
+      if (!confirm(`¿Eliminar permanentemente a "${nombre}" del sistema?`)) return;
+      await fetch('api.php?action=delete_socio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+      toast(`Socio "${nombre}" eliminado`, 'info');
+      await loadState();
+    }
+
+    function abrirModalPlan(id, nombre, precio) {
+      document.getElementById('pEditId').value = id;
+      document.getElementById('planModalSub').textContent = 'Plan ' + nombre;
+      document.getElementById('pEditPrecio').value = precio;
+      document.getElementById('planModal').classList.add('open');
+    }
+    function cerrarModalPlan() {
+      document.getElementById('planModal').classList.remove('open');
+    }
+    async function guardarTarifaPlan(e) {
+      e.preventDefault();
+      const id = Number(document.getElementById('pEditId').value);
+      const precio = Number(document.getElementById('pEditPrecio').value);
+      const res = await fetch('api.php?action=update_plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, precio })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        cerrarModalPlan();
+        toast('Tarifa actualizada', 'success');
+        await loadState();
+      }
+    }
+
+    /* =========================================================
+       PROCESAMIENTO DE ACCESO (RFID / KEYPAD) Y ARDUINO SERIAL
+       ========================================================= */
+    function actualizarFocoAcceso({ nombre, rfid, plan, granted, reason, unknownCode = null }) {
+      const av = document.getElementById('focusAvatar');
+      const ban = document.getElementById('focusBanner');
+      const btnUnk = document.getElementById('btnAssignUnknown');
+      const iniciales = nombre ? nombre.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase() : '??';
+
+      av.textContent = iniciales || 'RFID';
+      av.className = 'focus-avatar' + (granted ? '' : ' denied');
+      document.getElementById('focusNombre').textContent = nombre;
+      document.getElementById('focusRfid').textContent = `Tarjeta: ${rfid || '----------'}`;
+      document.getElementById('focusPlan').textContent = `Plan: ${plan || 'Ninguno'}`;
+      ban.textContent = granted ? 'ACCESO PERMITIDO — MOLINETE ABIERTO' : `ACCESO DENEGADO (${reason})`;
+      ban.className = 'focus-banner ' + (granted ? 'ok' : 'err');
+
+      if (unknownCode) {
+        ultimaTarjetaDesconocida = unknownCode;
+        btnUnk.style.display = 'block';
+      } else {
+        ultimaTarjetaDesconocida = null;
+        btnUnk.style.display = 'none';
+      }
+    }
+
+    async function procesarLecturaArduino(linea) {
+      const txt = linea.trim();
+      if (!txt) return;
+      logSerial(`<< RX: ${txt}`);
+
+      // Formato del sketch: "RFID:A1B2C3D4" o "KEY:1234"
+      if (txt.toUpperCase().startsWith('RFID:')) {
+        const uid = txt.slice(5).replace(/[^0-9A-Za-z]/g, '').toUpperCase();
+        if (!uid) return;
+
+        // Si el mini panel de alta/edición está abierto, capturar tarjeta automáticamente!
+        if (modalSocioOpen) {
+          document.getElementById('mRfid').value = uid;
+          actualizarEstadoRfidModal('ok', uid);
+          toast(`Tarjeta RFID ${uid} capturada automáticamente`, 'success');
+          return;
+        }
+        await verificarAccesoServidor({ rfid: uid });
+        return;
+      }
+
+      if (txt.toUpperCase().startsWith('KEY:')) {
+        const pin = txt.slice(4).trim();
+        if (!pin) return;
+        if (modalSocioOpen) {
+          document.getElementById('mPin').value = pin;
+          toast(`PIN ${pin} recibido desde teclado 4x4`, 'success');
+          return;
+        }
+        await verificarAccesoServidor({ pin });
+      }
+    }
+
+    async function verificarAccesoServidor(payload) {
+      const res = await fetch('api.php?action=verify_access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!data.ok) return;
+
+      // Responder al Arduino Mega 2560 con el protocolo exacto: "OK" o "NO"
+      if (serialConnected) {
+        await enviarComandoSerial(data.cmd);
+      }
+
+      if (data.unknown) {
+        actualizarFocoAcceso({
+          nombre: data.metodo === 'RFID' ? 'Tarjeta No Registrada' : 'PIN No Registrado',
+          rfid: data.code,
+          plan: 'Ninguno',
+          granted: false,
+          reason: data.reason,
+          unknownCode: data.metodo === 'RFID' ? data.code : null
+        });
+        toast(`${data.reason}: ${data.code}`, 'error');
+      } else {
+        const s = data.socio;
+        actualizarFocoAcceso({
+          nombre: s.nombre_completo,
+          rfid: s.id_rfid,
+          plan: s.nombre_plan || 'Estándar',
+          granted: data.granted,
+          reason: data.reason
+        });
+        toast(data.granted ? `Pase concedido: ${s.nombre_completo}` : `Acceso denegado: ${s.nombre_completo} (Cuota vencida)`, data.granted ? 'success' : 'error');
+      }
+
+      await loadState();
+    }
+
+    async function probarPaseSocio(rfid) {
+      if (!rfid || rfid === 'SIN TARJETA') {
+        toast('Este socio no tiene tarjeta RFID asignada', 'error');
+        return;
+      }
+      logSerial(`<< TEST RFID:${rfid}`);
+      await verificarAccesoServidor({ rfid });
+    }
+
+    async function aperturaManual() {
+      if (serialConnected) {
+        await enviarComandoSerial('OK');
+      }
+      logSerial('>> APERTURA MANUAL CONCEDIDA (OK)');
+      await fetch('api.php?action=manual_open', { method: 'POST' });
+      toast('Molinete abierto manualmente', 'success');
+      await loadState();
+    }
+
+    /* =========================================================
+       WEB SERIAL API (CONEXIÓN REAL CON ARDUINO MEGA 2560)
+       ========================================================= */
+    function actualizarUIHardware(conectado) {
+      serialConnected = conectado;
+      const dot = document.getElementById('sidebarHwDot');
+      const st = document.getElementById('sidebarHwStatus');
+      const btnSide = document.getElementById('btnSidebarConnect');
+      const diag = document.getElementById('hwDiagBanner');
+      const diagT = document.getElementById('hwDiagTitle');
+      const diagS = document.getElementById('hwDiagSub');
+      const btnMain = document.getElementById('btnMainSerialToggle');
+
+      if (conectado) {
+        dot.className = 'dot ok';
+        st.textContent = `Conectado (USB ${document.getElementById('baudSelect').value} bps)`;
+        btnSide.textContent = 'Desconectar Arduino';
+        diag.className = 'diag-banner ok';
+        diagT.textContent = '● ARDUINO MEGA 2560 CONECTADO Y EN LÍNEA';
+        diagT.style.color = 'var(--primary-text)';
+        diagS.textContent = `Escuchando RFID:<UID> y KEY:<PIN> a ${document.getElementById('baudSelect').value} bps.`;
+        btnMain.textContent = 'DESCONECTAR ARDUINO MEGA 2560';
+        btnMain.className = 'btn btn-danger';
+      } else {
+        dot.className = 'dot off';
+        st.textContent = 'Desconectado (Enchufar USB)';
+        btnSide.textContent = 'Buscar / Conectar Arduino';
+        diag.className = 'diag-banner';
+        diagT.textContent = '● ARDUINO MEGA 2560 NO CONECTADO EN USB';
+        diagT.style.color = '#FCA5A5';
+        diagS.textContent = 'Enchufá el cable USB del Arduino Mega 2560 (9600 bps) y hacé clic en Conectar.';
+        btnMain.textContent = 'CONECTAR ARDUINO MEGA 2560 (USB SERIAL)';
+        btnMain.className = 'btn';
+      }
+    }
+
+    async function toggleArduinoSerial() {
+      if (serialConnected) {
+        await desconectarArduinoSerial();
+      } else {
+        await conectarArduinoSerial();
+      }
+    }
+
+    async function conectarArduinoSerial() {
+      if (!('serial' in navigator)) {
+        toast('Usá Chrome o Edge en pantalla completa para conectar por USB Serial (Web Serial API).', 'error');
+        return false;
+      }
+      try {
+        const baudRate = Number(document.getElementById('baudSelect').value || 9600);
+        serialPort = await navigator.serial.requestPort();
+        await serialPort.open({ baudRate });
+        serialWriter = serialPort.writable.getWriter();
+        actualizarUIHardware(true);
+        logSerial(`[USB] Arduino Mega 2560 conectado a ${baudRate} bps`);
+        toast('Arduino Mega 2560 conectado por USB!', 'success');
+        leerLoopSerial();
+        return true;
+      } catch (e) {
+        toast('Conexión USB cancelada o puerto ocupado.', 'error');
+        return false;
+      }
+    }
+
+    async function leerLoopSerial() {
+      const decoder = new TextDecoderStream();
+      serialPort.readable.pipeTo(decoder.writable).catch(() => {});
+      serialReader = decoder.readable.getReader();
+      let buffer = '';
+      try {
+        while (serialConnected) {
+          const { value, done } = await serialReader.read();
+          if (done) break;
+          buffer += value;
+          const lines = buffer.split(/\r?\n/);
+          buffer = lines.pop();
+          for (const line of lines) {
+            if (line.trim()) await procesarLecturaArduino(line);
+          }
+        }
+      } catch (e) {
+        logSerial('[USB] Desconexión detectada.');
+      } finally {
+        actualizarUIHardware(false);
+      }
+    }
+
+    async function desconectarArduinoSerial() {
+      serialConnected = false;
+      try { if (serialReader) await serialReader.cancel(); } catch (e) {}
+      try { if (serialWriter) serialWriter.releaseLock(); } catch (e) {}
+      try { if (serialPort) await serialPort.close(); } catch (e) {}
+      serialReader = null; serialWriter = null; serialPort = null;
+      actualizarUIHardware(false);
+      logSerial('[USB] Arduino desconectado.');
+      toast('Arduino desconectado', 'info');
+    }
+
+    async function enviarComandoSerial(cmd) {
+      if (!serialConnected || !serialWriter) {
+        toast('Arduino Mega 2560 no conectado por USB.', 'error');
+        return;
+      }
+      const data = new TextEncoder().encode(cmd + '\n');
+      await serialWriter.write(data);
+      logSerial(`>> TX: ${cmd}`);
+    }
+
+    function copiarSketch() {
+      fetch('arduino_mega2560.ino')
+        .then(r => r.text())
+        .then(txt => navigator.clipboard.writeText(txt))
+        .then(() => toast('Código arduino_mega2560.ino copiado al portapapeles', 'success'))
+        .catch(() => toast('No se pudo copiar el código', 'error'));
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+    }
+
+    // Init
+    updateClock();
+    setInterval(updateClock, 1000);
+    loadState();
+    logSerial('Sistema GYM MASTER PRO inicializado (SQLite Local).');
+    fetch('arduino_mega2560.ino')
+      .then(r => r.ok ? r.text() : ARDUINO_SKETCH)
+      .then(txt => { document.getElementById('sketchPreview').textContent = txt; })
+      .catch(() => { document.getElementById('sketchPreview').textContent = ARDUINO_SKETCH; });
+  </script>
+</body>
+</html>

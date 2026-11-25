@@ -1,0 +1,359 @@
+/* Stylesheet for SkillHub Checkout & Payment Gateway */
+@import url('estilos.css');
+
+.checkout-page-container {
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    padding-bottom: 80px;
+}
+
+/* TOP CHECKOUT BAR */
+.checkout-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 0;
+    margin-bottom: 40px;
+}
+
+.checkout-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-secure-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--success-text);
+    background-color: var(--success-light);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--success-border);
+}
+
+/* CHECKOUT GRID */
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* LEFT COLUMN: ORDER SUMMARY */
+.order-summary-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    padding: 30px;
+    position: sticky;
+    top: 20px;
+}
+
+.summary-title {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.summary-course-item {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.summary-course-thumb {
+    width: 90px;
+    height: 65px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid var(--text-main);
+    flex-shrink: 0;
+}
+
+.summary-course-info h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.summary-course-cat {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
+.summary-breakdown {
+    border-top: 1px dashed var(--border-color);
+    padding-top: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.breakdown-row.total-row {
+    border-top: 2px solid var(--text-main);
+    padding-top: 14px;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+.summary-guarantee-badge {
+    background-color: var(--bg-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.summary-guarantee-badge span {
+    font-size: 1.8rem;
+}
+
+.summary-guarantee-badge p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+/* RIGHT COLUMN: PAYMENT METHODS & FORM */
+.payment-form-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    padding: 34px;
+}
+
+.payment-section-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 16px;
+}
+
+/* TABS DE METODOS DE PAGO */
+.payment-methods-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+    .payment-methods-tabs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.method-tab {
+    background-color: var(--bg-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.method-tab:hover {
+    border-color: var(--primary-border);
+}
+
+.method-tab.active {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+}
+
+.method-tab .tab-icon {
+    font-size: 1.4rem;
+}
+
+.method-tab .tab-name {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+/* INTERACTIVE CREDIT CARD PREVIEW */
+.card-preview-box {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    border-radius: 16px;
+    padding: 22px 24px;
+    color: #ffffff;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 25px -5px rgba(49, 46, 129, 0.3);
+    border: 1px solid #4338ca;
+    position: relative;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-preview-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-chip {
+    width: 38px;
+    height: 28px;
+    background: linear-gradient(135deg, #f59e0b 0%, #fef3c7 100%);
+    border-radius: 6px;
+}
+
+.card-brand-icon {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.card-preview-number {
+    font-size: 1.25rem;
+    font-family: monospace;
+    letter-spacing: 2px;
+    margin: 14px 0 10px;
+    font-weight: 700;
+}
+
+.card-preview-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    color: #d4d4d8;
+}
+
+.card-preview-bottom strong {
+    display: block;
+    color: #ffffff;
+    font-size: 0.88rem;
+}
+
+/* FORM FIELDS */
+.form-field-group {
+    margin-bottom: 18px;
+}
+
+.form-field-label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.form-field-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background-color: #faf9f6;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.form-field-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: #ffffff;
+}
+
+.form-fields-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+/* ALTERNATIVE PAYMENT BOXES */
+.alt-payment-panel {
+    display: none;
+    background-color: #faf9f6;
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.alt-payment-panel.active {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* SUBMIT BUTTON */
+.btn-pay-submit {
+    width: 100%;
+    background-color: var(--primary);
+    color: #ffffff;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 1.15rem;
+    padding: 16px;
+    border: 3px solid var(--text-main);
+    border-radius: 14px;
+    box-shadow: 4px 4px 0px var(--text-main);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.btn-pay-submit:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px var(--text-main);
+}
+
+.checkout-security-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 18px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 700;
+}

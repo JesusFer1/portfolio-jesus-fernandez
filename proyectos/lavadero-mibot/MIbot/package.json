@@ -1,0 +1,39 @@
+{
+  "name": "lavadero-no-limits-park",
+  "version": "1.0.0",
+  "description": "ChatBot interactivo de WhatsApp Web para No Limits Park con IA Groq/Gemini, OpenStreetMap, QR y Notificaciones Dobles",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "qr": "node src/qr_generator.js",
+    "seed": "node src/db/seed.js",
+    "bot": "node src/whatsapp_bot.js"
+  },
+  "keywords": [
+    "whatsapp-bot",
+    "carwash",
+    "groq",
+    "gemini",
+    "openstreetmap",
+    "qrcode",
+    "telemetry"
+  ],
+  "author": "No Limits Park",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@whiskeysockets/baileys": "^7.0.0-rc14",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "groq-sdk": "^0.9.1",
+    "multer": "^1.4.5-lts.1",
+    "pino": "^9.6.0",
+    "qrcode": "^1.5.3",
+    "qrcode-terminal": "^0.12.0",
+    "sqlite3": "^5.1.7"
+  }
+}

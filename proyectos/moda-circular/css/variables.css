@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --brand-orange: rgb(232, 125, 53);
+  --brand-orange-hover: rgb(212, 105, 33);
+  --brand-blue: rgb(44, 83, 181);
+  --brand-blue-hover: rgb(34, 73, 161);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body, header, nav, section, div, button, input, select, textarea {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+html, body {
+  max-width: 100vw;
+}
+
+/* Scrollbars estilizadas */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+/* Normalización de scroll en dispositivos móviles */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Indicador circular de color */
+.color-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+.dark .color-dot {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+input:focus, select:focus, textarea:focus, button:focus-visible {
+  outline: none;
+}
+
+/* =========================================================
+   REGLAS EXCLUSIVAS PARA CELULARES
+   ========================================================= */
+@media screen and (max-width: 639px) {
+  #clothingGrid, #suppliesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Ajuste de padding general en tarjetas */
+  .card-product {
+    padding: 0 !important;
+  }
+
+  /* Modales centrados en pantalla chica */
+  .modal-container > div {
+    width: 95% !important;
+    max-width: 95% !important;
+    margin: 0 auto;
+    padding: 1rem !important;
+  }
+}

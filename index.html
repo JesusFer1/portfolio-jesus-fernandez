@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jesús Fernández | Portfolio Técnico &amp; Programador</title>
+  <link rel="stylesheet" href="styles.css?v=20261124-ai">
+</head>
+<body>
+
+  <!-- FONDO AERO HARMONY -->
+  <div class="aero-bg" aria-hidden="true"></div>
+
+  <!-- NAVBAR SUPERIOR AERO GLASS -->
+  <header class="aero-nav">
+    <div class="container nav-inner">
+      <a href="#inicio" class="brand">
+        <span class="aero-flag" aria-hidden="true">
+          <span class="f1"></span><span class="f2"></span>
+          <span class="f3"></span><span class="f4"></span>
+        </span>
+        <span class="brand-text">
+          <strong>Jesús Fernández</strong>
+          <small>Programador · E.E.S.T. N° 5</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#inicio">Presentación</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#ia">Habilidades IA</a>
+        <a href="#sobre-mi">Sobre Mí</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <a href="CV_Jesus_Fernandez.pdf" download class="aero-btn primary nav-cta">Descargar CV</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =========================================================
+         1. HERO / PRESENTACIÓN PRINCIPAL
+         ========================================================= -->
+    <section id="inicio" class="hero-section">
+      <div class="container">
+        <div class="aero-panel hero-grid">
+          <div class="hero-copy">
+            <span class="aero-pill">Portfolio Técnico · 7° Año Programación</span>
+            <h1>Hola, soy <span>Jesús Fernández</span></h1>
+            <p class="hero-lead">
+              Estudiante técnico de 18 años en la E.E.S.T. N° 5 de Berazategui. Desarrollo aplicaciones web full-stack, plataformas educativas, software de escritorio en Python e integración con hardware Arduino y RFID.
+            </p>
+
+            <div class="stack-row">
+              <span>HTML5 / CSS3 / JS</span>
+              <span>PHP &amp; PDO</span>
+              <span>Python</span>
+              <span>MySQL / SQLite</span>
+              <span>Node.js</span>
+              <span>Arduino Mega &amp; RFID</span>
+            </div>
+
+            <div class="hero-actions">
+              <a href="#proyectos" class="aero-btn primary lg">Explorar Proyectos &darr;</a>
+              <a href="CV_Jesus_Fernandez.pdf" download class="aero-btn ghost lg">Descargar CV (PDF)</a>
+            </div>
+          </div>
+
+          <div class="hero-media">
+            <div class="video-bezel">
+              <video id="heroVideo" controls poster="miniatura-video.jpg" preload="metadata">
+                <source src="video-presentacion.mp4" type="video/mp4">
+                Tu navegador no soporta video HTML5.
+              </video>
+            </div>
+            <p class="media-caption">Video de Presentación Personal — Jesús Fernández</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         2. PROYECTOS (6 APPS REALES)
+         ========================================================= -->
+    <section id="proyectos" class="section-block">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="aero-pill">Portfolio Interactivo</span>
+            <h2>Mis Proyectos</h2>
+            <p>Hacé clic en <strong>Vista Previa</strong> para probar cada sistema acá mismo o abrilo en una pestaña completa.</p>
+          </div>
+
+          <div class="filter-tabs" role="tablist" aria-label="Filtrar proyectos">
+            <button class="filter-tab active" onclick="filterProjects('all', this)">Todos (8)</button>
+            <button class="filter-tab" onclick="filterProjects('web', this)">Web &amp; PHP</button>
+            <button class="filter-tab" onclick="filterProjects('hardware', this)">Python &amp; Arduino</button>
+            <button class="filter-tab" onclick="filterProjects('ia', this)">IA &amp; Automatización</button>
+          </div>
+        </div>
+
+        <div id="projectsGrid" class="projects-grid"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. HABILIDADES CON INTELIGENCIA ARTIFICIAL + SPOTS DE EJEMPLO
+         ========================================================= -->
+    <section id="ia" class="section-block">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="aero-pill">Inteligencia Artificial Aplicada</span>
+            <h2>Habilidades con Inteligencia Artificial</h2>
+            <p>Integro modelos de IA de última generación en desarrollo de software, automatización y producción audiovisual comercial.</p>
+          </div>
+        </div>
+
+        <!-- Herramientas de IA que utilizo -->
+        <div class="ai-tools-grid">
+          <div class="aero-panel ai-tool-card">
+            <span class="ai-tag">Multimodal &amp; Código</span>
+            <h3>Google Gemini</h3>
+            <p>Desarrollo asistido, análisis técnico, generación de contenido estructurado e integración de APIs inteligentes en proyectos web y bots.</p>
+          </div>
+          <div class="aero-panel ai-tool-card">
+            <span class="ai-tag">Arquitectura &amp; Lógica</span>
+            <h3>Claude</h3>
+            <p>Diseño de arquitectura limpia, refactorización de código PHP/JS/Python, depuración compleja y documentación técnica precisa.</p>
+          </div>
+          <div class="aero-panel ai-tool-card">
+            <span class="ai-tag">Ideación &amp; Copywriting</span>
+            <h3>ChatGPT</h3>
+            <p>Redacción de guiones comerciales, estrategias de marketing, prototipado rápido de ideas y resolución ágil de flujos de negocio.</p>
+          </div>
+          <div class="aero-panel ai-tool-card">
+            <span class="ai-tag">Video, Audio &amp; Automatización</span>
+            <h3>IA Generativa &amp; Agentes</h3>
+            <p>Creación de piezas publicitarias con video/voz generativa, edición asistida y agentes conversacionales en WhatsApp (como MIbot).</p>
+          </div>
+        </div>
+
+        <!-- Ejemplos reales: los 3 spots comerciales (sin repetir el Video CV) -->
+        <div class="aero-panel media-player-grid" style="margin-top: 22px;">
+          <div class="media-stage">
+            <video id="mainPlayer" controls preload="metadata">
+              <source src="fymelectrohogar/video_1.mp4" type="video/mp4">
+              Tu navegador no soporta video HTML5.
+            </video>
+          </div>
+
+          <div class="media-playlist">
+            <h3>Ejemplos Reales — Spots Comerciales con IA</h3>
+            <p style="font-size:0.84rem; color:#dbeafe; margin-bottom:14px;">
+              Piezas publicitarias creadas para F&amp;M ElectroHogar aplicando guiones, recursos visuales y edición asistida con Inteligencia Artificial.
+            </p>
+            <button class="track-btn active" onclick="selectTrack(this, 'fymelectrohogar/video_1.mp4', '')">
+              <strong>01. Spot Ocean Italy</strong>
+              <small>Campaña comercial · F&amp;M ElectroHogar</small>
+            </button>
+            <button class="track-btn" onclick="selectTrack(this, 'fymelectrohogar/video_2.mp4', '')">
+              <strong>02. Spot Drean Eco Inverter</strong>
+              <small>Campaña comercial · F&amp;M ElectroHogar</small>
+            </button>
+            <button class="track-btn" onclick="selectTrack(this, 'fymelectrohogar/video_3.mp4', '')">
+              <strong>03. Spot Samsung SpaceMax</strong>
+              <small>Campaña comercial · F&amp;M ElectroHogar</small>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. SOBRE MÍ, FORMACIÓN Y STACK
+         ========================================================= -->
+    <section id="sobre-mi" class="section-block">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="aero-pill">Perfil Técnico</span>
+            <h2>Sobre Mí &amp; Formación</h2>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="aero-panel about-card">
+            <h3>Perfil Profesional</h3>
+            <p>
+              Joven proactivo y extrovertido (18 años), con excelente disposición para el trabajo en equipo y aprendizaje rápido. Enfocado en el desarrollo de soluciones reales que integran frontend moderno, bases de datos relacionales, software de escritorio y hardware embebido.
+            </p>
+            <h3 style="margin-top:22px;">Formación Académica</h3>
+            <div class="edu-item">
+              <strong>E.E.S.T. N° 5 de Berazategui</strong>
+              <span>Tecnicatura en Programación · 7° Año (2022 – Actualidad)</span>
+            </div>
+            <div class="edu-item">
+              <strong>Escuela Secundaria Carlos Pellegrini</strong>
+              <span>Ciclo Básico (2020 – 2022)</span>
+            </div>
+          </div>
+
+          <div class="aero-panel about-card">
+            <h3>Tecnologías y Herramientas</h3>
+            <div class="skill-group">
+              <div class="skill-group-title">Frontend &amp; Web</div>
+              <div class="stack-row">
+                <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>PWA</span><span>Responsive Design</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">Backend &amp; Bases de Datos</div>
+              <div class="stack-row">
+                <span>PHP 8 (PDO)</span><span>Node.js</span><span>MySQL</span><span>SQLite</span><span>REST APIs</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">Escritorio, Hardware &amp; Automatización</div>
+              <div class="stack-row">
+                <span>Python</span><span>CustomTkinter</span><span>Arduino Mega 2560 (C++)</span><span>RFID RC522</span><span>Web Serial</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. CONTACTO
+         ========================================================= -->
+    <section id="contacto" class="section-block">
+      <div class="container">
+        <div class="aero-panel contact-panel">
+          <div class="contact-head">
+            <span class="aero-pill">Contacto Directo</span>
+            <h2>¿Charlamos sobre un proyecto o pasantía?</h2>
+            <p>Estoy disponible para prácticas profesionalizantes, proyectos freelance y oportunidades en desarrollo de software.</p>
+          </div>
+
+          <div class="contact-grid">
+            <a class="contact-card" href="mailto:Jesusfernandezez@gmail.com">
+              <small>Correo Electrónico</small>
+              <strong>Jesusfernandezez@gmail.com</strong>
+            </a>
+            <a class="contact-card" href="tel:+541161365157">
+              <small>Teléfono / WhatsApp</small>
+              <strong>11-6136-5157</strong>
+            </a>
+            <a class="contact-card" href="https://www.instagram.com/fymelectrohogar/" target="_blank" rel="noopener">
+              <small>Instagram</small>
+              <strong>@fymelectrohogar</strong>
+            </a>
+            <div class="contact-card">
+              <small>Ubicación</small>
+              <strong>Berazategui, Buenos Aires</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="aero-footer">
+    <div class="container footer-inner">
+      <span>© 2026 Jesús Fernández · Portfolio Técnico (Aero Glass Edition)</span>
+      <a href="CV_Jesus_Fernandez.pdf" download>Descargar Currículum PDF</a>
+    </div>
+  </footer>
+
+  <!-- MODAL DE VISTA PREVIA AERO GLASS (LIMPIO Y 100% RESPONSIVO) -->
+  <div id="previewModal" class="aero-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="aero-modal-window">
+      <div class="aero-modal-bar">
+        <div class="modal-title-wrap">
+          <strong id="modalTitle">Proyecto</strong>
+          <span id="modalUrl" class="modal-url"></span>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="aero-btn ghost sm" onclick="reloadPreview()">Recargar</button>
+          <a id="modalExtraBtn" class="aero-btn green sm" style="display:none;" target="_blank" rel="noopener"></a>
+          <a id="modalOpenNew" class="aero-btn primary sm" target="_blank" rel="noopener">Abrir en nueva pestaña &nearr;</a>
+          <button type="button" class="modal-close-btn" onclick="closePreview()" title="Cerrar">✕</button>
+        </div>
+      </div>
+      <div class="aero-modal-body">
+        <iframe id="previewIframe" title="Vista previa del proyecto" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=20261124-deltagym"></script>
+</body>
+</html>

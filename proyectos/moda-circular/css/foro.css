@@ -1,0 +1,59 @@
+/* =========================================================
+   ESTILOS EXCLUSIVOS DEL FORO (RESPONSIVE & MOBILE FIRST)
+   ========================================================= */
+
+/* Ajustes de tarjeta e hilos */
+.reddit-post-card {
+  border-radius: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Transición suave para botones de votos */
+.vote-btn {
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.vote-btn:active {
+  transform: scale(1.2);
+}
+
+/* Barras de progreso dinámicas para encuestas */
+.poll-bar-fill {
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sombra e indicador de post fijado */
+.pinned-badge {
+  box-shadow: 0 2px 6px rgba(232, 125, 53, 0.2);
+}
+
+/* OPTIMIZACIÓN RESPONSIVE / CELULARES - TAMAÑOS GRANDES Y TÁCTILES */
+@media screen and (max-width: 639px) {
+  /* Espaciado generoso para fácil lectura */
+  #listaComentarios > div {
+    padding: 1rem !important;
+  }
+
+  /* Botones táctiles cómodos de 40px+ */
+  [data-action="upvote"], [data-action="downvote"] {
+    min-width: 38px !important;
+    min-height: 38px !important;
+  }
+
+  /* Scroll horizontal fluido en categorías */
+  #categoryFilterBar {
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Títulos de publicaciones claros y legibles */
+  .post-title-text {
+    font-size: 1.05rem !important;
+    line-height: 1.4rem !important;
+  }
+
+  /* Botones de acción cómodos */
+  button, input, select, textarea {
+    font-size: 0.95rem !important;
+  }
+}

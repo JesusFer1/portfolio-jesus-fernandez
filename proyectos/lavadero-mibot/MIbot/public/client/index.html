@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No limits Park - Escanear Código QR de WhatsApp</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(0.98); }
+    }
+    .qr-container {
+      animation: pulse-slow 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+
+  <!-- Card Principal del QR -->
+  <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl text-center space-y-6">
+    
+    <!-- Encabezado del Lavadero -->
+    <div class="space-y-2">
+      <div class="w-16 h-16 rounded-2xl bg-sky-600/20 text-sky-400 border border-sky-500/30 flex items-center justify-center mx-auto text-3xl shadow-lg shadow-sky-600/20">
+        <i class="fa-solid fa-car-wash"></i>
+      </div>
+      <h1 class="text-2xl font-extrabold text-white tracking-tight flex items-center justify-center gap-2">
+        No limits Park
+        <span class="text-xs bg-sky-500/20 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded-full font-medium">Ranelagh</span>
+      </h1>
+      <p class="text-xs text-slate-400">
+        <i class="fa-solid fa-location-dot text-sky-400 mr-1"></i> C. 137 4213, B1886 Ranelagh, Bs. As.
+      </p>
+    </div>
+
+    <!-- Indicador de Estado -->
+    <div id="status-badge" class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold">
+      <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+      <span id="status-text">Esperando escaneo de QR...</span>
+    </div>
+
+    <!-- Imagen del Código QR -->
+    <div class="bg-white p-4 rounded-3xl inline-block shadow-2xl border-4 border-sky-500/40 qr-container">
+      <img id="qr-img" src="/api/qr" class="w-64 h-64 mx-auto rounded-xl object-contain" alt="Código QR WhatsApp">
+    </div>
+
+    <!-- Instrucciones de Escaneo -->
+    <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-2 text-left">
+      <div class="font-bold text-sky-400 text-sm flex items-center gap-2 mb-1">
+        <i class="fa-brands fa-whatsapp text-lg text-emerald-400"></i> Pasos para vincular tu WhatsApp:
+      </div>
+      <ol class="list-decimal list-inside space-y-1 text-slate-300">
+        <li>Abre <b>WhatsApp</b> en tu celular (<span class="text-sky-400 font-mono">1158959978</span>).</li>
+        <li>Toca en <b>Menú</b> <i class="fa-solid fa-ellipsis-vertical text-slate-400"></i> o <b>Configuración</b> <i class="fa-solid fa-gear text-slate-400"></i>.</li>
+        <li>Selecciona <b>Dispositivos vinculados</b>.</li>
+        <li>Toca en <b>Vincular un dispositivo</b> y apunta la cámara a este QR.</li>
+      </ol>
+    </div>
+
+    <!-- Botón directo de WhatsApp -->
+    <div>
+      <a id="qr-wa-link" href="https://wa.me/5491158959978?text=Hola%2C%20quiero%20agendar%20un%20turno" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-6 rounded-xl transition inline-flex items-center justify-center gap-2 text-sm shadow-lg shadow-emerald-600/30">
+        <i class="fa-brands fa-whatsapp text-lg"></i> Abrir WhatsApp Directo
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-[11px] text-slate-500 border-t border-slate-800 pt-4 flex justify-between items-center">
+      <span>© 2026 No limits Park SaaS</span>
+      <a href="/admin/index.html" class="text-slate-400 hover:text-sky-400 transition">
+        <i class="fa-solid fa-lock text-xs"></i> Panel Admin
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    async function loadQR() {
+      try {
+        const res = await fetch('/api/qr');
+        const data = await res.json();
+        if (data.qrDataUrl) {
+          document.getElementById('qr-img').src = data.qrDataUrl;
+        }
+        if (data.whatsappLink) {
+          document.getElementById('qr-wa-link').href = data.whatsappLink;
+        }
+
+        const badge = document.getElementById('status-badge');
+        const statusText = document.getElementById('status-text');
+
+        if (data.isConnected) {
+          badge.className = 'inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold';
+          statusText.innerText = '✅ WhatsApp Conectado y Listo';
+        } else {
+          badge.className = 'inline-flex items-center gap-2 bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold';
+          statusText.innerText = 'Esperando escaneo de QR...';
+        }
+      } catch (err) {}
+    }
+
+    loadQR();
+    setInterval(loadQR, 5000); // Actualizar automáticamente cada 5 segundos
+  </script>
+</body>
+</html>

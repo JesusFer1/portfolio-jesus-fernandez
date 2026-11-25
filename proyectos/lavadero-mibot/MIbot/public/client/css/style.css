@@ -1,0 +1,79 @@
+:root {
+  --primary-color: #0284c7;
+  --primary-hover: #0369a1;
+  --accent-color: #38bdf8;
+  --bg-dark: #0f172a;
+  --card-bg: #1e293b;
+  --border-color: #334155;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+}
+
+/* Chat Container */
+.chat-container {
+  height: calc(100vh - 280px);
+  min-height: 380px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.chat-bubble {
+  max-width: 85%;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.user-bubble {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.bot-bubble {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-bottom-left-radius: 4px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
+}
+
+#map {
+  height: 320px;
+  width: 100%;
+  border-radius: 0.75rem;
+  z-index: 1;
+}
+
+.tab-btn.active {
+  background-color: #0284c7;
+  color: #ffffff;
+}

@@ -1,0 +1,494 @@
+/* ====================================================================
+   ESTILOS EXCLUSIVOS SECCIÓN DOCENTE - BiblioTec
+   Contiene estilos para la pantalla de acceso (Login) y el Panel Docente.
+   ==================================================================== */
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 60px 20px;
+    position: relative;
+}
+
+.login-contenedor::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top right,
+            rgba(6,182,212,0.12),
+            transparent 30%),
+        radial-gradient(circle at bottom left,
+            rgba(30,58,138,0.10),
+            transparent 35%);
+    pointer-events: none;
+}
+
+.tarjeta-login {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 42px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08),
+        0 4px 10px rgba(15, 23, 42, 0.04);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.tarjeta-login:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.10),
+        0 6px 14px rgba(15, 23, 42, 0.06);
+}
+
+.login-cabecera {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-icono {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--color-primario, #1e3a8a), #2563eb);
+    color: white;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.login-icono i {
+    width: 34px;
+    height: 34px;
+}
+
+.login-titulo {
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: var(--color-texto-principal);
+    margin-bottom: 6px;
+}
+
+.login-subtitulo {
+    color: var(--color-texto-secundario);
+    font-size: 0.95rem;
+}
+
+/* =========================
+   FORMULARIO Y CONTROLES
+========================= */
+
+.grupo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.grupo-formulario label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-texto-principal);
+}
+
+.input-formulario {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--color-borde);
+    background: #f8fafc;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+
+.input-formulario:focus {
+    outline: none;
+    border-color: var(--color-acento);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.12);
+}
+
+.input-formulario::placeholder {
+    color: #94a3b8;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.boton-login {
+    width: 100%;
+    border: none;
+    background: linear-gradient(135deg, var(--color-acento), #0891b2);
+    color: #fff;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
+    box-shadow: 0 10px 18px rgba(6, 182, 212, 0.18);
+}
+
+.boton-login:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 24px rgba(6, 182, 212, 0.22);
+}
+
+.boton-login:active {
+    transform: scale(0.99);
+}
+
+/* =========================
+   ALERTAS Y NOTIFICACIONES
+========================= */
+
+.alerta-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fef2f2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.alerta-notif {
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.notif-exito {
+    background-color: #ecfdf5;
+    border-left: 4px solid #10b981;
+    color: #065f46;
+}
+
+.notif-error {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+    color: #991b1b;
+}
+
+/* =========================
+   LINKS
+========================= */
+
+.enlace-retorno {
+    display: block;
+    margin-top: 26px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-primario);
+    font-weight: 700;
+    transition: color .2s;
+}
+
+.enlace-retorno:hover {
+    color: var(--color-acento);
+}
+
+/* =========================
+   PANEL DOCENTE (MAQUETACIÓN)
+========================= */
+
+.seccion-admin {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+@media (min-width: 1024px) {
+    .seccion-admin {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.tarjeta-panel {
+    background-color: var(--color-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-borde, 12px);
+    padding: 24px;
+    box-shadow: var(--sombra-suave);
+    margin-bottom: 24px;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.tarjeta-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-media);
+}
+
+.tarjeta-panel-titulo {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-borde);
+    padding-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    background: #f8fafc;
+    transition: .2s;
+}
+
+.input-control:focus {
+    border-color: var(--color-acento);
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.10);
+}
+
+.boton-accion {
+    width: 100%;
+    background: linear-gradient(135deg, var(--color-primario), var(--color-primario-hover));
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform .15s, opacity .2s;
+}
+
+.boton-accion:hover {
+    transform: translateY(-1px);
+}
+
+.boton-accion.boton-secundario {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid var(--color-borde);
+}
+
+.boton-accion.boton-secundario:hover {
+    background: #e2e8f0;
+}
+
+/* ====================================================================
+   MÉTRICAS (Dashboard de Profesores)
+   ==================================================================== */
+
+.metricas-contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.tarjeta-metrica {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.metrica-icono {
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metrica-icono.icono-primario {
+    background-color: #eff6ff;
+    color: var(--color-primario);
+}
+
+.metrica-icono.icono-peligro {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+
+.metrica-etiqueta {
+    font-size: 0.75rem;
+    color: var(--color-texto-secundario);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.metrica-valor {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-texto-principal);
+}
+
+.progreso-almacenamiento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.almacenamiento-texto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.barra-limite-contenedor {
+    background: #e2e8f0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.barra-limite {
+    background: var(--color-acento);
+    height: 100%;
+    border-radius: 4px;
+}
+
+/* ====================================================================
+   TABLAS Y FILTROS DEL PANEL
+   ==================================================================== */
+
+.panel-tabla-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-borde);
+    padding-bottom: 12px;
+}
+
+.buscador-panel-contenedor {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+
+.icono-buscar-panel {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--color-texto-secundario);
+}
+
+.input-control.input-buscar {
+    padding: 8px 12px 8px 34px;
+    font-size: 0.8rem;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-archivos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tabla-archivos th {
+    background: #f8fafc;
+    padding: 14px;
+    text-align: left;
+    font-weight: 800;
+    color: var(--color-texto-secundario);
+}
+
+.tabla-archivos td {
+    padding: 14px;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.tabla-archivos tr:hover {
+    background: #fafcff;
+}
+
+.celda-titulo {
+    font-weight: 700;
+    color: var(--color-texto-principal);
+}
+
+.celda-fecha {
+    color: var(--color-texto-secundario);
+    font-size: 0.8rem;
+}
+
+.celda-acciones {
+    text-align: right;
+}
+
+/* ====================================================================
+   ZONA DRAG & DROP
+   ==================================================================== */
+
+.zona-drop {
+    border: 2px dashed var(--color-borde);
+    padding: 24px;
+    border-radius: 8px;
+    text-align: center;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.zona-drop-texto {
+    font-size: 0.8rem;
+    color: var(--color-texto-secundario);
+}
+
+.input-oculto {
+    display: none;
+}
+
+/* ====================================================================
+   RESPONSIVE
+   ==================================================================== */
+
+@media (max-width: 640px) {
+    .tarjeta-login {
+        padding: 28px 22px;
+    }
+
+    .login-titulo {
+        font-size: 1.45rem;
+    }
+}

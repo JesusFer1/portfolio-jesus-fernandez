@@ -1,0 +1,66 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >> endobj
+4 0 obj << /Length 1374 >> stream
+BT
+/F1 16 Tf
+50 780 Td
+(SkillHub - Guia y Atajos: Diseno UI/UX con Figma) Tj
+/F1 10 Tf
+0 -26 Td
+(Curso: Diseno UI/UX Profesional con Figma - Playlist Oficial Carlos Damian) Tj
+0 -16 Td
+(--------------------------------------------------------------------------) Tj
+0 -16 Td
+(ATAJOS DE PRODUCTIVIDAD EN FIGMA:) Tj
+0 -16 Td
+(  F                   -> Herramienta Frame \(Desktop / Mobile\)) Tj
+0 -16 Td
+(  V / K               -> Mover \(V\) / Escalar proporcionalmente \(K\)) Tj
+0 -16 Td
+(  T                   -> Herramienta Texto) Tj
+0 -16 Td
+(  R / O / L           -> Rectangulo / Elipse / Linea) Tj
+0 -16 Td
+(  Shift + A           -> Aplicar Auto Layout responsivo) Tj
+0 -16 Td
+(  Ctrl + Alt + K      -> Crear Componente reutilizable) Tj
+0 -16 Td
+(  Espacio + arrastrar -> Herramienta Mano \(desplazarse en el lienzo\)) Tj
+0 -16 Td
+(  Ctrl + Shift + E    -> Exportar assets \(PNG / SVG / PDF\)) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(CHECKLIST DE DISENO UI/UX:) Tj
+0 -16 Td
+(  - Usar sistema de espaciado de 8px y grillas de columnas.) Tj
+0 -16 Td
+(  - Configurar Constraints para diseno adaptable.) Tj
+0 -16 Td
+(  - Verificar contraste de color accesible \(minimo 4.5:1 WCAG\).) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(REQUISITOS PARA CERTIFICACION:) Tj
+0 -16 Td
+(  1. Entregar cada practica de Figma en el Aula Virtual.) Tj
+0 -16 Td
+(  2. Aprobacion docente + Evaluacion Final.) Tj
+0 -16 Td
+ET
+endstream endobj
+5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001666 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1736
+%%EOF

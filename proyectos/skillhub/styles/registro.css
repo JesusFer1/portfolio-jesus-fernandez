@@ -1,0 +1,61 @@
+/* Dedicated Stylesheet for registro.php - SkillHub */
+@import url('estilos.css');
+@import url('login.css');
+
+.role-selector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.role-option {
+    position: relative;
+}
+
+.role-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.role-card-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 14px 10px;
+    background-color: var(--bg-main);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.role-card-label .role-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.role-card-label .role-title {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.role-card-label .role-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.role-option input[type="radio"]:checked + .role-card-label {
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(232, 74, 39, 0.2);
+}
+
+.role-option input[type="radio"]:checked + .role-card-label .role-title {
+    color: var(--primary);
+}

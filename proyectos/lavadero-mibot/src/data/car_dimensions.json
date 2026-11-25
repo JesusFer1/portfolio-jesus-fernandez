@@ -1,0 +1,312 @@
+{
+  "peugeot_208": {
+    "marca": "Peugeot",
+    "modelo": "208",
+    "largo_m": "4.05 m",
+    "ancho_m": "1.74 m",
+    "alto_m": "1.45 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Hatchback / Compacto",
+    "lavado_recomendado": "Lavado Completo (Exterior + Interior + Aspirado) - $14.000"
+  },
+  "peugeot_207": {
+    "marca": "Peugeot",
+    "modelo": "207",
+    "largo_m": "4.03 m",
+    "ancho_m": "1.67 m",
+    "alto_m": "1.44 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Hatchback / Compacto",
+    "lavado_recomendado": "Lavado Completo (Exterior + Interior + Aspirado) - $14.000"
+  },
+  "peugeot_308": {
+    "marca": "Peugeot",
+    "modelo": "308",
+    "largo_m": "4.27 m",
+    "ancho_m": "1.81 m",
+    "alto_m": "1.49 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Hatchback Mediano",
+    "lavado_recomendado": "Lavado Completo (Exterior + Interior + Aspirado) - $14.000"
+  },
+  "toyota_hilux": {
+    "marca": "Toyota",
+    "modelo": "Hilux",
+    "largo_m": "5.32 m",
+    "ancho_m": "1.85 m",
+    "alto_m": "1.81 m",
+    "categoria": "pickup",
+    "categoria_nombre": "Camioneta / Pick-up Grande",
+    "lavado_recomendado": "Lavado Completo o VIP Encerado para Pick-ups - $22.000"
+  },
+  "toyota_corolla": {
+    "marca": "Toyota",
+    "modelo": "Corolla",
+    "largo_m": "4.63 m",
+    "ancho_m": "1.78 m",
+    "alto_m": "1.43 m",
+    "categoria": "sedan",
+    "categoria_nombre": "Sedán Mediano",
+    "lavado_recomendado": "Lavado Completo (Exterior + Interior + Aspirado) - $14.000"
+  },
+  "toyota_etios": {
+    "marca": "Toyota",
+    "modelo": "Etios",
+    "largo_m": "3.77 m",
+    "ancho_m": "1.69 m",
+    "alto_m": "1.51 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Compacto",
+    "lavado_recomendado": "Lavado Simple o Completo - $14.000"
+  },
+  "toyota_yaris": {
+    "marca": "Toyota",
+    "modelo": "Yaris",
+    "largo_m": "4.14 m",
+    "ancho_m": "1.73 m",
+    "alto_m": "1.47 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Hatchback",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "toyota_sw4": {
+    "marca": "Toyota",
+    "modelo": "SW4",
+    "largo_m": "4.79 m",
+    "ancho_m": "1.85 m",
+    "alto_m": "1.83 m",
+    "categoria": "suv",
+    "categoria_nombre": "SUV Grande 7 Asientos",
+    "lavado_recomendado": "Lavado VIP Encerado o Completo SUV - $22.000"
+  },
+  "volkswagen_gol": {
+    "marca": "Volkswagen",
+    "modelo": "Gol",
+    "largo_m": "3.89 m",
+    "ancho_m": "1.65 m",
+    "alto_m": "1.46 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Compacto",
+    "lavado_recomendado": "Lavado Completo (Exterior + Interior) - $14.000"
+  },
+  "volkswagen_amarok": {
+    "marca": "Volkswagen",
+    "modelo": "Amarok",
+    "largo_m": "5.25 m",
+    "ancho_m": "1.95 m",
+    "alto_m": "1.83 m",
+    "categoria": "pickup",
+    "categoria_nombre": "Camioneta / Pick-up Doble Cabina",
+    "lavado_recomendado": "Lavado VIP Encerado o Completo Pick-up - $22.000"
+  },
+  "volkswagen_vento": {
+    "marca": "Volkswagen",
+    "modelo": "Vento",
+    "largo_m": "4.65 m",
+    "ancho_m": "1.78 m",
+    "alto_m": "1.48 m",
+    "categoria": "sedan",
+    "categoria_nombre": "Sedán Mediano",
+    "lavado_recomendado": "Lavado Completo con Limpieza de Baúl - $14.000"
+  },
+  "volkswagen_polo": {
+    "marca": "Volkswagen",
+    "modelo": "Polo",
+    "largo_m": "4.07 m",
+    "ancho_m": "1.75 m",
+    "alto_m": "1.47 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Hatchback",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "volkswagen_taos": {
+    "marca": "Volkswagen",
+    "modelo": "Taos",
+    "largo_m": "4.46 m",
+    "ancho_m": "1.84 m",
+    "alto_m": "1.62 m",
+    "categoria": "suv",
+    "categoria_nombre": "SUV Mediano",
+    "lavado_recomendado": "Lavado VIP Encerado Acrílico - $22.000"
+  },
+  "ford_ranger": {
+    "marca": "Ford",
+    "modelo": "Ranger",
+    "largo_m": "5.37 m",
+    "ancho_m": "1.91 m",
+    "alto_m": "1.88 m",
+    "categoria": "pickup",
+    "categoria_nombre": "Camioneta / Pick-up Grande",
+    "lavado_recomendado": "Lavado VIP Encerado para Pick-ups - $22.000"
+  },
+  "ford_focus": {
+    "marca": "Ford",
+    "modelo": "Focus",
+    "largo_m": "4.36 m",
+    "ancho_m": "1.82 m",
+    "alto_m": "1.48 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Hatchback / Sedán Mediano",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "ford_ecosport": {
+    "marca": "Ford",
+    "modelo": "EcoSport",
+    "largo_m": "4.26 m",
+    "ancho_m": "1.76 m",
+    "alto_m": "1.69 m",
+    "categoria": "suv",
+    "categoria_nombre": "SUV Compacto",
+    "lavado_recomendado": "Lavado Completo + Encerado Acrílico - $22.000"
+  },
+  "ford_ka": {
+    "marca": "Ford",
+    "modelo": "Ka",
+    "largo_m": "3.88 m",
+    "ancho_m": "1.69 m",
+    "alto_m": "1.52 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Compacto",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "chevrolet_onix": {
+    "marca": "Chevrolet",
+    "modelo": "Onix",
+    "largo_m": "4.16 m",
+    "ancho_m": "1.73 m",
+    "alto_m": "1.47 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Hatchback",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "chevrolet_cruze": {
+    "marca": "Chevrolet",
+    "modelo": "Cruze",
+    "largo_m": "4.66 m",
+    "ancho_m": "1.79 m",
+    "alto_m": "1.46 m",
+    "categoria": "sedan",
+    "categoria_nombre": "Sedán / Hatchback Mediano",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "chevrolet_tracker": {
+    "marca": "Chevrolet",
+    "modelo": "Tracker",
+    "largo_m": "4.27 m",
+    "ancho_m": "1.79 m",
+    "alto_m": "1.62 m",
+    "categoria": "suv",
+    "categoria_nombre": "SUV Compacto",
+    "lavado_recomendado": "Lavado Completo + Encerado Acrílico - $22.000"
+  },
+  "chevrolet_s10": {
+    "marca": "Chevrolet",
+    "modelo": "S10",
+    "largo_m": "5.36 m",
+    "ancho_m": "1.87 m",
+    "alto_m": "1.80 m",
+    "categoria": "pickup",
+    "categoria_nombre": "Camioneta Pick-up",
+    "lavado_recomendado": "Lavado VIP Encerado Pick-up - $22.000"
+  },
+  "chevrolet_corsa": {
+    "marca": "Chevrolet",
+    "modelo": "Corsa / Classic",
+    "largo_m": "4.04 m",
+    "ancho_m": "1.60 m",
+    "alto_m": "1.43 m",
+    "categoria": "sedan",
+    "categoria_nombre": "Compacto Sedán",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "fiat_cronos": {
+    "marca": "Fiat",
+    "modelo": "Cronos",
+    "largo_m": "4.36 m",
+    "ancho_m": "1.72 m",
+    "alto_m": "1.50 m",
+    "categoria": "sedan",
+    "categoria_nombre": "Sedán Compacto",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "fiat_toro": {
+    "marca": "Fiat",
+    "modelo": "Toro",
+    "largo_m": "4.94 m",
+    "ancho_m": "1.84 m",
+    "alto_m": "1.74 m",
+    "categoria": "pickup",
+    "categoria_nombre": "Camioneta Mediana",
+    "lavado_recomendado": "Lavado VIP Encerado - $22.000"
+  },
+  "renault_kangoo": {
+    "marca": "Renault",
+    "modelo": "Kangoo",
+    "largo_m": "4.50 m",
+    "ancho_m": "1.76 m",
+    "alto_m": "1.81 m",
+    "categoria": "utilitario",
+    "categoria_nombre": "Utilitario / Monovolumen",
+    "lavado_recomendado": "Lavado Completo con Aspirado - $14.000"
+  },
+  "renault_duster": {
+    "marca": "Renault",
+    "modelo": "Duster",
+    "largo_m": "4.37 m",
+    "ancho_m": "1.83 m",
+    "alto_m": "1.69 m",
+    "categoria": "suv",
+    "categoria_nombre": "SUV Mediano",
+    "lavado_recomendado": "Lavado Completo + Encerado Acrílico - $22.000"
+  },
+  "renault_sandero": {
+    "marca": "Renault",
+    "modelo": "Sandero / Stepway",
+    "largo_m": "4.07 m",
+    "ancho_m": "1.73 m",
+    "alto_m": "1.52 m",
+    "categoria": "hatchback",
+    "categoria_nombre": "Hatchback",
+    "lavado_recomendado": "Lavado Completo - $14.000"
+  },
+  "honda_civic": {
+    "marca": "Honda",
+    "modelo": "Civic",
+    "largo_m": "4.64 m",
+    "ancho_m": "1.80 m",
+    "alto_m": "1.41 m",
+    "categoria": "sedan",
+    "categoria_nombre": "Sedán Mediano",
+    "lavado_recomendado": "Lavado Completo o Tratamiento Cerámico - $14.000 / $65.000"
+  },
+  "honda_hrv": {
+    "marca": "Honda",
+    "modelo": "HR-V",
+    "largo_m": "4.33 m",
+    "ancho_m": "1.77 m",
+    "alto_m": "1.59 m",
+    "categoria": "suv",
+    "categoria_nombre": "SUV Compacto",
+    "lavado_recomendado": "Lavado VIP Encerado Acrílico - $22.000"
+  },
+  "jeep_compass": {
+    "marca": "Jeep",
+    "modelo": "Compass",
+    "largo_m": "4.40 m",
+    "ancho_m": "1.82 m",
+    "alto_m": "1.63 m",
+    "categoria": "suv",
+    "categoria_nombre": "SUV Mediano",
+    "lavado_recomendado": "Lavado VIP Encerado Acrílico - $22.000"
+  },
+  "jeep_renegade": {
+    "marca": "Jeep",
+    "modelo": "Renegade",
+    "largo_m": "4.23 m",
+    "ancho_m": "1.80 m",
+    "alto_m": "1.67 m",
+    "categoria": "suv",
+    "categoria_nombre": "SUV Compacto",
+    "lavado_recomendado": "Lavado VIP Encerado Acrílico - $22.000"
+  }
+}

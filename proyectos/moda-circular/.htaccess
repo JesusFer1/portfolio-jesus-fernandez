@@ -1,0 +1,29 @@
+# ========================================================
+# Ropero & Catálogo Escolar Solidario - Escuela Técnica 5
+# Configuración Apache para Servidor InfinityFree y XAMPP
+# ========================================================
+
+DirectoryIndex index.html index.php
+
+AddDefaultCharset UTF-8
+
+# MIME Types
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType application/json .json
+  AddType text/css .css
+  AddType image/svg+xml .svg
+  AddType image/x-icon .ico
+</IfModule>
+
+# Desactivar caché para scripts PHP y JSON para asegurar datos frescos
+<IfModule mod_headers.c>
+  <FilesMatch "\.(php|json)$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+# Desactivar listado de directorios
+Options -Indexes

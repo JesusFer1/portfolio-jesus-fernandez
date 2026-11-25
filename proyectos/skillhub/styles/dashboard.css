@@ -1,0 +1,188 @@
+/* Dedicated Stylesheet for dashboard.php - SkillHub */
+@import url('estilos.css');
+
+.dashboard-container {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 35px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.dashboard-header h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-top: 6px;
+}
+
+.header-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.dashboard-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.dash-stat-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dash-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.dash-stat-card h3 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.dash-stat-card p {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.dash-section {
+    margin-bottom: 50px;
+}
+
+.dash-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.dash-section h2 {
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.dash-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.dash-course-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.dash-course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-border);
+}
+
+.dash-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.dash-course-card h3 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    line-height: 1.25;
+}
+
+.dash-course-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.course-card-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    gap: 10px;
+}
+
+.card-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-card-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--text-main);
+    font-weight: 800;
+    font-size: 0.82rem;
+    padding: 7px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.btn-card-edit:hover {
+    background-color: var(--mustard);
+    color: #000;
+}
+
+.btn-card-view {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--primary);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.82rem;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--text-main);
+    text-decoration: none;
+    transition: background-color 0.15s;
+}
+
+.btn-card-view:hover {
+    background-color: var(--primary-hover);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 30px;
+    background-color: #ffffff;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius);
+}

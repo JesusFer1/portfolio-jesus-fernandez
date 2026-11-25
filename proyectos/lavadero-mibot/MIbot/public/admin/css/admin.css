@@ -1,0 +1,47 @@
+:root {
+  --admin-bg: #0b1329;
+  --admin-card: #162238;
+  --admin-border: #233554;
+  --admin-accent: #0284c7;
+  --admin-success: #10b981;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--admin-bg);
+  color: #f8fafc;
+}
+
+.metric-card {
+  background-color: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.metric-card:hover {
+  border-color: var(--admin-accent);
+  transform: translateY(-2px);
+}
+
+.table-row-even {
+  background-color: rgba(22, 34, 56, 0.4);
+}
+
+.table-row-odd {
+  background-color: rgba(15, 23, 42, 0.6);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b1329;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #233554;
+  border-radius: 3px;
+}

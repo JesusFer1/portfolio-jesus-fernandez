@@ -1,0 +1,14 @@
+# Dependencias pesadas
+node_modules/
+
+# Archivos de base de datos local
+*.db
+*.db-journal
+
+# Sesiones de WhatsApp (Se generan al escanear el QR)
+auth_info_baileys/
+
+# Archivos de entorno y logs
+.env
+.DS_Store
+*.log

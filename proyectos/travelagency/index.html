@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelAgency — Paquetes Turísticos y Experiencias de Viaje</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- HEADER STICKY -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#inicio" class="logo" onclick="showView('home'); return false;">
+        <span class="logo-box">TA</span>
+        <span class="logo-text">TravelAgency</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="#paquetes" onclick="goToSection('paquetes'); return false;">Destinos</a>
+        <a href="#paquetes" onclick="goToSection('paquetes'); return false;">Paquetes</a>
+        <a href="#nosotros" onclick="goToSection('nosotros'); return false;">Nosotros</a>
+        <a href="#contacto" onclick="goToSection('contacto'); return false;">Contacto</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" id="authHeaderBtn" class="link-btn desktop-only" onclick="openAuthModal('login')">Ingresar</button>
+        <button type="button" id="registerHeaderBtn" class="btn-outline sm-hdr desktop-only" onclick="openAuthModal('register')">Registrarse</button>
+        <button type="button" class="cart-btn" onclick="showView('cart')" aria-label="Ver carrito de compras">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span id="cartBadge" class="cart-badge">0</span>
+        </button>
+        <button type="button" class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menú">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- MENÚ MÓVIL -->
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="#paquetes" onclick="goToSection('paquetes'); toggleMobileMenu(); return false;">Destinos</a>
+      <a href="#paquetes" onclick="goToSection('paquetes'); toggleMobileMenu(); return false;">Paquetes</a>
+      <a href="#nosotros" onclick="goToSection('nosotros'); toggleMobileMenu(); return false;">Nosotros</a>
+      <a href="#contacto" onclick="goToSection('contacto'); toggleMobileMenu(); return false;">Contacto</a>
+      <button type="button" class="mobile-auth-btn" onclick="openAuthModal('login'); toggleMobileMenu();">Iniciar Sesión</button>
+      <button type="button" class="mobile-auth-btn" style="color:#4A90E2;font-weight:600;" onclick="openAuthModal('register'); toggleMobileMenu();">Crear Cuenta (Registrarse)</button>
+    </div>
+  </header>
+
+  <main id="appMain">
+
+    <!-- =========================================================
+         VISTA 1: HOME
+         ========================================================= -->
+    <div id="view-home" class="page-view active">
+      <!-- HERO -->
+      <section id="inicio" class="hero-section">
+        <div class="container hero-grid">
+          <div class="hero-text">
+            <h1>Descubre Tu Próxima Aventura</h1>
+            <p class="hero-sub">Experiencias de viaje curadas hacia los destinos más cautivadores del mundo</p>
+
+            <form class="search-bar" onsubmit="handleSearch(event)">
+              <div class="search-input-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8a8a8a" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input id="searchInput" type="text" placeholder="Buscar destinos (Europa, Tokio, Caribe, Argentina...)" oninput="filterPackages(this.value)">
+              </div>
+              <button type="submit" class="btn-primary">Buscar</button>
+            </form>
+          </div>
+
+          <div class="hero-img-wrap">
+            <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop" alt="Destinos de viaje TravelAgency">
+          </div>
+        </div>
+      </section>
+
+      <!-- PAQUETES DESTACADOS -->
+      <section id="paquetes" class="section-gray">
+        <div class="container">
+          <div class="section-header-row">
+            <div>
+              <h2>Paquetes Destacados</h2>
+              <p class="muted">Experiencias de viaje seleccionadas para jornadas inolvidables</p>
+            </div>
+            <button type="button" id="clearSearchBtn" class="btn-outline" style="display:none;" onclick="clearSearch()">Ver todos los paquetes</button>
+          </div>
+
+          <div id="packagesGrid" class="packages-grid"></div>
+        </div>
+      </section>
+
+      <!-- FAQS & CONSEJOS DE VIAJE -->
+      <section id="faqs" class="section-white">
+        <div class="container faq-layout">
+          <div>
+            <h2>Preguntas Frecuentes</h2>
+            <p class="muted" style="margin-bottom: 32px;">Todo lo que necesitas saber sobre reservar con nosotros</p>
+            <div id="faqAccordion" class="faq-list"></div>
+          </div>
+
+          <aside>
+            <h3 class="sidebar-title">Consejos de Viaje</h3>
+            <div class="tips-stack">
+              <div class="tip-card">
+                <h4>Mejor Momento para Reservar</h4>
+                <p>Reserva con 3-6 meses de anticipación para mejores tarifas</p>
+              </div>
+              <div class="tip-card">
+                <h4>Empaca Inteligentemente</h4>
+                <p>Revisa el clima y empaca ropa versátil</p>
+              </div>
+              <div class="tip-card">
+                <h4>Mantente Conectado</h4>
+                <p>Considera planes de datos internacionales</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- SOBRE TRAVELAGENCY -->
+      <section id="nosotros" class="section-gray">
+        <div class="container about-grid">
+          <div class="about-img-wrap">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&h=600&fit=crop" alt="Sobre TravelAgency">
+          </div>
+          <div>
+            <h2 style="margin-bottom: 24px;">Sobre TravelAgency</h2>
+            <p class="about-p">
+              Durante más de 20 años, hemos estado creando experiencias de viaje excepcionales que generan recuerdos duraderos. Nuestro equipo experto de especialistas en viajes aporta conocimiento incomparable y servicio personalizado a cada jornada.
+            </p>
+            <p class="about-p" style="margin-bottom: 32px;">
+              Creemos que viajar enriquece vidas, amplía perspectivas y conecta culturas. Por eso estamos dedicados a ofrecer experiencias auténticas y fluidas que van más allá de lo ordinario.
+            </p>
+            <div class="stats-3">
+              <div>
+                <div class="stat-val">20+</div>
+                <div class="stat-lbl">Años de Experiencia</div>
+              </div>
+              <div>
+                <div class="stat-val">150+</div>
+                <div class="stat-lbl">Destinos</div>
+              </div>
+              <div>
+                <div class="stat-val">50K+</div>
+                <div class="stat-lbl">Viajeros Felices</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================
+         VISTA 2: DETALLE DE PAQUETE
+         ========================================================= -->
+    <div id="view-detail" class="page-view">
+      <div class="section-gray" style="padding: 48px 0;">
+        <div class="container">
+          <div class="breadcrumb">
+            <a href="#inicio" onclick="showView('home'); return false;">Inicio</a>
+            <span>/</span>
+            <span id="detailBreadcrumb" class="current">Paquete</span>
+          </div>
+
+          <div class="detail-grid">
+            <!-- COLUMNA IZQUIERDA -->
+            <div class="detail-left">
+              <!-- GALERÍA -->
+              <div class="card-box gallery-card">
+                <div class="gallery-main">
+                  <img id="galleryMainImg" src="" alt="Vista del destino">
+                  <button type="button" class="gallery-arrow left" onclick="prevGalleryImg()" aria-label="Anterior">&#8249;</button>
+                  <button type="button" class="gallery-arrow right" onclick="nextGalleryImg()" aria-label="Siguiente">&#8250;</button>
+                  <div id="galleryDots" class="gallery-dots"></div>
+                </div>
+                <div id="galleryThumbs" class="gallery-thumbs"></div>
+              </div>
+
+              <!-- INFO GENERAL -->
+              <div class="card-box pad-box">
+                <div class="detail-header-row">
+                  <div>
+                    <h1 id="detailTitle" class="detail-h1"></h1>
+                    <div class="detail-meta-row">
+                      <span id="detailLocation"></span>
+                      <span>•</span>
+                      <span id="detailDuration"></span>
+                    </div>
+                  </div>
+                  <div class="rating-pill">
+                    <span class="star-icon">&#9733;</span>
+                    <strong id="detailRating"></strong>
+                    <span id="detailReviews" class="muted"></span>
+                  </div>
+                </div>
+                <div class="divider-top">
+                  <h2 class="sub-h2">Descripción</h2>
+                  <p id="detailDesc" class="body-p"></p>
+                </div>
+              </div>
+
+              <!-- DESTACADOS -->
+              <div class="card-box pad-box">
+                <h2 class="sub-h2">Destacados del Viaje</h2>
+                <ul id="detailHighlights" class="check-grid-2"></ul>
+              </div>
+
+              <!-- QUÉ INCLUYE / NO INCLUYE -->
+              <div class="card-box pad-box">
+                <div class="inc-grid-2">
+                  <div>
+                    <h2 class="sub-h2">Qué Incluye</h2>
+                    <ul id="detailIncluded" class="check-list"></ul>
+                  </div>
+                  <div>
+                    <h2 class="sub-h2">No Incluye</h2>
+                    <ul id="detailNotIncluded" class="dash-list"></ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- COMPLEMENTOS OPCIONALES -->
+              <div class="card-box pad-box">
+                <h2 class="sub-h2">Complementos Opcionales</h2>
+                <p class="muted" style="margin-bottom: 20px;">Mejora tu experiencia con estos extras opcionales</p>
+                <div id="detailAddOns" class="addons-list"></div>
+              </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: WIDGET DE RESERVA -->
+            <div class="detail-right">
+              <div class="card-box pad-sm sticky-widget">
+                <h3 class="widget-title">Reservar Este Paquete</h3>
+
+                <div class="travelers-box">
+                  <label class="muted-lbl">Número de Viajeros</label>
+                  <div class="stepper">
+                    <button type="button" class="step-btn" onclick="changeDetailTravelers(-1)">-</button>
+                    <span id="detailTravelersVal" class="step-val">2</span>
+                    <button type="button" class="step-btn" onclick="changeDetailTravelers(1)">+</button>
+                  </div>
+                </div>
+
+                <div class="price-breakdown">
+                  <h4>Desglose de Precio</h4>
+                  <div class="pb-row">
+                    <span id="pbBaseLabel">Precio base × 2</span>
+                    <span id="pbBaseVal">$0</span>
+                  </div>
+                  <div id="pbAddOnsRow" class="pb-row" style="display:none;">
+                    <span id="pbAddOnsLabel">Complementos (0)</span>
+                    <span id="pbAddOnsVal">+$0</span>
+                  </div>
+                  <div class="pb-row">
+                    <span>Impuestos nacionales (8%)</span>
+                    <span id="pbTaxVal">+$0.00</span>
+                  </div>
+                  <div class="pb-total">
+                    <strong>Precio Final</strong>
+                    <span id="pbFinalVal" class="price-blue">$0.00</span>
+                  </div>
+                </div>
+
+                <button type="button" class="btn-primary full" style="margin-bottom: 12px;" onclick="addCurrentPackageToCart(false)">
+                  Agregar al Carrito
+                </button>
+                <button type="button" class="btn-outline full" onclick="addCurrentPackageToCart(true)">
+                  Reservar Ahora
+                </button>
+
+                <ul class="trust-list">
+                  <li>Cancelación gratuita hasta 30 días</li>
+                  <li>Reserva ahora, paga después</li>
+                  <li>Soporte al cliente 24/7</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         VISTA 3: CARRITO DE COMPRAS Y CHECKOUT
+         ========================================================= -->
+    <div id="view-cart" class="page-view">
+      <div class="section-gray" style="padding: 48px 0; min-height: calc(100vh - 80px);">
+        <div class="container">
+          <div class="breadcrumb">
+            <a href="#inicio" onclick="showView('home'); return false;">Inicio</a>
+            <span>/</span>
+            <span class="current">Carrito de Compras</span>
+          </div>
+
+          <h1 class="detail-h1" style="margin-bottom: 36px;">Carrito de Compras</h1>
+
+          <div id="cartEmptyState" class="card-box pad-box" style="text-align:center; display:none;">
+            <p class="muted" style="margin-bottom: 24px;">Tu carrito está vacío</p>
+            <button type="button" class="btn-primary" onclick="showView('home')">Explorar Paquetes</button>
+          </div>
+
+          <div id="cartContentGrid" class="detail-grid">
+            <!-- ITEMS DEL CARRITO -->
+            <div class="detail-left">
+              <div id="cartItemsList" class="cart-list"></div>
+              <a href="#paquetes" class="continue-link" onclick="showView('home'); return false;">&larr; Continuar Comprando</a>
+            </div>
+
+            <!-- RESUMEN Y MÉTODO DE PAGO -->
+            <div class="detail-right" style="display:flex; flex-direction:column; gap:24px;">
+              <div class="card-box pad-sm">
+                <h2 class="sub-h2" style="margin-bottom: 20px;">Resumen del Pedido</h2>
+                <div class="pb-row">
+                  <span id="cartSubtotalLabel">Subtotal (0 viajeros)</span>
+                  <span id="cartSubtotalVal">$0</span>
+                </div>
+                <div class="pb-row">
+                  <span>Impuestos nacionales (8%)</span>
+                  <span id="cartTaxVal">$0.00</span>
+                </div>
+                <div class="pb-total" style="margin-bottom: 20px;">
+                  <strong>Total a Pagar</strong>
+                  <span id="cartTotalVal" class="price-blue">$0.00</span>
+                </div>
+                <div class="secure-box">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A90E2" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <div>
+                    <strong>Pago Seguro</strong>
+                    <p>Tu información de pago está encriptada y segura</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-box pad-sm">
+                <h2 class="sub-h2" style="margin-bottom: 20px;">Método de Pago</h2>
+                <div class="pay-methods">
+                  <label class="pay-option active" onclick="selectPayment('credit', this)">
+                    <input type="radio" name="payment" value="credit" checked>
+                    <div>
+                      <strong>Tarjeta de Crédito / Débito</strong>
+                      <small>Visa, Mastercard, Amex · Hasta 12 cuotas</small>
+                    </div>
+                  </label>
+                  <label class="pay-option" onclick="selectPayment('bank', this)">
+                    <input type="radio" name="payment" value="bank">
+                    <div>
+                      <strong>Transferencia Bancaria</strong>
+                      <small>CBU / Alias directo sin recargo</small>
+                    </div>
+                  </label>
+                  <label class="pay-option" onclick="selectPayment('paypal', this)">
+                    <input type="radio" name="payment" value="paypal">
+                    <div>
+                      <strong>PayPal</strong>
+                      <small>Pago internacional rápido y seguro</small>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <button type="button" class="btn-primary full" onclick="openPaymentGateway()">Proceder al Pago</button>
+
+              <ul class="dot-trust-list">
+                <li>Cancelación gratuita hasta 30 días</li>
+                <li>Confirmación de reserva instantánea</li>
+                <li>Soporte al cliente 24/7</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contacto" class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="f-col-brand">
+          <div class="logo" style="margin-bottom: 20px;">
+            <span class="logo-box">TA</span>
+            <span class="logo-text" style="color:#fff;">TravelAgency</span>
+          </div>
+          <p class="footer-desc">
+            Tu socio de confianza para experiencias de viaje inolvidables alrededor del mundo.
+          </p>
+          <div class="social-row">
+            <a href="#contacto" onclick="showToast('Síguenos en Facebook: @TravelAgency'); return false;">FB</a>
+            <a href="#contacto" onclick="showToast('Síguenos en Instagram: @TravelAgency'); return false;">IG</a>
+            <a href="#contacto" onclick="showToast('Síguenos en X/Twitter: @TravelAgency'); return false;">TW</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Enlaces Rápidos</h3>
+          <ul>
+            <li><a href="#inicio" onclick="showView('home'); return false;">Inicio</a></li>
+            <li><a href="#paquetes" onclick="goToSection('paquetes'); return false;">Destinos</a></li>
+            <li><a href="#paquetes" onclick="goToSection('paquetes'); return false;">Paquetes</a></li>
+            <li><a href="#nosotros" onclick="goToSection('nosotros'); return false;">Nosotros</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Soporte</h3>
+          <ul>
+            <li><a href="#faqs" onclick="goToSection('faqs'); return false;">Preguntas Frecuentes</a></li>
+            <li><a href="#faqs" onclick="goToSection('faqs'); return false;">Consejos de Viaje</a></li>
+            <li><a href="#faqs" onclick="goToSection('faqs'); return false;">Política de Reservas</a></li>
+            <li><a href="#contacto" onclick="goToSection('contacto'); return false;">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Destinos Populares</h3>
+          <ul>
+            <li><a href="#paquetes" onclick="quickFilter('Europa'); return false;">Europa</a></li>
+            <li><a href="#paquetes" onclick="quickFilter('Asiática'); return false;">Asia</a></li>
+            <li><a href="#paquetes" onclick="quickFilter('Sudamericano'); return false;">América</a></li>
+            <li><a href="#paquetes" onclick="quickFilter('Africano'); return false;">África</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contáctanos</h3>
+          <ul class="contact-list">
+            <li>123 Travel Street, NY 10001</li>
+            <li>+1 (555) 123-4567</li>
+            <li>info@travelagency.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 TravelAgency. Todos los derechos reservados.</p>
+        <div class="footer-legal">
+          <a href="#contacto" onclick="showToast('Política de Privacidad vigente 2026'); return false;">Política de Privacidad</a>
+          <a href="#contacto" onclick="showToast('Términos de Servicio TravelAgency'); return false;">Términos de Servicio</a>
+          <a href="#contacto" onclick="showToast('Preferencias de Cookies guardadas'); return false;">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL INGRESAR / REGISTRO / MI CUENTA -->
+  <div id="authModal" class="ta-modal" role="dialog" aria-modal="true">
+    <div class="ta-modal-box">
+      <div class="ta-modal-head">
+        <h3 id="authModalTitle">Ingresar a TravelAgency</h3>
+        <button type="button" class="ta-modal-x" onclick="closeAuthModal()">✕</button>
+      </div>
+
+      <div id="authFormsSection">
+        <div class="auth-tabs">
+          <button type="button" id="tabLoginBtn" class="auth-tab active" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+          <button type="button" id="tabRegisterBtn" class="auth-tab" onclick="switchAuthTab('register')">Crear Cuenta</button>
+        </div>
+
+        <div id="authErrorMsg" class="auth-error" style="display:none;"></div>
+
+        <!-- FORMULARIO LOGIN -->
+        <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="ta-form">
+          <label>Correo Electrónico</label>
+          <input id="loginEmail" type="email" required placeholder="tu@email.com">
+          <label>Contraseña</label>
+          <input id="loginPass" type="password" required placeholder="••••••••">
+          <button type="submit" class="btn-primary full">Iniciar Sesión</button>
+          <p class="auth-hint">Cuenta de prueba: <strong>demo@travelagency.com</strong> / <strong>1234</strong></p>
+        </form>
+
+        <!-- FORMULARIO REGISTRO -->
+        <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="ta-form" style="display:none;">
+          <label>Nombre y Apellido *</label>
+          <input id="regName" type="text" required placeholder="Ej. Sofía Martínez">
+          <label>Correo Electrónico *</label>
+          <input id="regEmail" type="email" required placeholder="sofia@email.com">
+          <label>Teléfono (Opcional)</label>
+          <input id="regPhone" type="tel" placeholder="+54 11 5555-1234">
+          <div class="two-col">
+            <div>
+              <label>Contraseña *</label>
+              <input id="regPass" type="password" required minlength="4" placeholder="Mín. 4 caracteres">
+            </div>
+            <div>
+              <label>Confirmar *</label>
+              <input id="regPass2" type="password" required minlength="4" placeholder="Repetir clave">
+            </div>
+          </div>
+          <button type="submit" class="btn-primary full" style="margin-top:6px;">Crear Mi Cuenta</button>
+        </form>
+      </div>
+
+      <div id="authLoggedWrap" style="display:none;">
+        <p class="body-p" style="margin-bottom:16px;">Sesión iniciada como <strong id="loggedUserLabel"></strong>.</p>
+        <div id="userBookingsList" style="margin-bottom:18px;"></div>
+        <button type="button" class="btn-outline full" onclick="logoutUser()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PASARELA DE PAGO SEGURA -->
+  <div id="gatewayModal" class="ta-modal" role="dialog" aria-modal="true">
+    <div class="ta-modal-box gw-box">
+      <div class="ta-modal-head">
+        <div>
+          <h3 id="gwTitle">Pasarela de Pago Segura</h3>
+          <span class="gw-ssl">Conexión cifrada TLS 256-bit · TravelAgency Pay</span>
+        </div>
+        <button type="button" class="ta-modal-x" onclick="closePaymentGateway()">✕</button>
+      </div>
+
+      <div id="gwBody">
+        <div class="gw-summary-bar">
+          <span id="gwItemsDesc">Paquetes en carrito</span>
+          <strong id="gwAmountTotal" class="price-blue" style="font-size:1.25rem;">$0.00 USD</strong>
+        </div>
+
+        <form id="gatewayForm" onsubmit="submitGatewayPayment(event)" class="ta-form">
+          <div class="two-col">
+            <div>
+              <label>Nombre del Titular / Viajero *</label>
+              <input id="gwHolder" type="text" required placeholder="Como figura en la tarjeta" oninput="updateCardPreview()">
+            </div>
+            <div>
+              <label>Correo para Vouchers *</label>
+              <input id="gwEmail" type="email" required placeholder="tu@email.com">
+            </div>
+          </div>
+
+          <!-- BLOQUE TARJETA DE CRÉDITO -->
+          <div id="gwCreditSection">
+            <div class="card-visual">
+              <div class="card-visual-top">
+                <span class="card-chip"></span>
+                <span id="cardBrandBadge" class="card-brand">VISA</span>
+              </div>
+              <div id="cardNumPreview" class="card-num-preview">•••• •••• •••• ••••</div>
+              <div class="card-visual-bottom">
+                <div>
+                  <small>TITULAR</small>
+                  <div id="cardNamePreview">NOMBRE DEL TITULAR</div>
+                </div>
+                <div style="text-align:right;">
+                  <small>VENCE</small>
+                  <div id="cardExpPreview">MM/AA</div>
+                </div>
+              </div>
+            </div>
+
+            <label>Número de Tarjeta *</label>
+            <input id="gwCardNum" type="text" maxlength="19" placeholder="4532 1234 5678 9012" oninput="formatCardNumber(this)">
+
+            <div class="three-col">
+              <div>
+                <label>Vencimiento *</label>
+                <input id="gwCardExp" type="text" maxlength="5" placeholder="MM/AA" oninput="formatCardExp(this)">
+              </div>
+              <div>
+                <label>CVV *</label>
+                <input id="gwCardCvv" type="password" maxlength="4" placeholder="123">
+              </div>
+              <div>
+                <label>DNI / Pasaporte *</label>
+                <input id="gwCardDni" type="text" placeholder="40.123.456">
+              </div>
+            </div>
+
+            <label>Plan de Cuotas</label>
+            <select id="gwInstallments" class="ta-select"></select>
+          </div>
+
+          <!-- BLOQUE TRANSFERENCIA BANCARIA -->
+          <div id="gwBankSection" style="display:none;">
+            <div class="bank-info-card">
+              <div class="bank-row"><span>Banco:</span><strong>Banco Nación / Santander Empresas</strong></div>
+              <div class="bank-row"><span>Titular:</span><strong>TravelAgency Turística S.A.</strong></div>
+              <div class="bank-row">
+                <span>CBU:</span>
+                <span><strong>0110599520000048291042</strong> <button type="button" class="copy-mini" onclick="copyText('0110599520000048291042')">Copiar</button></span>
+              </div>
+              <div class="bank-row">
+                <span>Alias:</span>
+                <span><strong>TRAVEL.AGENCY.OK</strong> <button type="button" class="copy-mini" onclick="copyText('TRAVEL.AGENCY.OK')">Copiar</button></span>
+              </div>
+            </div>
+            <label>Número de Comprobante / Operación *</label>
+            <input id="gwBankRef" type="text" placeholder="Ej. TRF-98451200">
+          </div>
+
+          <!-- BLOQUE PAYPAL -->
+          <div id="gwPaypalSection" style="display:none;">
+            <div class="paypal-card">
+              <strong>PayPal Express Checkout</strong>
+              <p>Serás redirigido de forma simulada a tu cuenta PayPal para autorizar el pago protegido en USD.</p>
+            </div>
+            <label>Correo de tu cuenta PayPal *</label>
+            <input id="gwPaypalEmail" type="email" placeholder="tu-cuenta@paypal.com">
+          </div>
+
+          <div id="gwErrorMsg" class="auth-error" style="display:none;"></div>
+
+          <button type="submit" id="gwSubmitBtn" class="btn-primary full" style="margin-top:8px;">Confirmar y Pagar Ahora</button>
+        </form>
+      </div>
+
+      <!-- ESTADO PROCESANDO -->
+      <div id="gwProcessing" style="display:none; text-align:center; padding:42px 16px;">
+        <div class="ta-spinner"></div>
+        <h4 style="margin-top:18px; margin-bottom:6px;">Procesando pago de forma segura...</h4>
+        <p class="muted" style="font-size:0.9rem;">Verificando autorización bancaria y emitiendo tus vouchers.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMACIÓN DE RESERVA / VOUCHER -->
+  <div id="confirmModal" class="ta-modal" role="dialog" aria-modal="true">
+    <div class="ta-modal-box" style="text-align:center; max-width:480px;">
+      <div class="confirm-check">&#10003;</div>
+      <h3 style="margin-bottom:8px;">¡Pago Aprobado y Reserva Confirmada!</h3>
+      <p id="confirmText" class="body-p" style="margin-bottom:14px;"></p>
+      <div id="confirmCode" class="confirm-code">TA-2026-0000</div>
+      <div id="confirmDetails" class="voucher-box"></div>
+      <div class="two-col" style="margin-top:16px;">
+        <button type="button" class="btn-outline full" onclick="window.print()">Imprimir Voucher</button>
+        <button type="button" class="btn-primary full" onclick="closeConfirmModal()">Volver al Inicio</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="taToast" class="ta-toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiblioTec - Biblioteca Virtual E.E.S.T. N° 5 Berazategui</title>
+
+    <link rel="stylesheet" href="assets/css/estilos.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <header class="cabecera">
+        <div class="contenedor cabecera-flex">
+
+            <div class="logo-seccion">
+
+                <img src="assets/img/logo.jpg" alt="" class="logo-imagen">
+
+                <div>
+                    <h1 class="logo-titulo">BiblioTec</h1>
+                    <span class="logo-subtitulo">E.E.S.T. N° 5 • Berazategui</span>
+                </div>
+
+            </div>
+
+            <nav class="navegacion" style="gap: 10px;">
+
+                <button type="button" onclick="window.BiblioTecStore.entrarComoAdmin()" class="boton-acceso" style="background: #4f46e5; border-color: #4338ca; cursor: pointer;">
+                    <i data-lucide="shield"></i>
+                    Panel Admin
+                </button>
+
+                <a href="login.html" class="boton-acceso">
+                    <i data-lucide="user"></i>
+                    Acceso Docentes
+                </a>
+
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="contenedor principal">
+
+        <section class="banner">
+
+            <div class="banner-contenido">
+
+                <h2 class="banner-titulo">
+                    Encontrá el material de tu curso
+                </h2>
+
+                <p class="banner-descripcion">
+                    Seleccioná tu año y la división correspondiente para acceder al instante a apuntes, planos, códigos y ejecutables de las distintas especialidades.
+                </p>
+
+            </div>
+
+            <div class="banner-decoracion">
+                <i data-lucide="cloud-lightning"></i>
+            </div>
+
+        </section>
+
+        <section class="seccion-acordeones">
+
+            <h3 class="titulo-seccion">
+                Cursos y Especialidades
+            </h3>
+
+            <!-- 4 -->
+            <div class="acordeon">
+
+                <button class="acordeon-cabecera" data-anio="4">
+
+                    <span class="acordeon-titulo">
+                        4° Año
+                    </span>
+
+                    <i data-lucide="chevron-down" class="icono-flecha"></i>
+
+                </button>
+
+                <div class="acordeon-contenido">
+
+                    <div class="divisiones-lista">
+
+                        <div class="division-bloque" data-anio="4" data-division="1">
+                            <h4 class="division-nombre">4°1° - Informática</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                        <div class="division-bloque" data-anio="4" data-division="2">
+                            <h4 class="division-nombre">4°2° - Programación</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                        <div class="division-bloque" data-anio="4" data-division="3">
+                            <h4 class="division-nombre">4°3° - Maestro Mayor de Obra</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 5 -->
+            <div class="acordeon">
+
+                <button class="acordeon-cabecera" data-anio="5">
+
+                    <span class="acordeon-titulo">
+                        5° Año
+                    </span>
+
+                    <i data-lucide="chevron-down" class="icono-flecha"></i>
+
+                </button>
+
+                <div class="acordeon-contenido">
+
+                    <div class="divisiones-lista">
+
+                        <div class="division-bloque" data-anio="5" data-division="1">
+                            <h4 class="division-nombre">5°1° - Informática</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                        <div class="division-bloque" data-anio="5" data-division="2">
+                            <h4 class="division-nombre">5°2° - Programación</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                        <div class="division-bloque" data-anio="5" data-division="3">
+                            <h4 class="division-nombre">5°3° - Maestro Mayor de Obra</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 6 -->
+            <div class="acordeon">
+
+                <button class="acordeon-cabecera" data-anio="6">
+
+                    <span class="acordeon-titulo">
+                        6° Año
+                    </span>
+
+                    <i data-lucide="chevron-down" class="icono-flecha"></i>
+
+                </button>
+
+                <div class="acordeon-contenido">
+
+                    <div class="divisiones-lista">
+
+                        <div class="division-bloque" data-anio="6" data-division="1">
+                            <h4 class="division-nombre">6°1° - Informática</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                        <div class="division-bloque" data-anio="6" data-division="2">
+                            <h4 class="division-nombre">6°2° - Programación</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                        <div class="division-bloque" data-anio="6" data-division="3">
+                            <h4 class="division-nombre">6°3° - Maestro Mayor de Obra</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 7 -->
+            <div class="acordeon">
+
+                <button class="acordeon-cabecera" data-anio="7">
+
+                    <span class="acordeon-titulo">
+                        7° Año
+                    </span>
+
+                    <i data-lucide="chevron-down" class="icono-flecha"></i>
+
+                </button>
+
+                <div class="acordeon-contenido">
+
+                    <div class="divisiones-lista">
+
+                        <div class="division-bloque" data-anio="7" data-division="1">
+                            <h4 class="division-nombre">7°1° - Informática</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                        <div class="division-bloque" data-anio="7" data-division="2">
+                            <h4 class="division-nombre">7°2° - Programación</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                        <div class="division-bloque" data-anio="7" data-division="3">
+                            <h4 class="division-nombre">7°3° - Maestro Mayor de Obra</h4>
+                            <div class="archivos-lista-container"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="seccion-historial">
+
+            <div class="historial-cabecera">
+
+                <h3 class="titulo-seccion">
+                    Historial de Publicaciones
+                </h3>
+
+                <span class="badge-sincronizacion">
+                    Sincronizado vía Cloud Storage
+                </span>
+
+            </div>
+
+            <div class="buscador-historial-contenedor">
+
+                <i data-lucide="search" class="icono-buscar"></i>
+
+                <input
+                    type="text"
+                    id="buscador-historial"
+                    placeholder="Buscar en el historial de archivos subidos..."
+                >
+
+            </div>
+
+            <div id="contenedor-historial" class="grilla-archivos"></div>
+
+            <div id="historial-vacio" class="estado-vacio oculto">
+
+                <i data-lucide="folder-open"></i>
+
+                <h4>No se encontraron archivos</h4>
+
+                <p>
+                    No hay publicaciones registradas que coincidan con la búsqueda.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="pie-pagina">
+
+        <div class="contenedor pie-flex">
+
+            <div class="pie-institucion">
+
+                <p class="pie-nombre">
+                    E.E.S.T. N° 5 de Berazategui
+                </p>
+
+                <p class="pie-subtexto">
+                    Desarrollo Tecnológico de la Especialidad de Programación
+                </p>
+
+            </div>
+
+            <div class="pie-enlaces">
+
+                <a href="https://tecnica5berazategui.com/" target="_blank">
+                    Sitio Institucional
+                </a>
+
+                <span class="separador">|</span>
+
+                <span class="pie-version">
+                    Cloud Storage Online (BETA 1.0)
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- BOTON SUBIR -->
+    <button id="botonSubir" class="boton-subir">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <script src="assets/js/bibliotec-store.js"></script>
+    <script src="assets/js/biblioteca.js"></script>
+
+    <script>
+
+        lucide.createIcons();
+
+        const botonSubir = document.getElementById("botonSubir");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 300) {
+                botonSubir.classList.add("mostrar");
+            } else {
+                botonSubir.classList.remove("mostrar");
+            }
+
+        });
+
+        botonSubir.addEventListener("click", () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

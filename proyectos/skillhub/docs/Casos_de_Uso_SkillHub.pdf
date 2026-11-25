@@ -1,0 +1,46 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >> endobj
+4 0 obj << /Length 1042 >> stream
+BT
+/F1 15 Tf
+48 790 Td
+(SkillHub - Especificacion de Casos de Uso) Tj
+/F1 10 Tf
+0 -24 Td
+(CU-01: Registro y Autenticacion por Rol \(Estudiante, Instructor, Administrador\).) Tj
+0 -15 Td
+(CU-02: Exploracion del Catalogo por Secciones y Busqueda de Cursos.) Tj
+0 -15 Td
+(CU-03: Inscripcion y Pasarela de Pago \(Curso individual o Membresia Pro/VIP\).) Tj
+0 -15 Td
+(CU-04: Cursado en Aula Virtual y Envio de Trabajo Practico por Clase.) Tj
+0 -15 Td
+(CU-05: Correccion de Tareas por el Instructor \(Aprobar / Pedir Correccion + Nota + Feedback\).) Tj
+0 -15 Td
+(CU-06: Evaluacion Final \(Desbloqueada al aprobar todas las tareas de las clases\).) Tj
+0 -15 Td
+(CU-07: Emision de Certificado Oficial Verificable \(Desbloqueado tras tareas + examen final\).) Tj
+0 -15 Td
+(CU-08: Creacion y Edicion de Cursos, Lecciones y PDFs de Apoyo \(Instructor/Admin\).) Tj
+0 -15 Td
+(CU-09: Participacion, Busqueda y Moderacion del Foro Comunitario.) Tj
+0 -15 Td
+(CU-10: Administracion Global de Usuarios, Roles, Cursos y Pagos \(Administrador\).) Tj
+0 -15 Td
+ET
+endstream endobj
+5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001334 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1404
+%%EOF
