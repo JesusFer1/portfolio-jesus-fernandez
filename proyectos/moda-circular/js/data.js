@@ -102,7 +102,7 @@ export const INITIAL_CLOTHING = [
     condition: "Muy Bueno",
     status: "Disponible",
     description: "Pantalón de jean tiro medio, tela resistente.",
-    image: "https://images.unsplash.com/photo-1542272604-780c36856842?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80",
     donor: "Ropero EEST5",
     createdAt: "2026-10-18T12:00:00Z"
   },
@@ -172,7 +172,7 @@ export const INITIAL_SUPPLIES = [
     condition: "Excelente",
     status: "Disponible",
     description: "Escuadras, transportador, regla de 30cm y compás metálico.",
-    image: "https://images.unsplash.com/photo-1585336261026-8f5786372969?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=600&q=80",
     donor: "Anónimo",
     createdAt: "2026-09-16T17:00:00Z"
   }

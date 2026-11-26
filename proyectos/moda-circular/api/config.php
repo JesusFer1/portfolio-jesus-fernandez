@@ -58,10 +58,18 @@ if (file_exists(__DIR__ . '/config.local.php')) {
  * Si $exitOnError es false, retorna null.
  */
 function getDB($exitOnError = true) {
-    global $DB_HOST, $DB_PORT, $DB_NAME, $DB_USER, $DB_PASS;
+    global $DB_HOST, $DB_PORT, $DB_NAME, $DB_USER, $DB_PASS, $httpHost;
     
     static $pdo = null;
     static $hasCheckedSchema = false;
+
+    // En Render no existe acceso externo al MySQL de InfinityFree: responder al instante en modo demo
+    if (getenv('RENDER') || stripos($httpHost ?? '', 'onrender.com') !== false) {
+        if ($exitOnError) {
+            jsonError('Modo demostración sin MySQL externo.', 503);
+        }
+        return null;
+    }
 
     if ($pdo !== null) {
         return $pdo;
@@ -71,7 +79,7 @@ function getDB($exitOnError = true) {
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
-        PDO::ATTR_TIMEOUT            => 3,
+        PDO::ATTR_TIMEOUT            => 1,
     ];
 
     // Intento 1: Conexión con los parámetros configurados directamente

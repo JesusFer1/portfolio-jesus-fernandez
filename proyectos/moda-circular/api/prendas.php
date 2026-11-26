@@ -72,7 +72,7 @@ function getDefaultPrendas() {
             'category' => 'Pantalón', 'categoria' => 'Pantalón', 'size' => '42', 'talle' => '42',
             'color' => 'Azul Denim', 'colorHex' => '#2563eb', 'condition' => 'Muy Bueno', 'status' => 'Disponible',
             'description' => 'Pantalón de jean tiro medio, tela resistente.',
-            'donor' => 'Ropero EEST5', 'image' => 'https://images.unsplash.com/photo-1542272604-780c36856842?auto=format&fit=crop&w=600&q=80', 'createdAt' => date('Y-m-d H:i:s')
+            'donor' => 'Ropero EEST5', 'image' => 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80', 'createdAt' => date('Y-m-d H:i:s')
         ],
         [
             'id' => '108', 'raw_id' => 108, 'type' => 'clothing', 'qrCode' => 'PRD-108BUZO', 'codigo_qr' => 'PRD-108BUZO',
