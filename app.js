@@ -19,14 +19,14 @@ const PROJECTS = [
   {
     id: 'moda',
     category: 'web',
-    categoryLabel: 'PWA & PHP · Online',
+    categoryLabel: 'PWA & PHP · En Vivo',
     name: 'Moda Circular — Ropero Escolar',
     thumb: 'img/moda-circular.png',
     url: 'https://modacircular.infinityfreeapp.com/?i=1',
-    previewUrl: 'proyectos/moda-circular/index.html',
+    externalOnly: true,
     displayUrl: 'https://modacircular.infinityfreeapp.com/',
     tech: ['PWA', 'PHP', 'MySQL', 'QR Reciclable'],
-    desc: 'Aplicación web en producción del ropero comunitario E.E.S.T. N° 5 con catálogo de prendas y útiles, trazabilidad QR y gestión de reservas.'
+    desc: 'Aplicación web en producción del ropero comunitario E.E.S.T. N° 5 con catálogo real de prendas y útiles, trazabilidad QR y gestión de reservas.'
   },
   {
     id: 'bibliotec',
@@ -117,8 +117,11 @@ function renderProjects(filter = 'all') {
           ${p.tech.map(t => `<span>${t}</span>`).join('')}
         </div>
         <div class="proj-actions">
-          <button type="button" class="aero-btn primary sm" onclick="openPreview('${p.id}')">Vista Previa</button>
-          <a href="${p.url}" target="_blank" rel="noopener" class="aero-btn light sm">Abrir &nearr;</a>
+          ${p.externalOnly
+            ? `<a href="${p.url}" target="_blank" rel="noopener" class="aero-btn primary sm" style="flex:1; text-align:center;">Abrir Sitio en Vivo &nearr;</a>`
+            : `<button type="button" class="aero-btn primary sm" onclick="openPreview('${p.id}')">Vista Previa</button>
+               <a href="${p.url}" target="_blank" rel="noopener" class="aero-btn light sm">Abrir &nearr;</a>`
+          }
         </div>
       </div>
     </article>
