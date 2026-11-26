@@ -166,6 +166,7 @@
           <li>✔ Pesas y máquinas</li>
           <li>✔ Zona cardio</li>
         </ul>
+        <button type="button" class="btn-primary" style="width:100%; margin-top:16px;" onclick="abrirSuscripcionGym('Gym Musculación', 29000)">Suscribirse Ahora</button>
       </div>
 
       <div class="precio-card featured">
@@ -180,6 +181,7 @@
           <li>✔ WODs diarios</li>
           <li>✔ Coach certificado</li>
         </ul>
+        <button type="button" class="btn-primary" style="width:100%; margin-top:16px;" onclick="abrirSuscripcionGym('CrossFit Mensual', 20000)">Suscribirse Ahora</button>
       </div>
 
       <div class="precio-card">
@@ -193,6 +195,7 @@
           <li>✔ Todos los niveles</li>
           <li>✔ Defensa personal</li>
         </ul>
+        <button type="button" class="btn-primary" style="width:100%; margin-top:16px;" onclick="abrirSuscripcionGym('Kickboxing Mensual', 26000)">Suscribirse Ahora</button>
       </div>
 
     </div>
@@ -299,6 +302,38 @@
     </div>
   </div>
 
+  <!-- MODAL SUSCRIPCIÓN / PASARELA DE PAGO (MERCADO PAGO, PAYPAL, TARJETA, TRANSFERENCIA) -->
+  <div id="gym-pay-overlay" class="modal-overlay" onclick="cerrarSuscripcionGym()">
+    <div class="modal" style="max-width:460px; width:92%; text-align:left;" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="cerrarSuscripcionGym()">✕</button>
+      <div id="gym-pay-form-wrap">
+        <h3 id="gym-pay-title" style="color:#e63946; margin-bottom:4px;">Suscripción Delta Gym</h3>
+        <p id="gym-pay-price" style="color:#ccc; font-size:0.95rem; margin-bottom:14px;"></p>
+
+        <form onsubmit="procesarSuscripcionGym(event)" style="display:flex; flex-direction:column; gap:10px;">
+          <input type="text" id="gym-pay-name" required placeholder="Tu Nombre y Apellido" style="padding:10px 12px; border-radius:6px; border:1px solid #333; background:#141414; color:#fff;">
+          <input type="email" id="gym-pay-email" required placeholder="Tu Correo Electrónico" style="padding:10px 12px; border-radius:6px; border:1px solid #333; background:#141414; color:#fff;">
+
+          <label style="font-size:0.82rem; color:#aaa; margin-top:4px;">Elegí tu pasarela de pago:</label>
+          <select id="gym-pay-provider" style="padding:10px 12px; border-radius:6px; border:1px solid #333; background:#141414; color:#fff;">
+            <option value="mercadopago">Mercado Pago (Checkout Pro API)</option>
+            <option value="paypal">PayPal (Orders API v2)</option>
+            <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+            <option value="transferencia">Transferencia Bancaria (Alias: DELTA.GYM.OK)</option>
+          </select>
+
+          <button type="submit" id="gym-pay-submit" class="btn-primary" style="width:100%; margin-top:8px;">Confirmar y Pagar Suscripción</button>
+        </form>
+      </div>
+      <div id="gym-pay-done" style="display:none; text-align:center; padding:12px 4px;">
+        <h3 style="color:#22c55e; margin-bottom:8px;">¡Suscripción Activada!</h3>
+        <div id="gym-pay-receipt" style="background:#141414; border:1px solid #333; border-radius:8px; padding:14px; font-size:0.88rem; color:#ddd; text-align:left; line-height:1.6; margin-bottom:14px;"></div>
+        <button type="button" class="btn-primary" style="width:100%;" onclick="cerrarSuscripcionGym()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../api/pagos-client.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

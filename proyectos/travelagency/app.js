@@ -680,17 +680,22 @@ function openPaymentGateway() {
     document.getElementById("gwHolder").value = user.name || "";
     document.getElementById("gwEmail").value = user.email || "";
     document.getElementById("gwPaypalEmail").value = user.email || "";
+    const mpEl = document.getElementById("gwMpEmail");
+    if (mpEl) mpEl.value = user.email || "";
   }
 
   // Mostrar sección según método elegido
   document.getElementById("gwCreditSection").style.display = paymentMethod === "credit" ? "block" : "none";
   document.getElementById("gwBankSection").style.display = paymentMethod === "bank" ? "block" : "none";
   document.getElementById("gwPaypalSection").style.display = paymentMethod === "paypal" ? "block" : "none";
+  const mpSec = document.getElementById("gwMercadoPagoSection");
+  if (mpSec) mpSec.style.display = paymentMethod === "mercadopago" ? "block" : "none";
 
   const titles = {
     credit: "Pasarela de Pago — Tarjeta de Crédito / Débito",
     bank: "Pasarela de Pago — Transferencia Bancaria",
-    paypal: "Pasarela de Pago — PayPal Express"
+    mercadopago: "Pasarela de Pago — Mercado Pago API",
+    paypal: "Pasarela de Pago — PayPal Orders API"
   };
   document.getElementById("gwTitle").textContent = titles[paymentMethod] || "Pasarela de Pago Segura";
 
@@ -780,6 +785,9 @@ function submitGatewayPayment(e) {
       return;
     }
     methodSummary = `Transferencia Bancaria (Ref: ${ref})`;
+  } else if (paymentMethod === "mercadopago") {
+    const mpEmail = (document.getElementById("gwMpEmail")?.value || "").trim() || email;
+    methodSummary = `Mercado Pago Checkout Pro (${mpEmail})`;
   } else {
     const ppEmail = document.getElementById("gwPaypalEmail").value.trim();
     if (!ppEmail) {
@@ -789,14 +797,31 @@ function submitGatewayPayment(e) {
     methodSummary = `PayPal (${ppEmail})`;
   }
 
-  // Simular procesamiento seguro
+  // Procesar pago mediante API Unificada (/api/pagos.php)
   document.getElementById("gwBody").style.display = "none";
   document.getElementById("gwProcessing").style.display = "block";
 
-  setTimeout(() => {
-    const { total } = getCartTotals();
-    const code = "TA-2026-" + Math.floor(1000 + Math.random() * 9000);
-    const itemsList = cart.map(i => `${i.title} (×${i.quantity})`);
+  const { total } = getCartTotals();
+  const itemsList = cart.map(i => `${i.title} (×${i.quantity})`);
+
+  const apiCall = window.PortfolioPagosAPI
+    ? window.PortfolioPagosAPI.procesarPago({
+        proyecto: "travelagency",
+        proveedor: paymentMethod,
+        descripcion: `Reserva TravelAgency: ${itemsList.join(", ")}`,
+        monto: Number(total.toFixed(2)),
+        moneda: "USD",
+        nombre: holder,
+        email: email
+      })
+    : Promise.resolve({ tx_id: "TA-2026-" + Math.floor(1000 + Math.random() * 9000), referencia_externa: "SANDBOX" });
+
+  apiCall.then((apiRes) => {
+    if (apiRes && apiRes.redirect_url) {
+      window.open(apiRes.redirect_url, "_blank", "noopener");
+    }
+    const code = (apiRes && apiRes.tx_id) ? apiRes.tx_id : ("TA-2026-" + Math.floor(1000 + Math.random() * 9000));
+    const extRef = (apiRes && apiRes.referencia_externa) ? apiRes.referencia_externa : "OK";
 
     const bookings = JSON.parse(localStorage.getItem(STORAGE_BOOKINGS) || "[]");
     bookings.unshift({
@@ -818,6 +843,7 @@ function submitGatewayPayment(e) {
       <div><strong>Titular:</strong> ${holder}</div>
       <div><strong>Paquetes:</strong> ${itemsList.join(" · ")}</div>
       <div><strong>Método:</strong> ${methodSummary}</div>
+      <div><strong>Referencia API:</strong> ${extRef}</div>
       <div><strong>Total abonado:</strong> $${total.toFixed(2)} USD</div>
       <div><strong>Estado:</strong> APROBADO</div>
     `;
@@ -826,7 +852,7 @@ function submitGatewayPayment(e) {
     cart = [];
     saveCart();
     renderCart();
-  }, 1100);
+  });
 }
 
 function closeConfirmModal() {

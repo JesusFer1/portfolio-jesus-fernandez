@@ -353,6 +353,13 @@
                       <small>CBU / Alias directo sin recargo</small>
                     </div>
                   </label>
+                  <label class="pay-option" onclick="selectPayment('mercadopago', this)">
+                    <input type="radio" name="payment" value="mercadopago">
+                    <div>
+                      <strong>Mercado Pago (Checkout Pro)</strong>
+                      <small>Dinero en cuenta, tarjeta o QR · API Oficial</small>
+                    </div>
+                  </label>
                   <label class="pay-option" onclick="selectPayment('paypal', this)">
                     <input type="radio" name="payment" value="paypal">
                     <div>
@@ -593,11 +600,21 @@
             <input id="gwBankRef" type="text" placeholder="Ej. TRF-98451200">
           </div>
 
+          <!-- BLOQUE MERCADO PAGO -->
+          <div id="gwMercadoPagoSection" style="display:none;">
+            <div class="paypal-card" style="background:#e0f2fe; border-color:#0284c7;">
+              <strong style="color:#0369a1;">Mercado Pago — Checkout Pro API</strong>
+              <p>Se generará una preferencia segura en Mercado Pago para abonar con dinero en cuenta, débito, crédito o código QR.</p>
+            </div>
+            <label>Correo asociado a tu cuenta Mercado Pago *</label>
+            <input id="gwMpEmail" type="email" placeholder="tu-cuenta@mercadopago.com">
+          </div>
+
           <!-- BLOQUE PAYPAL -->
           <div id="gwPaypalSection" style="display:none;">
             <div class="paypal-card">
-              <strong>PayPal Express Checkout</strong>
-              <p>Serás redirigido de forma simulada a tu cuenta PayPal para autorizar el pago protegido en USD.</p>
+              <strong>PayPal Express Checkout (Orders API v2)</strong>
+              <p>Se creará una orden segura en PayPal para autorizar el pago protegido en USD.</p>
             </div>
             <label>Correo de tu cuenta PayPal *</label>
             <input id="gwPaypalEmail" type="email" placeholder="tu-cuenta@paypal.com">
@@ -636,6 +653,7 @@
   <!-- TOAST -->
   <div id="taToast" class="ta-toast"></div>
 
+  <script src="../../api/pagos-client.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

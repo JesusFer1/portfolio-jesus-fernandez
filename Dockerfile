@@ -16,6 +16,7 @@ COPY . /var/www/html/
 # Permisos de escritura para SQLite y carpetas de entregas/subidas
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
+    && if [ -d /var/www/html/api ]; then chmod -R 775 /var/www/html/api; fi \
     && if [ -d /var/www/html/proyectos/skillhub ]; then chmod -R 775 /var/www/html/proyectos/skillhub; fi \
     && if [ -d /var/www/html/proyectos/gimnasio ]; then chmod -R 775 /var/www/html/proyectos/gimnasio; fi
 

@@ -1048,7 +1048,13 @@
               <button type="button" class="pay-tab" id="tab_qr" onclick="selectPayMethod('qr')">
                 <div>
                   <strong style="font-size:0.84rem;display:block;color:#111827;">📱 Mercado Pago / QR MODO</strong>
-                  <span style="font-size:0.72rem;color:var(--fvg-muted);">Cuenta DNI · Billeteras</span>
+                  <span style="font-size:0.72rem;color:var(--fvg-muted);">Checkout Pro API · Billeteras</span>
+                </div>
+              </button>
+              <button type="button" class="pay-tab" id="tab_paypal" onclick="selectPayMethod('paypal')">
+                <div>
+                  <strong style="font-size:0.84rem;display:block;color:#111827;">🌐 PayPal Checkout</strong>
+                  <span style="font-size:0.72rem;color:#1d4ed8;font-weight:700;">Orders API v2 · Pago en USD</span>
                 </div>
               </button>
               <button type="button" class="pay-tab" id="tab_efectivo" onclick="selectPayMethod('efectivo')">
@@ -1165,7 +1171,17 @@
               <div style="font-size:0.76rem;color:var(--fvg-green);font-weight:700;margin-top:8px;">✓ Código QR Interoperable activo para confirmación inmediata</div>
             </div>
 
-            <!-- Panel 4: Efectivo en Sucursal -->
+            <!-- Panel 4: PayPal Orders API -->
+            <div id="panel_paypal" class="pay-panel" style="display:none;">
+              <strong style="font-size:0.88rem;color:#1d4ed8;display:block;margin-bottom:4px;">PayPal Checkout (Orders API v2)</strong>
+              <p style="margin:0 0 8px;font-size:0.8rem;color:var(--fvg-muted);">
+                Aboná con tu saldo PayPal o tarjeta internacional vinculada con protección al comprador.
+              </p>
+              <label style="font-size:0.76rem;font-weight:600;color:var(--fvg-text);">Correo de tu cuenta PayPal</label>
+              <input type="email" id="paypalEmailFym" class="fvg-input" placeholder="tu-cuenta@paypal.com" />
+            </div>
+
+            <!-- Panel 5: Efectivo en Sucursal -->
             <div id="panel_efectivo" class="pay-panel" style="display:none;">
               <strong style="font-size:0.88rem;color:var(--fvg-purple-dark);display:block;margin-bottom:4px;">Pago en Efectivo en nuestro Local (10% OFF aplicado)</strong>
               <p style="margin:0;font-size:0.8rem;color:var(--fvg-muted);">
@@ -1724,9 +1740,11 @@
 
     function selectPayMethod(method) {
       selectedPayMethod = method;
-      ['transferencia', 'tarjeta', 'qr', 'efectivo'].forEach(m => {
-        document.getElementById(`tab_${m}`).classList.toggle('active', m === method);
-        document.getElementById(`panel_${m}`).style.display = (m === method) ? 'block' : 'none';
+      ['transferencia', 'tarjeta', 'qr', 'paypal', 'efectivo'].forEach(m => {
+        const t = document.getElementById(`tab_${m}`);
+        const p = document.getElementById(`panel_${m}`);
+        if (t) t.classList.toggle('active', m === method);
+        if (p) p.style.display = (m === method) ? 'block' : 'none';
       });
       updateCheckoutTotals();
     }
@@ -1786,11 +1804,16 @@
         finalLabel.textContent = `Total en ${cuotas} cuota${cuotas > 1 ? 's' : ''} sin interés de ${formatARS(valorCuota)}:`;
         totalEl.textContent = formatARS(subtotal);
         btnText.textContent = `Pagar ${cuotas}x ${formatARS(valorCuota)} Sin Interés`;
+      } else if (selectedPayMethod === 'paypal') {
+        discRow.style.display = 'none';
+        finalLabel.textContent = 'Total a abonar vía PayPal API:';
+        totalEl.textContent = formatARS(subtotal);
+        btnText.textContent = 'Pagar con PayPal';
       } else {
         discRow.style.display = 'none';
-        finalLabel.textContent = 'Total a abonar con QR Interoperable:';
+        finalLabel.textContent = 'Total a abonar con Mercado Pago / QR:';
         totalEl.textContent = formatARS(subtotal);
-        btnText.textContent = 'Ya escaneé el QR — Confirmar Pago';
+        btnText.textContent = 'Pagar con Mercado Pago API';
       }
     }
 
@@ -1810,34 +1833,59 @@
       document.getElementById('checkoutModal').classList.remove('is-open');
     }
 
-    function confirmOrder(e) {
+    async function confirmOrder(e) {
       e.preventDefault();
       const name = document.getElementById('buyerName').value.trim();
       const dni = document.getElementById('buyerDni').value.trim();
       const shipping = document.getElementById('buyerShipping').value;
       const subtotal = cart.reduce((acc, i) => acc + i.price * i.qty, 0);
-      const orderId = 'FYM-' + Math.floor(100000 + Math.random() * 900000);
       let paymentDesc = '';
       let finalPaid = subtotal;
+      let apiProvider = 'transferencia';
 
       if (selectedPayMethod === 'transferencia') {
+        apiProvider = 'transferencia';
         finalPaid = Math.round(subtotal * 0.90);
         const ref = (document.getElementById('transferRef').value || '').trim() || 'Verificación bancaria CBU/Alias';
         paymentDesc = `Transferencia Bancaria (10% OFF aplicado) · Alias: FYM.ELECTRO.HOGAR · Ref: ${ref}`;
       } else if (selectedPayMethod === 'tarjeta') {
+        apiProvider = 'tarjeta';
         const cuotas = Number(document.getElementById('cardInstallmentsSelect').value || 6);
         const bank = document.getElementById('cardBankSelect').value;
         const num = (document.getElementById('cardNumberInput').value || '').replace(/\s+/g, '');
         const last4 = num.length >= 4 ? num.slice(-4) : '4821';
         paymentDesc = `Tarjeta terminada en •••• ${last4} (${bank}) · ${cuotas} cuotas sin interés de ${formatARS(subtotal / cuotas)}`;
       } else if (selectedPayMethod === 'qr') {
-        paymentDesc = `Pago con QR Interoperable (Mercado Pago / Cuenta DNI / MODO)`;
+        apiProvider = 'mercadopago';
+        paymentDesc = `Mercado Pago Checkout Pro API / QR Interoperable`;
+      } else if (selectedPayMethod === 'paypal') {
+        apiProvider = 'paypal';
+        const ppMail = (document.getElementById('paypalEmailFym')?.value || '').trim() || 'cuenta@paypal.com';
+        paymentDesc = `PayPal Orders API v2 (${ppMail})`;
       } else {
+        apiProvider = 'transferencia';
         finalPaid = Math.round(subtotal * 0.90);
         paymentDesc = `Efectivo en Sucursal (10% OFF aplicado al retirar)`;
       }
 
       const itemsSummary = cart.map(i => `${i.qty}x ${i.name} (${i.variant})`).join('<br/>• ');
+
+      const apiRes = window.PortfolioPagosAPI
+        ? await window.PortfolioPagosAPI.procesarPago({
+            proyecto: 'fymelectrohogar',
+            proveedor: apiProvider,
+            descripcion: `Compra F&M ElectroHogar (${cart.length} item/s)`,
+            monto: finalPaid,
+            moneda: 'ARS',
+            nombre: name,
+            email: (document.getElementById('paypalEmailFym')?.value || '').trim()
+          })
+        : { tx_id: 'FYM-' + Math.floor(100000 + Math.random() * 900000), referencia_externa: 'LOCAL' };
+
+      if (apiRes && apiRes.redirect_url) {
+        window.open(apiRes.redirect_url, '_blank', 'noopener');
+      }
+      const orderId = (apiRes && apiRes.tx_id) ? apiRes.tx_id : ('FYM-' + Math.floor(100000 + Math.random() * 900000));
 
       document.getElementById('checkoutDoneMsg').innerHTML = `
         <div style="display:flex;justify-content:space-between;border-bottom:1px solid #E5E7EB;padding-bottom:8px;margin-bottom:8px;">
@@ -1848,6 +1896,7 @@
           <div><strong>Cliente:</strong> ${name} (DNI/CUIT: ${dni})</div>
           <div><strong>Productos:</strong><br/>• ${itemsSummary}</div>
           <div><strong>Medio de pago:</strong> ${paymentDesc}</div>
+          <div><strong>Referencia API:</strong> ${apiRes.referencia_externa || 'OK'}</div>
           <div><strong>Entrega:</strong> ${shipping}</div>
           <div style="margin-top:8px;padding-top:8px;border-top:1px dashed #D1D5DB;font-size:1rem;">
             <strong>Monto Total: <span style="color:var(--fvg-purple-dark);">${formatARS(finalPaid)}</span></strong>
@@ -1879,5 +1928,6 @@
       if (window.lucide) window.lucide.createIcons();
     });
   </script>
+  <script src="../../api/pagos-client.js"></script>
 </body>
 </html>

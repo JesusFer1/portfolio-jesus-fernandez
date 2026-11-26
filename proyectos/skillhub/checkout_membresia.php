@@ -286,8 +286,50 @@ if ($userId && $userTier == $membresiaId) {
 
     </main>
 
+    <script src="../../api/pagos-client.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const formEl = document.getElementById('membershipPaymentForm');
+            const submitBtn = document.getElementById('btnSubmitPayment');
+            if (formEl && window.PortfolioPagosAPI) {
+                formEl.addEventListener('submit', async (e) => {
+                    if (formEl.dataset.apiVerified === '1') return;
+                    e.preventDefault();
+                    const metodo = document.getElementById('metodo_pago_input').value || 'tarjeta';
+                    const monto = parseFloat(formEl.querySelector('input[name="monto"]')?.value || '0');
+                    const nombre = formEl.querySelector('input[name="nombre"]')?.value || 'Estudiante';
+                    const email = formEl.querySelector('input[name="email"]')?.value || '';
+                    const origText = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = metodo === 'mercadopago'
+                        ? 'Conectando con Mercado Pago API...'
+                        : (metodo === 'paypal' ? 'Conectando con PayPal Orders API...' : 'Procesando pago seguro...');
+
+                    const res = await window.PortfolioPagosAPI.procesarPago({
+                        proyecto: 'skillhub_membresia',
+                        proveedor: metodo,
+                        descripcion: 'Suscripción Membresía SkillHub',
+                        monto: monto,
+                        moneda: 'USD',
+                        nombre: nombre,
+                        email: email
+                    });
+
+                    if (res.redirect_url) {
+                        window.open(res.redirect_url, '_blank', 'noopener');
+                    }
+
+                    const txInput = document.createElement('input');
+                    txInput.type = 'hidden';
+                    txInput.name = 'api_tx_id';
+                    txInput.value = res.tx_id || '';
+                    formEl.appendChild(txInput);
+
+                    formEl.dataset.apiVerified = '1';
+                    submitBtn.innerHTML = origText;
+                    formEl.submit();
+                });
+            }
             const tabs = document.querySelectorAll('.method-tab');
             const metodoInput = document.getElementById('metodo_pago_input');
             const panelTarjeta = document.getElementById('panel_tarjeta');
