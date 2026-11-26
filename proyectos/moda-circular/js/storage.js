@@ -47,9 +47,9 @@ export class StorageManager {
       const resC = await fetch(`api/prendas.php?_t=${Date.now()}`);
       if (resC.ok) {
         const dataC = await resC.json();
-        if (dataC && dataC.success && Array.isArray(dataC.data)) {
+        if (dataC && dataC.success && dataC.db_connected && Array.isArray(dataC.data) && dataC.data.length > 0) {
           this.clothingItems = dataC.data;
-          this.dbConnected = !!dataC.db_connected;
+          this.dbConnected = true;
           loadedClothingApi = true;
           localStorage.setItem('app_clothing', JSON.stringify(this.clothingItems));
         }
@@ -75,7 +75,7 @@ export class StorageManager {
       const resS = await fetch(`api/utiles.php?_t=${Date.now()}`);
       if (resS.ok) {
         const dataS = await resS.json();
-        if (dataS && dataS.success && Array.isArray(dataS.data)) {
+        if (dataS && dataS.success && dataS.db_connected !== false && Array.isArray(dataS.data) && dataS.data.length > 0) {
           this.supplyItems = dataS.data;
           loadedSuppliesApi = true;
           localStorage.setItem('app_supplies', JSON.stringify(this.supplyItems));
