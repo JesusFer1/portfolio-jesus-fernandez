@@ -1,4 +1,4 @@
-import { INITIAL_CLOTHING, INITIAL_SUPPLIES } from './data.js';
+import { INITIAL_CLOTHING, INITIAL_SUPPLIES } from './data.js?v=5.0';
 
 export class StorageManager {
   static currentUser = null;

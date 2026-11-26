@@ -1,5 +1,5 @@
 // Service Worker PWA - Moda Circular & Útiles Escolares Técnica 5
-const CACHE_NAME = 'modacircular-v1';
+const CACHE_NAME = 'modacircular-v2';
 const STATIC_ASSETS = [
   './',
   './index.html',

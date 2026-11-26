@@ -19,130 +19,68 @@ $db = getDBOrNull();
 function getDefaultPrendas() {
     return [
         [
-            'id' => '101',
-            'raw_id' => 101,
-            'type' => 'clothing',
-            'qrCode' => 'PRD-101AZUL',
-            'codigo_qr' => 'PRD-101AZUL',
-            'name' => 'Campera de Abrigo Azul',
-            'titulo' => 'Campera de Abrigo Azul',
-            'category' => 'Campera',
-            'categoria' => 'Campera',
-            'size' => 'L',
-            'talle' => 'L',
-            'color' => 'Azul Marino',
-            'colorHex' => '#1e3a8a',
-            'condition' => 'Excelente',
-            'status' => 'Disponible',
-            'description' => 'Campera muy abrigada con cierre y capucha. Ideal para invierno.',
-            'donor' => 'Anónimo',
-            'image' => 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80',
-            'createdAt' => date('Y-m-d H:i:s')
+            'id' => '101', 'raw_id' => 101, 'type' => 'clothing', 'qrCode' => 'PRD-101PULOVER', 'codigo_qr' => 'PRD-101PULOVER',
+            'name' => 'Pulóver Rayado Blanco y Azul', 'titulo' => 'Pulóver Rayado Blanco y Azul',
+            'category' => 'Suéter', 'categoria' => 'Suéter', 'size' => 'L', 'talle' => 'L',
+            'color' => 'Multicolor', 'colorHex' => '#1e3a8a', 'condition' => 'Excelente', 'status' => 'Disponible',
+            'description' => 'Pulóver tejido rayado azul marino y blanco con escote en V, muy abrigado.',
+            'donor' => 'Ropero EEST5', 'image' => 'uploads/prenda_1792582219_3380.jpg', 'createdAt' => date('Y-m-d H:i:s')
         ],
         [
-            'id' => '102',
-            'raw_id' => 102,
-            'type' => 'clothing',
-            'qrCode' => 'PRD-102BLANCO',
-            'codigo_qr' => 'PRD-102BLANCO',
-            'name' => 'Remera de Algodón Blanca',
-            'titulo' => 'Remera de Algodón Blanca',
-            'category' => 'Remera',
-            'categoria' => 'Remera',
-            'size' => 'M',
-            'talle' => 'M',
-            'color' => 'Blanco',
-            'colorHex' => '#ffffff',
-            'condition' => 'Nuevo',
-            'status' => 'Disponible',
-            'description' => 'Remera lisa 100% algodón sin uso en empaque.',
-            'donor' => 'Anónimo',
-            'image' => 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
-            'createdAt' => date('Y-m-d H:i:s')
+            'id' => '102', 'raw_id' => 102, 'type' => 'clothing', 'qrCode' => 'PRD-102REMERA', 'codigo_qr' => 'PRD-102REMERA',
+            'name' => 'Remera Defensa y Justicia', 'titulo' => 'Remera Defensa y Justicia',
+            'category' => 'Remera', 'categoria' => 'Remera', 'size' => 'M', 'talle' => 'M',
+            'color' => 'Negro', 'colorHex' => '#18181b', 'condition' => 'Muy Bueno', 'status' => 'Disponible',
+            'description' => 'Remera de algodón negra con escudo bordado, ideal para uso diario o educación física.',
+            'donor' => 'Ropero EEST5', 'image' => 'uploads/prenda_1792582319_2044.jpg', 'createdAt' => date('Y-m-d H:i:s')
         ],
         [
-            'id' => '103',
-            'raw_id' => 103,
-            'type' => 'clothing',
-            'qrCode' => 'PRD-103ROJO',
-            'codigo_qr' => 'PRD-103ROJO',
-            'name' => 'Buzo Canguro Rojo con Capucha',
-            'titulo' => 'Buzo Canguro Rojo con Capucha',
-            'category' => 'Buzo',
-            'categoria' => 'Buzo',
-            'size' => 'S',
-            'talle' => 'S',
-            'color' => 'Rojo',
-            'colorHex' => '#dc2626',
-            'condition' => 'Muy Bueno',
-            'status' => 'Disponible',
-            'description' => 'Buzo cómodo de friza con bolsillo frontal canguro.',
-            'donor' => 'Anónimo',
-            'image' => 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80',
-            'createdAt' => date('Y-m-d H:i:s')
+            'id' => '103', 'raw_id' => 103, 'type' => 'clothing', 'qrCode' => 'PRD-103CAMPERA', 'codigo_qr' => 'PRD-103CAMPERA',
+            'name' => 'Campera Inflable con Capucha', 'titulo' => 'Campera Inflable con Capucha',
+            'category' => 'Campera', 'categoria' => 'Campera', 'size' => 'L', 'talle' => 'L',
+            'color' => 'Negro', 'colorHex' => '#111827', 'condition' => 'Excelente', 'status' => 'Disponible',
+            'description' => 'Campera inflable liviana con capucha y bolsillos con cierre. Ideal para invierno.',
+            'donor' => 'Ropero EEST5', 'image' => 'uploads/prenda_1792363942_1294.jpg', 'createdAt' => date('Y-m-d H:i:s')
         ],
         [
-            'id' => '104',
-            'raw_id' => 104,
-            'type' => 'clothing',
-            'qrCode' => 'PRD-104JEAN',
-            'codigo_qr' => 'PRD-104JEAN',
-            'name' => 'Pantalón Jean Clásico',
-            'titulo' => 'Pantalón Jean Clásico',
-            'category' => 'Pantalón',
-            'categoria' => 'Pantalón',
-            'size' => '42',
-            'talle' => '42',
-            'color' => 'Azul Denim',
-            'colorHex' => '#2563eb',
-            'condition' => 'Muy Bueno',
-            'status' => 'Disponible',
+            'id' => '104', 'raw_id' => 104, 'type' => 'clothing', 'qrCode' => 'PRD-104SHORT', 'codigo_qr' => 'PRD-104SHORT',
+            'name' => 'Short Deportivo Nike', 'titulo' => 'Short Deportivo Nike',
+            'category' => 'Short', 'categoria' => 'Short', 'size' => 'L', 'talle' => 'L',
+            'color' => 'Negro', 'colorHex' => '#18181b', 'condition' => 'Muy Bueno', 'status' => 'Reservado',
+            'description' => 'Short deportivo liviano con cintura elástica y bolsillos laterales.',
+            'donor' => 'Ropero EEST5', 'image' => 'uploads/prenda_1792582393_8792.jpg', 'createdAt' => date('Y-m-d H:i:s')
+        ],
+        [
+            'id' => '105', 'raw_id' => 105, 'type' => 'clothing', 'qrCode' => 'PRD-105ZAPAS', 'codigo_qr' => 'PRD-105ZAPAS',
+            'name' => 'Zapatillas Urbanas Negras', 'titulo' => 'Zapatillas Urbanas Negras',
+            'category' => 'Zapatillas', 'categoria' => 'Zapatillas', 'size' => '40', 'talle' => '40',
+            'color' => 'Negro', 'colorHex' => '#18181b', 'condition' => 'Excelente', 'status' => 'Disponible',
+            'description' => 'Zapatillas urbanas negras acolchadas, súper cómodas para escuela y uso diario.',
+            'donor' => 'Ropero EEST5', 'image' => 'uploads/prenda_1792582272_8121.jpg', 'createdAt' => date('Y-m-d H:i:s')
+        ],
+        [
+            'id' => '106', 'raw_id' => 106, 'type' => 'clothing', 'qrCode' => 'PRD-106BLANCA', 'codigo_qr' => 'PRD-106BLANCA',
+            'name' => 'Remera de Algodón Blanca', 'titulo' => 'Remera de Algodón Blanca',
+            'category' => 'Remera', 'categoria' => 'Remera', 'size' => 'M', 'talle' => 'M',
+            'color' => 'Blanco', 'colorHex' => '#ffffff', 'condition' => 'Nuevo', 'status' => 'Disponible',
+            'description' => 'Remera lisa 100% algodón en excelente estado.',
+            'donor' => 'Ropero EEST5', 'image' => 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80', 'createdAt' => date('Y-m-d H:i:s')
+        ],
+        [
+            'id' => '107', 'raw_id' => 107, 'type' => 'clothing', 'qrCode' => 'PRD-107JEAN', 'codigo_qr' => 'PRD-107JEAN',
+            'name' => 'Pantalón Jean Clásico', 'titulo' => 'Pantalón Jean Clásico',
+            'category' => 'Pantalón', 'categoria' => 'Pantalón', 'size' => '42', 'talle' => '42',
+            'color' => 'Azul Denim', 'colorHex' => '#2563eb', 'condition' => 'Muy Bueno', 'status' => 'Disponible',
             'description' => 'Pantalón de jean tiro medio, tela resistente.',
-            'donor' => 'Anónimo',
-            'image' => 'https://images.unsplash.com/photo-1542272604-780c36856842?auto=format&fit=crop&w=600&q=80',
-            'createdAt' => date('Y-m-d H:i:s')
+            'donor' => 'Ropero EEST5', 'image' => 'https://images.unsplash.com/photo-1542272604-780c36856842?auto=format&fit=crop&w=600&q=80', 'createdAt' => date('Y-m-d H:i:s')
         ],
         [
-            'id' => '105',
-            'raw_id' => 105,
-            'type' => 'clothing',
-            'qrCode' => 'PRD-105NEGRO',
-            'codigo_qr' => 'PRD-105NEGRO',
-            'name' => 'Zapatillas Deportivas Negras',
-            'titulo' => 'Zapatillas Deportivas Negras',
-            'category' => 'Zapatillas',
-            'categoria' => 'Zapatillas',
-            'size' => '39',
-            'talle' => '39',
-            'color' => 'Negro',
-            'colorHex' => '#18181b',
-            'condition' => 'Excelente',
-            'status' => 'Disponible',
-            'description' => 'Zapatillas urbanas super cómodas para uso diario o gimnasia.',
-            'donor' => 'Anónimo',
-            'image' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
-            'createdAt' => date('Y-m-d H:i:s')
-        ],
-        [
-            'id' => '106',
-            'raw_id' => 106,
-            'type' => 'clothing',
-            'qrCode' => 'PRD-106VERDE',
-            'codigo_qr' => 'PRD-106VERDE',
-            'name' => 'Campera Rompevientos Verde',
-            'titulo' => 'Campera Rompevientos Verde',
-            'category' => 'Campera',
-            'categoria' => 'Campera',
-            'size' => 'XL',
-            'talle' => 'XL',
-            'color' => 'Verde Olivar',
-            'colorHex' => '#15803d',
-            'condition' => 'Como nuevo',
-            'status' => 'Disponible',
-            'description' => 'Rompevientos liviano impermeable con bolsillos laterales.',
-            'donor' => 'Anónimo',
-            'image' => 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=600&q=80',
-            'createdAt' => date('Y-m-d H:i:s')
+            'id' => '108', 'raw_id' => 108, 'type' => 'clothing', 'qrCode' => 'PRD-108BUZO', 'codigo_qr' => 'PRD-108BUZO',
+            'name' => 'Buzo Canguro con Capucha', 'titulo' => 'Buzo Canguro con Capucha',
+            'category' => 'Buzo', 'categoria' => 'Buzo', 'size' => 'S', 'talle' => 'S',
+            'color' => 'Rojo', 'colorHex' => '#dc2626', 'condition' => 'Muy Bueno', 'status' => 'Reservado',
+            'description' => 'Buzo cómodo de friza con bolsillo frontal canguro.',
+            'donor' => 'Ropero EEST5', 'image' => 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80', 'createdAt' => date('Y-m-d H:i:s')
         ]
     ];
 }
@@ -254,12 +192,13 @@ if ($method === 'GET' && ($action === 'list_reservas' || $action === 'reservas')
 // 1. OBTENER LISTA DE PRENDAS (GET)
 if ($method === 'GET') {
     if (!$db) {
+        $defaults = getDefaultPrendas();
         jsonResponse([
             'success' => true,
-            'count' => 0,
-            'data' => [],
+            'count' => count($defaults),
+            'data' => $defaults,
             'db_connected' => false,
-            'message' => 'Base de datos MySQL no accesible'
+            'message' => 'Modo demostración sin MySQL'
         ]);
     }
 

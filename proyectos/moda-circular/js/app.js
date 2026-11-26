@@ -1,4 +1,4 @@
-import { StorageManager } from './storage.js';
+import { StorageManager } from './storage.js?v=5.0';
 
 let currentTab = 'clothing'; // 'clothing' | 'supplies'
 let currentSearch = '';
