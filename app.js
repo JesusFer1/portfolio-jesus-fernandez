@@ -23,9 +23,8 @@ const PROJECTS = [
     name: 'Moda Circular — Ropero Escolar',
     thumb: 'img/moda-circular.png',
     url: 'https://modacircular.infinityfreeapp.com/?i=1',
+    previewUrl: 'proyectos/moda-circular/index.html',
     displayUrl: 'https://modacircular.infinityfreeapp.com/',
-    extraUrl: 'proyectos/moda-circular/index.html',
-    extraLabel: 'Versión Local',
     tech: ['PWA', 'PHP', 'MySQL', 'QR Reciclable'],
     desc: 'Aplicación web en producción del ropero comunitario E.E.S.T. N° 5 con catálogo de prendas y útiles, trazabilidad QR y gestión de reservas.'
   },
@@ -143,7 +142,7 @@ function openPreview(projectId) {
   document.getElementById('modalTitle').textContent = p.name;
   document.getElementById('modalUrl').textContent = p.displayUrl;
   document.getElementById('modalOpenNew').href = p.url;
-  document.getElementById('previewIframe').src = p.url;
+  document.getElementById('previewIframe').src = p.previewUrl || p.url;
 
   const extra = document.getElementById('modalExtraBtn');
   if (p.extraUrl) {
